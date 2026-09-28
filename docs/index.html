@@ -1,33 +1,8 @@
-<!doctype html>
-<html lang="ru">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SIGNAL — независимый взгляд</title><meta name="description" content="Визуальные истории. Портфолио через объектив аналогового телевидения.">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23c1ff72'/%3E%3Cpath d='M8 10h16v12H8z' fill='none' stroke='%23121310' stroke-width='3'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<header><a class="logo" href="#" aria-label="На главную">signal<span>®</span></a><span class="header-note">НЕЗАВИСИМЫЙ ВЗГЛЯД<br>ВИЗУАЛЬНЫЕ ИСТОРИИ</span><button class="index-link" id="index">РАБОТЫ <span>06</span></button></header>
-<main>
-<section class="hero" id="hero" aria-label="Интерактивный телевизор">
-
-<div class="scene" id="scene"><canvas id="tv" tabindex="0" role="button" aria-label="Открыть галерею работ: нажмите на телевизор или Enter"></canvas><div id="fallback" hidden><img src="assets/click-to-play.png" alt="CLICK TO PLAY"><button id="fallback-open" aria-label="Открыть галерею работ"></button></div></div>
-
-
-
-</section>
-<section class="gallery" id="gallery" aria-labelledby="gallery-title" hidden>
-<div class="gallery-top"><button id="back">↖ Назад к эфиру</button><span>АРХИВ / 001—006</span></div>
-<div class="gallery-title"><h2 id="gallery-title" tabindex="-1">В фокусе<span> (06)</span></h2><p>Избранные кадры.<br>Новые частоты.</p></div>
-<div class="grid">
-<figure><img src="https://picsum.photos/seed/signal1/1200/900" alt="Случайная фотография для первого проекта" width="1200" height="900"><figcaption><span>01 / Тихая частота</span><span>ФОТОГРАФИЯ</span></figcaption></figure>
-<figure><img src="https://picsum.photos/seed/signal2/1200/900" alt="Случайная фотография для второго проекта" width="1200" height="900"><figcaption><span>02 / Вне кадра</span><span>ВИЗУАЛЬНАЯ ИСТОРИЯ</span></figcaption></figure>
-<figure><img src="https://picsum.photos/seed/signal3/1200/900" alt="Случайная фотография для третьего проекта" width="1200" height="900" loading="lazy"><figcaption><span>03 / Между строк</span><span>ЭКСПЕРИМЕНТ</span></figcaption></figure>
-<figure><img src="https://picsum.photos/seed/signal4/1200/900" alt="Случайная фотография для четвёртого проекта" width="1200" height="900" loading="lazy"><figcaption><span>04 / После света</span><span>ФОТОГРАФИЯ</span></figcaption></figure>
-<figure><img src="https://picsum.photos/seed/signal5/1200/900" alt="Случайная фотография для пятого проекта" width="1200" height="900" loading="lazy"><figcaption><span>05 / Другая сторона</span><span>НАБЛЮДЕНИЕ</span></figcaption></figure>
-<figure><img src="https://picsum.photos/seed/signal6/1200/900" alt="Случайная фотография для шестого проекта" width="1200" height="900" loading="lazy"><figcaption><span>06 / Послесвечение</span><span>ВИЗУАЛЬНАЯ ИСТОРИЯ</span></figcaption></figure>
-</div><footer><a class="logo" href="#">signal<span>®</span></a><span>КОНЕЦ ЭФИРА / 2026</span></footer>
-</section>
-</main>
-<script type="module" src="app.js"></script>
-</body></html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>mrk — selected films</title><meta name="description" content="mrk studios. Selected films, motion and visual stories."><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='white'/%3E%3Ctext x='7' y='24' font-size='27' font-family='serif'%3Em%3C/text%3E%3C/svg%3E"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body><main>
+<section class="hero" id="hero" aria-label="Interactive television"><div class="scene"><canvas id="tv" tabindex="0" role="button" aria-label="Enter selected films"></canvas><div id="fallback" hidden><img src="assets/click-to-play.png" alt="CLICK TO PLAY"><button id="fallback-open" aria-label="Enter selected films"></button></div></div></section>
+<section class="gallery" id="gallery" aria-label="Selected films" hidden>
+<header class="navigation"><div class="local-clock"><span id="location">local</span><time id="local-time"></time></div><a href="#" class="logo" aria-label="mrk — back to television">mrk</a><nav aria-label="Main navigation"><a href="mailto:" id="contact">contact</a><span>menu</span></nav></header>
+<div class="carousel" id="carousel" aria-roledescription="carousel" aria-label="Five selected films"><button class="side-zone previous" id="previous" aria-label="Previous film"><span aria-hidden="true">←</span></button><div class="film-stage" id="film-stage"><div class="film-tilt" id="film-tilt"><div class="film-track" id="film-track"></div></div></div><button class="side-zone next" id="next" aria-label="Next film"><span aria-hidden="true">→</span></button></div>
+<div class="titles" aria-live="polite" aria-atomic="true"><button id="previous-title" class="neighbor-title previous-title" aria-label="Previous film"></button><h1 id="gallery-title" tabindex="-1"></h1><button id="next-title" class="neighbor-title next-title" aria-label="Next film"></button></div>
+<div class="custom-cursor" id="custom-cursor" aria-hidden="true"><div class="cursor-diamond"></div><span class="cursor-label">Play</span></div></section></main>
+<dialog id="player"><button class="close-player" aria-label="Close video">close ×</button><video id="full-video" controls playsinline></video></dialog><script type="module" src="app.js"></script><script type="module" src="carousel.js"></script></body></html>

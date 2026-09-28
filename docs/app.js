@@ -7,11 +7,11 @@ const screenHalf={x:1.54,y:1.45},textHalf={x:.74,y:.33};
 const bounce={x:.18,y:.16,vx:.44,vy:.31,limitX:screenHalf.x-textHalf.x,limitY:screenHalf.y-textHalf.y};
 const raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();
 function openGallery(){if(mode!=='hero')return;mode='entering';progress=0;hero.classList.add('entering');if(reduced||!renderer)showGallery();}
-function showGallery(){mode='gallery';document.body.classList.add('gallery-open');hero.hidden=true;gallery.hidden=false;requestAnimationFrame(()=>{gallery.classList.add('visible');$('#gallery-title').focus({preventScroll:true})});window.scrollTo(0,0)}
-function back(){if(mode==='hero')return;mode='hero';document.body.classList.remove('gallery-open');progress=0;gallery.classList.remove('visible');gallery.hidden=true;hero.hidden=false;hero.classList.remove('entering');window.scrollTo(0,0);if(camera)camera.position.set(0,0,homeDistance);resize();canvas.focus({preventScroll:true})}
-$('#index').onclick=openGallery;$('#fallback-open').onclick=openGallery;$('#back').onclick=back;
+function showGallery(){mode='gallery';document.body.classList.add('gallery-open');hero.hidden=true;gallery.hidden=false;requestAnimationFrame(()=>{gallery.classList.add('visible');$('#gallery-title').focus({preventScroll:true})});window.scrollTo(0,0);document.dispatchEvent(new Event('films:open'))}
+function back(){if(mode==='hero')return;mode='hero';document.dispatchEvent(new Event('films:close'));document.body.classList.remove('gallery-open');progress=0;gallery.classList.remove('visible');gallery.hidden=true;hero.hidden=false;hero.classList.remove('entering');window.scrollTo(0,0);if(camera)camera.position.set(0,0,homeDistance);resize();canvas.focus({preventScroll:true})}
+$('#fallback-open').onclick=openGallery;
 document.querySelectorAll('.logo').forEach(a=>a.onclick=e=>{e.preventDefault();back()});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&mode==='gallery')back()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&mode==='gallery'&&!document.querySelector('dialog[open]'))back()});
 canvas.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openGallery()}};
 function material(color,metalness=0,roughness=.6){return new THREE.MeshStandardMaterial({color,metalness,roughness})}
 function rounded(w,h,d,r){const s=new THREE.Shape(),x=-w/2,y=-h/2;s.moveTo(x+r,y);s.lineTo(x+w-r,y);s.quadraticCurveTo(x+w,y,x+w,y+r);s.lineTo(x+w,y+h-r);s.quadraticCurveTo(x+w,y+h,x+w-r,y+h);s.lineTo(x+r,y+h);s.quadraticCurveTo(x,y+h,x,y+h-r);s.lineTo(x,y+r);s.quadraticCurveTo(x,y,x+r,y);const g=new THREE.ExtrudeGeometry(s,{depth:d,bevelEnabled:true,bevelSize:.045,bevelThickness:.045,bevelSegments:3,steps:1,curveSegments:12});g.translate(0,0,-d/2);return g}
