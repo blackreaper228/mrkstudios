@@ -1,0 +1,22 @@
+{
+  "slide1": {
+    "title": "mixtape / showreel",
+    "image": "https://picsum.photos/id/1018/1600/900"
+  },
+  "slide2": {
+    "title": "somewhere / away",
+    "image": "https://picsum.photos/id/1015/1600/900"
+  },
+  "slide3": {
+    "title": "motion / instinct",
+    "image": "https://picsum.photos/id/1016/1600/900"
+  },
+  "slide4": {
+    "title": "after / hours",
+    "image": "https://picsum.photos/id/1043/1600/900"
+  },
+  "slide5": {
+    "title": "into / the light",
+    "image": "https://picsum.photos/id/1039/1600/900"
+  }
+}

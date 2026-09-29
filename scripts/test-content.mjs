@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { parsePortfolio } from '../dist/content.js';
+const data = JSON.parse(readFileSync(new URL('../docs/content/portfolio.json', import.meta.url), 'utf8'));
+assert.equal(parsePortfolio(data).length, 5);
+const changed = structuredClone(data);
+changed.slide1.title = 'Client title';
+changed.slide1.image = '/mrkstudios/uploads/client-photo.webp';
+const live = parsePortfolio(changed, 'https://blackreaper228.github.io/mrkstudios/content.js');
+assert.equal(live[0].src, 'https://blackreaper228.github.io/mrkstudios/uploads/client-photo.webp');
+assert.equal(live[0].title, 'Client title');
+assert.equal(parsePortfolio(changed, 'http://127.0.0.1:4173/content.js')[0].src, 'http://127.0.0.1:4173/uploads/client-photo.webp');
+assert.equal(live[1].src, data.slide2.image);
+assert.throws(() => parsePortfolio({}), /Invalid portfolio/);
+changed.slide1.image = 'javascript:alert(1)';
+assert.throws(() => parsePortfolio(changed), /Unsupported image/);
+console.log('PASS: five slides, edited titles, uploaded image paths on local and Pages, invalid content.');

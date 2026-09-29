@@ -1,0 +1,96 @@
+media:
+  input: docs/uploads
+  output: /mrkstudios/uploads
+  extensions: [jpg, jpeg, png, webp, avif]
+  rename: safe
+content:
+  - name: portfolio
+    label: Фотографии и заголовки
+    type: file
+    path: docs/content/portfolio.json
+    fields:
+      - name: slide1
+        label: Фотография 1
+        type: object
+        required: true
+        fields:
+          - name: title
+            label: Заголовок
+            type: string
+            required: true
+            options:
+              minlength: 1
+              maxlength: 80
+          - name: image
+            label: Фотография
+            type: image
+            required: true
+            description: Загрузите JPG, PNG, WebP или AVIF. Рекомендуемый размер — 1600 × 900 пикселей.
+      - name: slide2
+        label: Фотография 2
+        type: object
+        required: true
+        fields:
+          - name: title
+            label: Заголовок
+            type: string
+            required: true
+            options:
+              minlength: 1
+              maxlength: 80
+          - name: image
+            label: Фотография
+            type: image
+            required: true
+            description: Загрузите JPG, PNG, WebP или AVIF. Рекомендуемый размер — 1600 × 900 пикселей.
+      - name: slide3
+        label: Фотография 3
+        type: object
+        required: true
+        fields:
+          - name: title
+            label: Заголовок
+            type: string
+            required: true
+            options:
+              minlength: 1
+              maxlength: 80
+          - name: image
+            label: Фотография
+            type: image
+            required: true
+            description: Загрузите JPG, PNG, WebP или AVIF. Рекомендуемый размер — 1600 × 900 пикселей.
+      - name: slide4
+        label: Фотография 4
+        type: object
+        required: true
+        fields:
+          - name: title
+            label: Заголовок
+            type: string
+            required: true
+            options:
+              minlength: 1
+              maxlength: 80
+          - name: image
+            label: Фотография
+            type: image
+            required: true
+            description: Загрузите JPG, PNG, WebP или AVIF. Рекомендуемый размер — 1600 × 900 пикселей.
+      - name: slide5
+        label: Фотография 5
+        type: object
+        required: true
+        fields:
+          - name: title
+            label: Заголовок
+            type: string
+            required: true
+            options:
+              minlength: 1
+              maxlength: 80
+          - name: image
+            label: Фотография
+            type: image
+            required: true
+            description: Загрузите JPG, PNG, WebP или AVIF. Рекомендуемый размер — 1600 × 900 пикселей.
