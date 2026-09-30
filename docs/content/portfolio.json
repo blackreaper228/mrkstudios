@@ -1,27 +1,27 @@
 {
   "slide1": {
     "title": "mixtape / showreel",
-    "image": "/mrkstudios/uploads/testpic01-1.png",
+    "image": "/mrkstudios/uploads/slide01.jpg",
     "link": "events.html"
   },
   "slide2": {
     "title": "somewhere / away",
-    "image": "/mrkstudios/uploads/testpic02-1.png",
+    "image": "/mrkstudios/uploads/slide02.jpg",
     "link": "concerts.html"
   },
   "slide3": {
     "title": "motion / instinct",
-    "image": "/mrkstudios/uploads/testpic03-1.png",
+    "image": "/mrkstudios/uploads/slide03.jpg",
     "link": "commercials.html"
   },
   "slide4": {
     "title": "after / hours",
-    "image": "/mrkstudios/uploads/testpic04-1.png",
+    "image": "/mrkstudios/uploads/slide04.jpg",
     "link": "documentaries.html"
   },
   "slide5": {
     "title": "into / the light",
-    "image": "/mrkstudios/uploads/testpic05-1.png",
+    "image": "/mrkstudios/uploads/slide05.jpg",
     "link": "food.html"
   }
 }
