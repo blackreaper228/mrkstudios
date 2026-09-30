@@ -18,9 +18,14 @@
    if(!reduced)await wait(700);
    clearInterval(timer);letters.forEach((letter,index)=>letter.textContent=target[index]);
    await wait(2000);
-   const hero=document.querySelector('#hero');overlay.classList.add('is-loaded');
-   if(hero){hero.inert=false;hero.removeAttribute('aria-busy')}
-   await wait(reduced?0:450);overlay.remove();
+   const hero=document.querySelector('#hero');
+   // Await the compositor animation itself, rather than removing on a timer.
+   if(!reduced){
+    await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+    const fade=overlay.animate([{opacity:1},{opacity:0}],{duration:1100,easing:'cubic-bezier(.4,0,.2,1)',fill:'forwards'});
+    await fade.finished;
+   }
+   overlay.remove();if(hero){hero.inert=false;hero.removeAttribute('aria-busy')}
   })();
   return completion;
  }};
