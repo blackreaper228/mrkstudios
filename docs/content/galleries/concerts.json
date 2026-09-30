@@ -9,6 +9,26 @@
       "type": "video",
       "title": "Chris brown Concert",
       "video": "https://vimeo.com/1230538799?share=copy&fl=sv&fe=ci"
+    },
+    {
+      "type": "video",
+      "title": "Benson Boone",
+      "video": "https://vimeo.com/1230000226?share=copy&fl=sv&fe=ci"
+    },
+    {
+      "type": "video",
+      "title": "Post Malone Concert",
+      "video": "https://vimeo.com/1229996831?share=copy&fl=sv&fe=ci"
+    },
+    {
+      "type": "video",
+      "title": "Ava Max Concert",
+      "video": "https://vimeo.com/1231007445?share=copy&fl=sv&fe=ci"
+    },
+    {
+      "type": "video",
+      "title": "Katy Perry Concert",
+      "video": "https://vimeo.com/1229997482?share=copy&fl=sv&fe=ci"
     }
   ]
 }
