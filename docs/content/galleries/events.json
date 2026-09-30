@@ -3,7 +3,17 @@
     {
       "title": "Events / 01",
       "type": "image",
-      "image": "/mrkstudios/uploads/photo2026-09-2410-45-18-1.jpg"
+      "image": "/mrkstudios/uploads/photo2026-09-2410-45-18-1.jpg",
+      "session": [
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/slide01-1.jpg"
+        },
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/slide02-1.jpg"
+        }
+      ]
     }
   ]
 }
