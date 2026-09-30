@@ -30,8 +30,9 @@ async function load(){
     figures.append(figure);
    }catch{invalid++}
   });
-  await finishLoading(status,invalid?'Some photographs are unavailable.':'');
+  if(invalid)console.warn('Some photographs are unavailable.',{category,work:key,count:invalid});
+  await finishLoading(status);
   grid.append(figures);
- }catch(error){await finishLoading(status,'Photoshoot unavailable.');console.warn(error)}finally{status.removeAttribute('data-loading')}
+ }catch(error){await finishLoading(status);console.warn('Photoshoot unavailable.',error)}finally{status.removeAttribute('data-loading')}
 }
 load();
