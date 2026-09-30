@@ -1,23 +1,39 @@
 {
   "items": [
     {
-      "title": "Events / 01",
-      "type": "image",
-      "image": "/mrkstudios/uploads/photo2026-09-2410-45-18-1.jpg",
-      "session": [
-        {
-          "type": "image",
-          "image": "/mrkstudios/uploads/slide01-1.jpg"
-        },
-        {
-          "type": "image",
-          "image": "/mrkstudios/uploads/slide02-1.jpg"
-        },
-        {
-          "type": "image",
-          "image": "/mrkstudios/uploads/slide05-1.jpg"
-        }
-      ]
+      "type": "video",
+      "title": "Disney Opening",
+      "video": "https://vimeo.com/1089154174?share=copy&fl=sv&fe=ci"
+    },
+    {
+      "type": "video",
+      "title": "Team Recap",
+      "video": "https://vimeo.com/1089151598?share=copy&fl=sv&fe=ci"
+    },
+    {
+      "type": "video",
+      "title": "Team Lab Ludovico Einaudi ",
+      "video": "TeamLab"
+    },
+    {
+      "type": "video",
+      "title": "Beyond Event",
+      "video": "https://vimeo.com/1106850079?share=copy&fl=sv&fe=ci"
+    },
+    {
+      "type": "video",
+      "title": "UFC",
+      "video": "https://vimeo.com/1130891951?share=copy&fl=sv&fe=ci"
+    },
+    {
+      "type": "video",
+      "title": "HypeBeast X ICD",
+      "video": "https://vimeo.com/1050053273?share=copy&fl=sv&fe=ci"
+    },
+    {
+      "type": "video",
+      "title": "ICD Wellness week",
+      "video": "https://vimeo.com/1169498477?share=copy&fl=sv&fe=ci"
     }
   ]
 }
