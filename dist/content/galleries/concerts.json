@@ -1,52 +1,37 @@
 {
   "items": [
     {
-      "title": "Concerts / 01",
-      "type": "image",
-      "image": "https://picsum.photos/id/1018/792/992",
-      "video": ""
+      "type": "video",
+      "title": "Travis Scott Concert",
+      "video": "https://vimeo.com/1230719066?share=copy&fl=sv&fe=ci"
     },
     {
-      "title": "Concerts / 02",
       "type": "image",
-      "image": "https://picsum.photos/id/1015/792/992",
-      "video": ""
+      "title": "Chris Brown Concert "
     },
     {
-      "title": "Concerts / 03",
       "type": "image",
-      "image": "https://picsum.photos/id/1016/792/992",
-      "video": ""
+      "title": "Concerts / 03"
     },
     {
-      "title": "Concerts / 04",
       "type": "image",
-      "image": "https://picsum.photos/id/1043/792/992",
-      "video": ""
+      "title": "Concerts / 04"
     },
     {
-      "title": "Concerts / 05",
       "type": "image",
-      "image": "https://picsum.photos/id/1039/792/992",
-      "video": ""
+      "title": "Concerts / 05"
     },
     {
-      "title": "Concerts / 06",
       "type": "image",
-      "image": "https://picsum.photos/id/1025/792/992",
-      "video": ""
+      "title": "Concerts / 06"
     },
     {
-      "title": "Concerts / 07",
       "type": "image",
-      "image": "https://picsum.photos/id/1067/792/992",
-      "video": ""
+      "title": "Concerts / 07"
     },
     {
-      "title": "Concerts / 08",
       "type": "image",
-      "image": "https://picsum.photos/id/1068/792/992",
-      "video": ""
+      "title": "Concerts / 08"
     }
   ]
 }
