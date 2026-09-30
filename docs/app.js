@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/loaders/DRACOLoader.js';
 const $=s=>document.querySelector(s),hero=$('#hero'),gallery=$('#gallery'),canvas=$('#tv');
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const mobile=matchMedia('(max-width: 700px), (pointer: coarse)').matches;
@@ -21,9 +22,10 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&location.hash!=='#p
 canvas.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openGallery()}};
 async function loadTelevision(){
  const loader=new GLTFLoader();
+ const draco=new DRACOLoader();draco.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/libs/draco/gltf/');draco.setWorkerLimit(mobile?1:2);loader.setDRACOLoader(draco);
  const artworkReady=createLogoArtwork();
  const [person,television]=await Promise.all([
-  loader.loadAsync(new URL('assets/person-rig-lod.glb?v=intact-geometry',import.meta.url).href),
+  loader.loadAsync(new URL('assets/person-rig-compressed.glb',import.meta.url).href),
   loader.loadAsync(new URL('assets/old_tv.glb',import.meta.url).href)
  ]);
  const body=person.scene,model=television.scene;televisionModel=model;

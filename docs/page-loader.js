@@ -1,8 +1,4 @@
 (() => {
- // Temporarily bypass the loading overlay while keeping its animation available.
- document.querySelector('#page-loader')?.remove();
- document.addEventListener('DOMContentLoaded',()=>{const hero=document.querySelector('#hero');if(hero){hero.inert=false;hero.removeAttribute('aria-busy')}});
- return;
  if(location.hash==='#photos'){document.documentElement.classList.add('direct-photos');document.querySelector('#page-loader')?.remove();return}
  const overlay=document.querySelector('#page-loader'),letters=[...overlay.querySelectorAll('.loader-letter')];
  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
