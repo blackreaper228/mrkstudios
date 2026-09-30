@@ -82,7 +82,7 @@ async function createLogoArtwork(){
 function updateScreen(){
  if(!screenContext)return;const w=screenCanvas.width,h=screenCanvas.height;
  screenContext.fillStyle='#000';screenContext.fillRect(0,0,w,h);
- if(logoArtwork){const tw=w*.70,th=tw*logoArtwork.height/logoArtwork.width,lx=(w-tw)/2,ly=(h-th)/2;
+ if(logoArtwork){const tw=w*.35,th=tw*logoArtwork.height/logoArtwork.width,lx=(w-tw)/2,ly=(h-th)/2;
  screenContext.drawImage(logoArtwork,w/2+bounce.x/bounce.limitX*lx-tw/2,h/2-bounce.y/bounce.limitY*ly-th/2,tw,th)}
  screenTexture.needsUpdate=true;
 }
