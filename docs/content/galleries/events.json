@@ -27,6 +27,11 @@
     },
     {
       "type": "video",
+      "title": "UFC Qatar",
+      "video": "https://vimeo.com/1231779256?share=copy&fl=sv&fe=ci"
+    },
+    {
+      "type": "video",
       "title": "HypeBeast X ICD",
       "video": "https://vimeo.com/1050053273?share=copy&fl=sv&fe=ci"
     },
@@ -34,11 +39,6 @@
       "type": "video",
       "title": "ICD Wellness week",
       "video": "https://vimeo.com/1169498477?share=copy&fl=sv&fe=ci"
-    },
-    {
-      "type": "video",
-      "title": "UFC Qatar",
-      "video": "https://vimeo.com/1231779256?share=copy&fl=sv&fe=ci"
     },
     {
       "type": "video",
