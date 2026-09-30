@@ -32,7 +32,16 @@ export function videoHover(item,preview){
    do{applied=revision;if(wanted){await controller.play();hasPlayed=true;if(applied===revision){wrapper.classList.add('is-playing');wrapper.dataset.playback='playing'}}else{if(hasPlayed){await controller.pause();await controller.reset()}wrapper.classList.remove('is-playing');wrapper.dataset.playback='paused'}}while(applied!==revision);
   }catch(error){wrapper.classList.remove('is-playing');wrapper.dataset.playback='error';console.warn('Video preview unavailable',error)}finally{running=false}
  }
- function setPlaying(value){wanted=value;revision++;if(!value)wrapper.classList.remove('is-playing');synchronize()}
+ function setPlaying(value){
+  wanted=value;revision++;wrapper.classList.toggle('is-playing',value);
+  // Pause independently of an outstanding play promise, including a buffering player.
+  if(!value)ready.then(async controller=>{
+   if(wanted)return;
+   await controller.pause();wrapper.dataset.playback='paused';
+   if(hasPlayed&&!wanted)await controller.reset();
+  }).catch(error=>console.warn('Video preview could not be stopped',error));
+  synchronize();
+ }
  wrapper.addEventListener('pointerenter',event=>{if(event.pointerType!=='touch')setPlaying(true)});
  wrapper.addEventListener('pointerleave',()=>setPlaying(false));
  if(preview)queueMicrotask(()=>{const link=wrapper.closest('a');if(link){link.addEventListener('focus',()=>setPlaying(true));link.addEventListener('blur',()=>setPlaying(false))}});
