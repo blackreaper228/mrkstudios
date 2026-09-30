@@ -3,148 +3,21 @@
     {
       "title": "Events / 01",
       "type": "image",
-      "image": "https://picsum.photos/id/1067/792/992",
-      "video": ""
-    },
-    {
-      "title": "Events / 02",
-      "type": "video",
-      "image": "https://picsum.photos/id/1068/792/992",
-      "video": "https://vimeo.com/22439234",
+      "image": "/mrkstudios/uploads/photo2026-09-2410-45-18-1.jpg",
       "session": [
         {
-          "title": "Test photo 01",
           "type": "image",
-          "image": "https://picsum.photos/id/1011/792/992",
-          "video": ""
+          "image": "/mrkstudios/uploads/slide01-1.jpg"
         },
         {
-          "title": "Test photo 02",
           "type": "image",
-          "image": "https://picsum.photos/id/1012/792/992",
-          "video": ""
+          "image": "/mrkstudios/uploads/slide02-1.jpg"
         },
         {
-          "title": "Test photo 03",
           "type": "image",
-          "image": "https://picsum.photos/id/1015/792/992",
-          "video": ""
-        },
-        {
-          "title": "Test photo 04",
-          "type": "image",
-          "image": "https://picsum.photos/id/1016/792/992",
-          "video": ""
-        },
-        {
-          "title": "Test photo 05",
-          "type": "image",
-          "image": "https://picsum.photos/id/1018/792/992",
-          "video": ""
-        },
-        {
-          "title": "Test photo 06",
-          "type": "image",
-          "image": "https://picsum.photos/id/1020/792/992",
-          "video": ""
-        },
-        {
-          "title": "Test photo 07",
-          "type": "image",
-          "image": "https://picsum.photos/id/1024/792/992",
-          "video": ""
-        },
-        {
-          "title": "Test photo 08",
-          "type": "image",
-          "image": "https://picsum.photos/id/1025/792/992",
-          "video": ""
-        },
-        {
-          "title": "Test photo 09",
-          "type": "image",
-          "image": "https://picsum.photos/id/1035/792/992",
-          "video": ""
-        },
-        {
-          "title": "Test photo 10",
-          "type": "image",
-          "image": "https://picsum.photos/id/1036/792/992",
-          "video": ""
-        },
-        {
-          "title": "Test photo 11",
-          "type": "image",
-          "image": "https://picsum.photos/id/1039/792/992",
-          "video": ""
-        },
-        {
-          "title": "Test photo 12",
-          "type": "image",
-          "image": "https://picsum.photos/id/1040/792/992",
-          "video": ""
-        },
-        {
-          "title": "Test photo 13",
-          "type": "image",
-          "image": "https://picsum.photos/id/1043/792/992",
-          "video": ""
-        },
-        {
-          "title": "Test photo 14",
-          "type": "image",
-          "image": "https://picsum.photos/id/1050/792/992",
-          "video": ""
-        },
-        {
-          "title": "Test photo 15",
-          "type": "image",
-          "image": "https://picsum.photos/id/1067/792/992",
-          "video": ""
-        },
-        {
-          "title": "Test photo 16",
-          "type": "image",
-          "image": "https://picsum.photos/id/1068/792/992",
-          "video": ""
+          "image": "/mrkstudios/uploads/slide05-1.jpg"
         }
       ]
-    },
-    {
-      "title": "Events / 03",
-      "type": "image",
-      "image": "https://picsum.photos/id/1018/792/992",
-      "video": ""
-    },
-    {
-      "title": "Events / 04",
-      "type": "image",
-      "image": "https://picsum.photos/id/1015/792/992",
-      "video": ""
-    },
-    {
-      "title": "Events / 05",
-      "type": "image",
-      "image": "https://picsum.photos/id/1016/792/992",
-      "video": ""
-    },
-    {
-      "title": "Events / 06",
-      "type": "image",
-      "image": "https://picsum.photos/id/1043/792/992",
-      "video": ""
-    },
-    {
-      "title": "Events / 07",
-      "type": "image",
-      "image": "https://picsum.photos/id/1039/792/992",
-      "video": ""
-    },
-    {
-      "title": "Events / 08",
-      "type": "image",
-      "image": "https://picsum.photos/id/1025/792/992",
-      "video": ""
     }
   ]
 }
