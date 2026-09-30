@@ -6,12 +6,14 @@
       "video": "https://vimeo.com/1230719066?share=copy&fl=sv&fe=ci"
     },
     {
-      "type": "image",
-      "title": "Chris Brown Concert "
+      "type": "video",
+      "title": "Chris Brown Concert",
+      "video": "https://vimeo.com/1230538799?share=copy&fl=sv&fe=ci"
     },
     {
-      "type": "image",
-      "title": "Concerts / 03"
+      "type": "video",
+      "title": "Post Malone Concert",
+      "video": "https://vimeo.com/1229996831?share=copy&fl=sv&fe=ci"
     },
     {
       "type": "image",
@@ -28,10 +30,6 @@
     {
       "type": "image",
       "title": "Concerts / 07"
-    },
-    {
-      "type": "image",
-      "title": "Concerts / 08"
     }
   ]
 }
