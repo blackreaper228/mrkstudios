@@ -1,0 +1,39 @@
+{
+  "items": [
+    {
+      "page": "events",
+      "label": "Events",
+      "secondary": false
+    },
+    {
+      "page": "concerts",
+      "label": "Concerts",
+      "secondary": false
+    },
+    {
+      "page": "commercials",
+      "label": "Commercials",
+      "secondary": false
+    },
+    {
+      "page": "documentaries",
+      "label": "Documentaries",
+      "secondary": false
+    },
+    {
+      "page": "food",
+      "label": "Food",
+      "secondary": false
+    },
+    {
+      "page": "gear-rental",
+      "label": "Gear Rental",
+      "secondary": true
+    },
+    {
+      "page": "team",
+      "label": "Team",
+      "secondary": true
+    }
+  ]
+}

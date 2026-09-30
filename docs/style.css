@@ -14,7 +14,7 @@ dialog img{object-fit:contain;height:auto;max-height:80svh}.film img{user-select
 /* Shared navigation and dedicated gallery pages. */
 body{opacity:1;transition:opacity .18s ease}body.page-leaving{opacity:0;pointer-events:none}
 .navigation{position:fixed;z-index:30;background:transparent;color:#fff;mix-blend-mode:difference;transition:opacity .25s,transform .35s cubic-bezier(.22,.61,.36,1)}
-body:not(.gallery-open):not(.category-page)>.navigation{opacity:0;pointer-events:none;visibility:hidden}
+body:not(.gallery-open):not(.category-page):not(.placeholder-page)>.navigation{opacity:0;pointer-events:none;visibility:hidden}
 .menu-toggle{padding:0;text-align:right;line-height:inherit}.menu-toggle:hover{opacity:1}
 .navigation nav{position:relative;align-items:flex-end}
 .menu-group{position:relative;width:120px;align-self:flex-end}
@@ -163,3 +163,15 @@ a:hover>.roll-label>.roll-label-track,button:hover>.roll-label>.roll-label-track
 .photo-viewer-arrow{position:fixed;transform:translate(-50%,-50%);font:400 42px/1 Inter,sans-serif;color:#fff;pointer-events:none;z-index:10001;opacity:0}
 .photo-viewer-arrow.visible{opacity:1}.photo-viewer.has-arrow .pointer-dot{opacity:0!important}
 @media(max-width:700px){.photo-viewer{padding:60px 10vw}.photo-viewer-previous,.photo-viewer-next{width:9vw}}
+
+.gallery-status[data-loading]{display:flex;justify-content:center;padding:24px}
+.gallery-status[data-loading]::after{content:"";width:22px;height:22px;border:2px solid #0002;border-top-color:var(--ink);border-radius:50%;animation:gallery-spin .8s linear infinite}
+.session-cover:has(img:not([data-loaded]))::after,.session-grid figure:has(img:not([data-loaded]))::after{content:"";position:absolute;left:50%;top:50%;width:22px;height:22px;margin:-11px;border:2px solid #0002;border-top-color:var(--ink);border-radius:50%;animation:gallery-spin .8s linear infinite;pointer-events:none}
+.session-grid figure{position:relative}
+@keyframes gallery-spin{to{transform:rotate(360deg)}}
+
+.menu-secondary{display:flex;flex-direction:column;gap:4px;margin-top:22px}
+.placeholder-page{min-height:100svh}
+.placeholder-content{min-height:100svh;display:grid;place-items:center;padding:100px 28px}
+.placeholder-content h1{margin:0;text-align:center;font:400 48px/1.15 'Instrument Serif',serif}
+@media(max-width:700px){.placeholder-content h1{font-size:36px}}

@@ -8,7 +8,10 @@ export function parsePortfolio(data, base = import.meta.url) {
     if (path.startsWith('/mrkstudios/')) path = path.slice('/mrkstudios/'.length);
     const url = new URL(path, base);
     if (!['http:', 'https:'].includes(url.protocol)) throw new Error('Unsupported image URL');
-    return { title: slide.title.trim(), src: url.href };
+    let destination=typeof slide.link==='string'&&slide.link.trim()?slide.link.trim():['events.html','concerts.html','commercials.html','documentaries.html','food.html'][index];
+    if(destination.startsWith('/mrkstudios/'))destination=destination.slice('/mrkstudios/'.length);
+    const href=new URL(destination,base);if(!['http:','https:'].includes(href.protocol))throw new Error('Unsupported gallery link');
+    return { title: slide.title.trim(), src: url.href, href:href.href };
   });
 }
 export async function loadPortfolio() {

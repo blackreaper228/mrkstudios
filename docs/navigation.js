@@ -1,4 +1,5 @@
-import './pointer.js?v=20260930-inversion';
+import {loadMenu} from './menu-content.js?v=20260930-cms';
+import './pointer.js?v=20260930-gallery-links';
 import './text-hover.js?v=20260930-roll';
 const menu = document.querySelector('.menu-toggle');
 const dropdown = document.querySelector('#category-menu');
@@ -69,3 +70,20 @@ if(document.body.classList.contains('category-page')){
  header.addEventListener('focusin',()=>{header.classList.remove('is-scroll-hidden');anchorY=Math.max(0,window.scrollY)});
  window.addEventListener('pageshow',()=>{header.classList.remove('is-scroll-hidden');anchorY=Math.max(0,window.scrollY)});
 }
+
+loadMenu().then(items=>{
+ const existing=new Map([...dropdown.querySelectorAll('a')].map(link=>[new URL(link.href).pathname.split('/').pop().replace(/\.html$/,''),link]));
+ const main=document.createDocumentFragment(),secondary=document.createElement('div');secondary.className='menu-secondary';
+ for(const item of items){
+  const link=existing.get(item.page);if(!link)continue;
+  link.textContent=item.label;link.href=new URL(item.page+'.html',import.meta.url).href;
+  (item.secondary?secondary:main).append(link);
+  const current=location.pathname.split('/').pop().replace(/\.html$/,'');
+  if(current===item.page){
+   const heading=document.querySelector('.category-content>h1,.placeholder-content>h1');if(heading)heading.textContent=item.label;
+   document.title=item.label+' — mrk';
+   document.querySelector('.media-grid')?.setAttribute('aria-label',item.label+' gallery');
+  }
+ }
+ if(secondary.children.length)main.append(secondary);dropdown.replaceChildren(main);
+}).catch(error=>console.warn('Menu content unavailable; using default navigation.',error));

@@ -1,5 +1,5 @@
 import {categories,parseMedia} from './media.js';
-import {mediaElement} from './media-element.js?v=20260930-first-play-fix';
+import {mediaElement} from './media-element.js?v=20260930-spinner';
 import {sessionURL} from './session-link.js';
 const grid=document.querySelector('.media-grid'),status=document.querySelector('.gallery-status');
 async function load(){
@@ -22,6 +22,6 @@ async function load(){
    link.append(title,cover);card.append(link);grid.append(card);
   });
   status.textContent=invalid?'Some works are unavailable.':grid.children.length?'':'New work coming soon.';status.hidden=!status.textContent;
- }catch(error){status.textContent='Unable to load this gallery. Please try again.';console.warn(error)}
+ }catch(error){status.textContent='Unable to load this gallery. Please try again.';console.warn(error)}finally{status.removeAttribute('data-loading')}
 }
 load();

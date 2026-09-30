@@ -1,6 +1,6 @@
 import {createPhotoViewer} from './photo-viewer.js?v=20260930-media-dots';
 import {categories,parseMedia} from './media.js';
-import {mediaElement} from './media-element.js?v=20260930-first-play-fix';
+import {mediaElement} from './media-element.js?v=20260930-spinner';
 import {workKey} from './session-link.js';
 const params=new URLSearchParams(location.search),category=params.get('category'),key=params.get('work');
 const status=document.querySelector('.gallery-status'),grid=document.querySelector('.session-grid');
@@ -30,6 +30,6 @@ async function load(){
    }catch{invalid++}
   });
   status.textContent=invalid?'Some photographs are unavailable.':'';status.hidden=!status.textContent;
- }catch(error){status.textContent='Photoshoot unavailable.';console.warn(error)}
+ }catch(error){status.textContent='Photoshoot unavailable.';console.warn(error)}finally{status.removeAttribute('data-loading')}
 }
 load();

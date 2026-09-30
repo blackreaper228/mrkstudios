@@ -8,7 +8,7 @@ document.addEventListener('pointermove',e=>{
  dot.classList.add('visible');
  const target=e.target instanceof Element?e.target:null;
  const control=target?.closest('a[href],button,[role="button"],input,select,textarea,summary,[data-clickable]');
- const inactive=control?.matches(':disabled,[aria-disabled="true"],.film,.carousel-title[data-slot="0"]');
+ const inactive=control?.matches(':disabled,[aria-disabled="true"]');
  const clickable=control&&!inactive&&(control.id!=='tv'||control.style.cursor==='pointer');
  dot.classList.toggle('clickable',Boolean(clickable));
  const special=document.querySelector('#custom-cursor.active');

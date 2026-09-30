@@ -4,8 +4,32 @@ media:
   extensions: [jpg, jpeg, png, webp, avif]
   rename: safe
 content:
+  - name: navigation
+    label: Меню и названия разделов
+    type: file
+    path: docs/content/menu.json
+    fields:
+      - name: items
+        label: Пункты меню
+        type: object
+        list: true
+        fields:
+          - name: page
+            label: Страница
+            type: select
+            required: true
+            options:
+              values: [events, concerts, commercials, documentaries, food, gear-rental, team]
+          - name: label
+            label: Название в меню и на странице
+            type: string
+            required: true
+          - name: secondary
+            label: Дополнительная группа с отступом
+            type: boolean
+            default: false
   - name: portfolio
-    label: Фотографии и заголовки
+    label: Главная — тильт-фотографии, заголовки и ссылки
     type: file
     path: docs/content/portfolio.json
     fields:
@@ -26,6 +50,11 @@ content:
             type: image
             required: true
             description: Загрузите JPG, PNG, WebP или AVIF. Рекомендуемый размер — 1600 × 900 пикселей.
+          - name: link
+            label: Ссылка на галерею
+            type: string
+            description: Например events.html или session.html?category=events&work=2. Эта ссылка используется фотографией и её заголовком.
+
       - name: slide2
         label: Фотография 2
         type: object
@@ -43,6 +72,11 @@ content:
             type: image
             required: true
             description: Загрузите JPG, PNG, WebP или AVIF. Рекомендуемый размер — 1600 × 900 пикселей.
+          - name: link
+            label: Ссылка на галерею
+            type: string
+            description: Например events.html или session.html?category=events&work=2. Эта ссылка используется фотографией и её заголовком.
+
       - name: slide3
         label: Фотография 3
         type: object
@@ -60,6 +94,11 @@ content:
             type: image
             required: true
             description: Загрузите JPG, PNG, WebP или AVIF. Рекомендуемый размер — 1600 × 900 пикселей.
+          - name: link
+            label: Ссылка на галерею
+            type: string
+            description: Например events.html или session.html?category=events&work=2. Эта ссылка используется фотографией и её заголовком.
+
       - name: slide4
         label: Фотография 4
         type: object
@@ -77,6 +116,11 @@ content:
             type: image
             required: true
             description: Загрузите JPG, PNG, WebP или AVIF. Рекомендуемый размер — 1600 × 900 пикселей.
+          - name: link
+            label: Ссылка на галерею
+            type: string
+            description: Например events.html или session.html?category=events&work=2. Эта ссылка используется фотографией и её заголовком.
+
       - name: slide5
         label: Фотография 5
         type: object
@@ -94,6 +138,11 @@ content:
             type: image
             required: true
             description: Загрузите JPG, PNG, WebP или AVIF. Рекомендуемый размер — 1600 × 900 пикселей.
+          - name: link
+            label: Ссылка на галерею
+            type: string
+            description: Например events.html или session.html?category=events&work=2. Эта ссылка используется фотографией и её заголовком.
+
   - name: events
     label: Events
     type: file
@@ -105,7 +154,7 @@ content:
         list: true
         fields:
           - name: title
-            label: Название фотосессии
+            label: Название карточки / фотосессии
             type: string
             required: true
           - name: type
@@ -129,7 +178,7 @@ content:
             label: Описание фотосессии
             type: text
           - name: session
-            label: Фотографии и видео фотосессии
+            label: Контент фотосессии — добавление, удаление и порядок
             type: object
             list: true
             fields:
@@ -159,7 +208,7 @@ content:
         list: true
         fields:
           - name: title
-            label: Название фотосессии
+            label: Название карточки / фотосессии
             type: string
             required: true
           - name: type
@@ -183,7 +232,7 @@ content:
             label: Описание фотосессии
             type: text
           - name: session
-            label: Фотографии и видео фотосессии
+            label: Контент фотосессии — добавление, удаление и порядок
             type: object
             list: true
             fields:
@@ -213,7 +262,7 @@ content:
         list: true
         fields:
           - name: title
-            label: Название фотосессии
+            label: Название карточки / фотосессии
             type: string
             required: true
           - name: type
@@ -237,7 +286,7 @@ content:
             label: Описание фотосессии
             type: text
           - name: session
-            label: Фотографии и видео фотосессии
+            label: Контент фотосессии — добавление, удаление и порядок
             type: object
             list: true
             fields:
@@ -267,7 +316,7 @@ content:
         list: true
         fields:
           - name: title
-            label: Название фотосессии
+            label: Название карточки / фотосессии
             type: string
             required: true
           - name: type
@@ -291,7 +340,7 @@ content:
             label: Описание фотосессии
             type: text
           - name: session
-            label: Фотографии и видео фотосессии
+            label: Контент фотосессии — добавление, удаление и порядок
             type: object
             list: true
             fields:
@@ -321,7 +370,7 @@ content:
         list: true
         fields:
           - name: title
-            label: Название фотосессии
+            label: Название карточки / фотосессии
             type: string
             required: true
           - name: type
@@ -345,7 +394,7 @@ content:
             label: Описание фотосессии
             type: text
           - name: session
-            label: Фотографии и видео фотосессии
+            label: Контент фотосессии — добавление, удаление и порядок
             type: object
             list: true
             fields:
