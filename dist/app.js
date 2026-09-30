@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/loaders/GLTFLoader.js';
 const $=s=>document.querySelector(s),hero=$('#hero'),gallery=$('#gallery'),canvas=$('#tv');
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const mobile=matchMedia('(max-width: 700px), (pointer: coarse)').matches;
 const characterScale=8.5;
 let neckBone,headBone,torsoBone,televisionModel;
 let homeDistance=9,modelReady=false,screenContext,screenTexture,logoArtwork;
@@ -21,7 +22,7 @@ canvas.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openGal
 async function loadTelevision(){
  const loader=new GLTFLoader();
  const [person,television]=await Promise.all([
-  loader.loadAsync(new URL('assets/person-rig.glb?v=apose-original-1',import.meta.url).href),
+  loader.loadAsync(new URL(mobile?'assets/person-rig-mobile.glb':'assets/person-rig-web.glb',import.meta.url).href),
   loader.loadAsync(new URL('assets/old_tv.glb',import.meta.url).href)
  ]);
  const body=person.scene,model=television.scene;televisionModel=model;
@@ -45,9 +46,10 @@ async function loadTelevision(){
  const screenBounds=new THREE.Box3().setFromObject(screen);screenBounds.getCenter(screenFocus);tv.worldToLocal(screenFocus);
  screenContext=screenCanvas.getContext('2d');screenTexture=new THREE.CanvasTexture(screenCanvas);screenTexture.colorSpace=THREE.SRGBColorSpace;
  screen.material=new THREE.MeshBasicMaterial({map:screenTexture,side:THREE.DoubleSide,toneMapped:false});
- await document.fonts.load('96px "Instrument Serif"');createLogoArtwork();
+ await createLogoArtwork();
  updateScreen();
- await renderer.compileAsync(scene,camera);renderer.render(scene,camera);
+ if(renderer.compileAsync)await renderer.compileAsync(scene,camera);else renderer.compile(scene,camera);
+ renderer.render(scene,camera);
  modelReady=true;canvas.dataset.model='tv-person-neck-rig';
  const hasLoader=Boolean(document.querySelector('#page-loader'));
  introProgress=hasLoader||reduced?1:0;
@@ -66,12 +68,16 @@ function followCursor(dt,neutral=false){
  lookQuaternion.setFromEuler(new THREE.Euler(y*.20,x*.38,-x*.025,'YXZ'));headBone.quaternion.slerp(lookQuaternion,smooth);
  lookQuaternion.setFromEuler(new THREE.Euler(0,x*.009,0,'YXZ'));torsoBone.quaternion.slerp(lookQuaternion,smooth*.5);
 }
-function createLogoArtwork(){
- logoArtwork=document.createElement('canvas');logoArtwork.width=1024;logoArtwork.height=180;
- const ctx=logoArtwork.getContext('2d');ctx.font='400 96px "Instrument Serif", serif';ctx.fillStyle='#fff';ctx.textBaseline='middle';
- const letters=[...'mrk'],spacing=96*4,width=letters.reduce((sum,c)=>sum+ctx.measureText(c).width,0)+spacing*(letters.length-1);
- let x=(logoArtwork.width-width)/2;
- for(const letter of letters){ctx.fillText(letter,x,90);x+=ctx.measureText(letter).width+spacing}
+async function createLogoArtwork(){
+ const image=new Image();image.src=new URL('assets/mrk-tv-artwork.png',import.meta.url).href;await image.decode();
+ const sample=document.createElement('canvas');sample.width=image.naturalWidth;sample.height=image.naturalHeight;
+ const ctx=sample.getContext('2d',{willReadFrequently:true});ctx.drawImage(image,0,0);
+ const pixels=ctx.getImageData(0,0,sample.width,sample.height).data;
+ let left=sample.width,top=sample.height,right=0,bottom=0;
+ for(let y=0;y<sample.height;y++)for(let x=0;x<sample.width;x++){const i=(y*sample.width+x)*4;if(pixels[i+3]>40&&Math.max(pixels[i],pixels[i+1],pixels[i+2])>70){left=Math.min(left,x);top=Math.min(top,y);right=Math.max(right,x);bottom=Math.max(bottom,y)}}
+ const padding=12;left=Math.max(0,left-padding);top=Math.max(0,top-padding);right=Math.min(sample.width-1,right+padding);bottom=Math.min(sample.height-1,bottom+padding);
+ logoArtwork=document.createElement('canvas');logoArtwork.width=right-left+1;logoArtwork.height=bottom-top+1;
+ logoArtwork.getContext('2d').drawImage(image,left,top,logoArtwork.width,logoArtwork.height,0,0,logoArtwork.width,logoArtwork.height);
 }
 function updateScreen(){
  if(!screenContext)return;const w=screenCanvas.width,h=screenCanvas.height;
@@ -82,7 +88,7 @@ function updateScreen(){
 }
 function hitsTelevision(){tv.updateMatrixWorld(true);return televisionModel&&raycaster.intersectObject(televisionModel,true).length>0}
 function init(){
- renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.35;
+ renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:!mobile,powerPreference:mobile?'low-power':'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio,mobile?1.25:2));renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.35;
  scene=new THREE.Scene();camera=new THREE.PerspectiveCamera(37,1,.1,100);camera.position.set(0,0,homeDistance);camera.lookAt(0,0,0);
  scene.add(new THREE.HemisphereLight(0xffffff,0x858585,2.7));const key=new THREE.DirectionalLight(0xffffff,4);key.position.set(-3,7,6);scene.add(key);const rim=new THREE.DirectionalLight(0xffffff,1.2);rim.position.set(5,2,-3);scene.add(rim);
  tv=new THREE.Group();tv.rotation.set(0,0,0);scene.add(tv);

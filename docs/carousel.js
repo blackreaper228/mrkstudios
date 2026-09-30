@@ -15,6 +15,7 @@ const track=$('#film-track'),stage=$('#film-stage'),tilt=$('#film-tilt'),cursor=
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
 let index=0,busy=false,opened=location.hash==='#photos',pendingContent=null;
 let navigating=false;
+const photosReady=opened?Promise.resolve():new Promise(resolve=>document.addEventListener('films:open',resolve,{once:true}));
 stage.addEventListener('click',async event=>{
  const link=event.target.closest('a.film');
  if(!link||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
@@ -58,7 +59,8 @@ function makeFilm(n){
  revealMedia(image);button.append(image,spinner);
  const finish=()=>{button.setAttribute('aria-busy','false');spinner.classList.add('is-hidden')};
  image.addEventListener('load',async()=>{try{await image.decode()}catch{}finish()},{once:true});image.addEventListener('error',finish,{once:true});
- halftonePhoto(films[n].src).then(url=>{image.dataset.effect='halftone';image.src=url}).catch(error=>{console.warn('Halftone unavailable for this image:',error);image.src=films[n].src});
+ const source=films[n].src;
+ photosReady.then(()=>halftonePhoto(source)).then(url=>{image.dataset.effect='halftone';image.src=url}).catch(error=>{console.warn('Halftone unavailable for this image:',error);image.src=source});
  return button;
 }
 $('#previous').onclick=()=>change(-1);$('#next').onclick=()=>change(1);
