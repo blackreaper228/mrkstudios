@@ -29,6 +29,11 @@
       "type": "video",
       "title": "Katy Perry Concert",
       "video": "https://vimeo.com/1229997482?share=copy&fl=sv&fe=ci"
+    },
+    {
+      "type": "video",
+      "title": "Jlo Concert",
+      "video": "https://vimeo.com/1106849308?share=copy&fl=sv&fe=ci"
     }
   ]
 }
