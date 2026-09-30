@@ -21,6 +21,7 @@ document.addEventListener('home:return',showGallery);
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&location.hash!=='#photos'&&mode==='gallery'&&!document.querySelector('dialog[open]'))back()});
 canvas.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openGallery()}};
 async function loadTelevision(){
+ const loadStarted=performance.now();
  const loader=new GLTFLoader();
  const draco=new DRACOLoader();draco.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/libs/draco/gltf/');draco.setWorkerLimit(mobile?1:2);loader.setDRACOLoader(draco);
  const artworkReady=createLogoArtwork();
@@ -50,6 +51,7 @@ async function loadTelevision(){
  screenContext=screenCanvas.getContext('2d');screenTexture=new THREE.CanvasTexture(screenCanvas);screenTexture.colorSpace=THREE.SRGBColorSpace;
  screen.material=new THREE.MeshBasicMaterial({map:screenTexture,side:THREE.DoubleSide,toneMapped:false});
  await artworkReady;
+ const assetsReady=performance.now();
  updateScreen();
  if(renderer.compileAsync)await renderer.compileAsync(scene,camera);else renderer.compile(scene,camera);
  renderer.render(scene,camera);
@@ -58,6 +60,8 @@ async function loadTelevision(){
  introProgress=hasLoader||reduced?1:0;
  camera.position.set(0,0,homeDistance);renderer.render(scene,camera);
  await window.mrkLoader?.complete();
+ console.info('TV startup timings (ms)',{assets:Math.round(assetsReady-loadStarted),firstRender:Math.round(performance.now()-loadStarted)});
+ if(!mobile){renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));resize()}
  if(!hasLoader)hero.animate([{opacity:0},{opacity:1}],{duration:reduced?0:450,easing:'ease-out'});
  canvas.dataset.detail='lod';
  const connection=navigator.connection;
@@ -89,12 +93,8 @@ function followCursor(dt,neutral=false){
 }
 async function createLogoArtwork(){
  const image=new Image();image.src=new URL('assets/mrk-tv-artwork.png',import.meta.url).href;await image.decode();
- const sample=document.createElement('canvas');sample.width=image.naturalWidth;sample.height=image.naturalHeight;
- const ctx=sample.getContext('2d',{willReadFrequently:true});ctx.drawImage(image,0,0);
- const pixels=ctx.getImageData(0,0,sample.width,sample.height).data;
- let left=sample.width,top=sample.height,right=0,bottom=0;
- for(let y=0;y<sample.height;y++)for(let x=0;x<sample.width;x++){const i=(y*sample.width+x)*4;if(pixels[i+3]>40&&Math.max(pixels[i],pixels[i+1],pixels[i+2])>70){left=Math.min(left,x);top=Math.min(top,y);right=Math.max(right,x);bottom=Math.max(bottom,y)}}
- const padding=12;left=Math.max(0,left-padding);top=Math.max(0,top-padding);right=Math.min(sample.width-1,right+padding);bottom=Math.min(sample.height-1,bottom+padding);
+ // Known artwork bounds avoid scanning 1.6 million pixels during startup.
+ const left=162,top=313,right=1328,bottom=773;
  logoArtwork=document.createElement('canvas');logoArtwork.width=right-left+1;logoArtwork.height=bottom-top+1;
  logoArtwork.getContext('2d').drawImage(image,left,top,logoArtwork.width,logoArtwork.height,0,0,logoArtwork.width,logoArtwork.height);
 }
@@ -107,7 +107,7 @@ function updateScreen(){
 }
 function hitsTelevision(){tv.updateMatrixWorld(true);return televisionModel&&raycaster.intersectObject(televisionModel,true).length>0}
 function init(){
- renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:!mobile,powerPreference:mobile?'low-power':'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio,mobile?1.25:2));renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.35;
+ renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:false,powerPreference:mobile?'low-power':'high-performance'});renderer.setPixelRatio(1);renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.35;
  scene=new THREE.Scene();camera=new THREE.PerspectiveCamera(37,1,.1,100);camera.position.set(0,0,homeDistance);camera.lookAt(0,0,0);
  scene.add(new THREE.HemisphereLight(0xffffff,0x858585,2.7));const key=new THREE.DirectionalLight(0xffffff,4);key.position.set(-3,7,6);scene.add(key);const rim=new THREE.DirectionalLight(0xffffff,1.2);rim.position.set(5,2,-3);scene.add(rim);
  tv=new THREE.Group();tv.rotation.set(0,0,0);scene.add(tv);
@@ -117,7 +117,7 @@ function init(){
  resize();requestAnimationFrame(animate);
 }
 function resize(){if(!renderer||hero.hidden)return;const r=canvas.parentElement.getBoundingClientRect();renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;homeDistance=Math.max(9,2.45/(2*Math.tan(THREE.MathUtils.degToRad(37/2))*camera.aspect),2.5/(2*Math.tan(THREE.MathUtils.degToRad(37/2))));camera.updateProjectionMatrix()}
-function animate(now){raf=requestAnimationFrame(animate);const dt=Math.min((now-last)/1000,.05);last=now;if(mode==='gallery'||document.hidden||!renderer)return;if(mode==='hero'){followCursor(dt);tv.rotation.set(0,0,0);tv.position.set(0,0,0);tv.scale.setScalar(characterScale);introProgress=Math.min(1,introProgress+dt/.6);const introEase=1-Math.pow(1-introProgress,3);camera.position.set(0,0,homeDistance*(.90+.10*introEase));camera.lookAt(0,0,0)}else{progress+=dt/1.15;const t=Math.min(progress,1),ease=t*t*t;followCursor(dt,true);const focusY=screenFocus.y*characterScale*ease;camera.position.set(0,focusY,homeDistance-(homeDistance-(screenFocus.z*characterScale+.7))*ease);camera.lookAt(0,focusY,0);canvas.style.opacity=String(1-Math.max(0,(t-.7)/.3));if(t>=1){showGallery();canvas.style.opacity='1'}}if(modelReady&&!reduced){bounce.x+=bounce.vx*dt;bounce.y+=bounce.vy*dt;if(Math.abs(bounce.x)>=bounce.limitX){bounce.x=THREE.MathUtils.clamp(bounce.x,-bounce.limitX,bounce.limitX);bounce.vx*=-1}if(Math.abs(bounce.y)>=bounce.limitY){bounce.y=THREE.MathUtils.clamp(bounce.y,-bounce.limitY,bounce.limitY);bounce.vy*=-1}updateScreen()}renderer.render(scene,camera)}
+function animate(now){raf=requestAnimationFrame(animate);const dt=Math.min((now-last)/1000,.05);last=now;if(mode==='gallery'||document.hidden||!renderer||!modelReady)return;if(mode==='hero'){followCursor(dt);tv.rotation.set(0,0,0);tv.position.set(0,0,0);tv.scale.setScalar(characterScale);introProgress=Math.min(1,introProgress+dt/.6);const introEase=1-Math.pow(1-introProgress,3);camera.position.set(0,0,homeDistance*(.90+.10*introEase));camera.lookAt(0,0,0)}else{progress+=dt/1.15;const t=Math.min(progress,1),ease=t*t*t;followCursor(dt,true);const focusY=screenFocus.y*characterScale*ease;camera.position.set(0,focusY,homeDistance-(homeDistance-(screenFocus.z*characterScale+.7))*ease);camera.lookAt(0,focusY,0);canvas.style.opacity=String(1-Math.max(0,(t-.7)/.3));if(t>=1){showGallery();canvas.style.opacity='1'}}if(modelReady&&!reduced){bounce.x+=bounce.vx*dt;bounce.y+=bounce.vy*dt;if(Math.abs(bounce.x)>=bounce.limitX){bounce.x=THREE.MathUtils.clamp(bounce.x,-bounce.limitX,bounce.limitX);bounce.vx*=-1}if(Math.abs(bounce.y)>=bounce.limitY){bounce.y=THREE.MathUtils.clamp(bounce.y,-bounce.limitY,bounce.limitY);bounce.vy*=-1}updateScreen()}renderer.render(scene,camera)}
 window.addEventListener('resize',resize);
 if(location.hash==='#photos')showGallery();
 else try{init()}catch(error){console.error(error);canvas.hidden=true;$('#fallback').hidden=false;window.mrkLoader?.complete()}
