@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import {subscribeDeviceTilt,usesDeviceTilt} from './device-tilt.js';
 import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/loaders/DRACOLoader.js';
 const $=s=>document.querySelector(s),hero=$('#hero'),gallery=$('#gallery'),canvas=$('#tv');
@@ -10,6 +11,7 @@ let homeDistance=9,modelReady=false,screenContext,screenTexture,logoArtwork;
 let introProgress=1;
 const screenCanvas=document.createElement('canvas');screenCanvas.width=1024;screenCanvas.height=776;
 let renderer,scene,camera,tv,mode='hero',progress=0,last=0,raf,targetX=0,targetY=0;
+subscribeDeviceTilt(({x,y})=>{targetX=x;targetY=y});
 const screenHalf={x:1.54,y:1.45},textHalf={x:.74,y:.33};
 const bounce={x:.18,y:.16,vx:.44,vy:.31,limitX:screenHalf.x-textHalf.x,limitY:screenHalf.y-textHalf.y};
 const raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2(),screenFocus=new THREE.Vector3();
@@ -112,8 +114,8 @@ function init(){
  scene.add(new THREE.HemisphereLight(0xffffff,0x858585,2.7));const key=new THREE.DirectionalLight(0xffffff,4);key.position.set(-3,7,6);scene.add(key);const rim=new THREE.DirectionalLight(0xffffff,1.2);rim.position.set(5,2,-3);scene.add(rim);
  tv=new THREE.Group();tv.rotation.set(0,0,0);scene.add(tv);
  loadTelevision().catch(error=>{console.error(error);canvas.hidden=true;$('#fallback').hidden=false;window.mrkLoader?.complete();renderer=null});
- canvas.addEventListener('pointermove',e=>{if(mode!=='hero')return;const r=canvas.getBoundingClientRect();targetX=(e.clientX-r.left)/r.width*2-1;targetY=(e.clientY-r.top)/r.height*2-1;pointer.set(targetX,-targetY);raycaster.setFromCamera(pointer,camera);canvas.style.cursor=hitsTelevision()?'pointer':'default'});
- canvas.addEventListener('pointerleave',()=>{targetX=targetY=0});canvas.addEventListener('click',e=>{const r=canvas.getBoundingClientRect();pointer.set((e.clientX-r.left)/r.width*2-1,-((e.clientY-r.top)/r.height*2-1));raycaster.setFromCamera(pointer,camera);if(hitsTelevision())openGallery()});
+ canvas.addEventListener('pointermove',e=>{if(mode!=='hero'||usesDeviceTilt)return;const r=canvas.getBoundingClientRect();targetX=(e.clientX-r.left)/r.width*2-1;targetY=(e.clientY-r.top)/r.height*2-1;pointer.set(targetX,-targetY);raycaster.setFromCamera(pointer,camera);canvas.style.cursor=hitsTelevision()?'pointer':'default'});
+ canvas.addEventListener('pointerleave',()=>{if(!usesDeviceTilt)targetX=targetY=0});canvas.addEventListener('click',e=>{const r=canvas.getBoundingClientRect();pointer.set((e.clientX-r.left)/r.width*2-1,-((e.clientY-r.top)/r.height*2-1));raycaster.setFromCamera(pointer,camera);if(hitsTelevision())openGallery()});
  resize();requestAnimationFrame(animate);
 }
 function resize(){if(!renderer||hero.hidden)return;const r=canvas.parentElement.getBoundingClientRect();renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;homeDistance=Math.max(9,2.45/(2*Math.tan(THREE.MathUtils.degToRad(37/2))*camera.aspect),2.5/(2*Math.tan(THREE.MathUtils.degToRad(37/2))));camera.updateProjectionMatrix()}
