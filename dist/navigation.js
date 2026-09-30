@@ -1,4 +1,5 @@
 import {loadMenu} from './menu-content.js?v=20260930-cms';
+import {fadeToWhite} from './page-transition.js?v=20260930-keep-navigation';
 import './pointer.js?v=20260930-gallery-links';
 import './text-hover.js?v=20260930-roll';
 const menu = document.querySelector('.menu-toggle');
@@ -30,26 +31,23 @@ document.querySelector('#location').textContent = (Intl.DateTimeFormat().resolve
 clock(); setInterval(clock, 1000);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 let leaving = false;
-document.querySelectorAll('.navigation a[href$=".html"], .navigation a.credits-menu-link, .site-footer a').forEach(link => link.addEventListener('click', async e => {
- if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
- e.preventDefault(); if (leaving) return; leaving = true; closeMenu();
- const isLogo=link.classList.contains('logo');
- const home = isLogo && document.querySelector('#hero');
- if(isLogo&&!home){
-  const blackout=document.createElement('div');blackout.className='home-blackout';blackout.setAttribute('aria-hidden','true');document.body.append(blackout);
-  // Separate frames ensure the browser paints the transparent starting state.
-  await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
-  blackout.classList.add('visible');
-  await new Promise(resolve=>setTimeout(resolve,reduced?0:420));
-  location.assign(link.href);return;
- }
- document.body.classList.add('page-leaving');
- await new Promise(resolve => setTimeout(resolve, reduced ? 0 : 180));
- if (home) {
-  document.dispatchEvent(new Event('home:return'));
-  document.body.classList.remove('page-leaving'); leaving = false;
- } else location.assign(link.href);
-}));
+const logoHome=Boolean(document.querySelector('#hero'));
+document.querySelector('.navigation .logo').href=new URL(logoHome?'index.html':'index.html#photos',import.meta.url).href;
+document.querySelector('.navigation .logo').setAttribute('aria-label',logoHome?'mrk — back to television':'mrk — selected photographs');
+document.addEventListener('click',async e=>{
+ if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+ const link=e.target.closest('a[href]');if(!link||link.hasAttribute('download')||(link.target&&link.target!=='_self'))return;
+ const destination=new URL(link.href,location.href);
+ if(!['http:','https:'].includes(destination.protocol)||destination.origin!==location.origin)return;
+ const restartsHome=link.classList.contains('logo')&&document.body.classList.contains('gallery-open');
+ if(destination.pathname===location.pathname&&destination.search===location.search&&destination.hash===location.hash&&!restartsHome)return;
+ if(destination.pathname===location.pathname&&destination.search===location.search&&destination.hash&& !link.classList.contains('logo'))return;
+ e.preventDefault();if(leaving)return;leaving=true;closeMenu();
+ const loaderPage=new URL('index.html',import.meta.url);
+ const returnsToLoader=Boolean(document.querySelector('#gallery'))&&destination.pathname===loaderPage.pathname&&destination.hash!=='#photos';
+ await fadeToWhite(returnsToLoader?'#000':'#fff');
+ if(restartsHome&&destination.href===location.href)location.reload();else location.assign(destination.href);
+});
 window.addEventListener('pageshow', () => { document.body.classList.remove('page-leaving');document.querySelectorAll('.home-blackout').forEach(overlay=>overlay.remove()); leaving = false; });
 
 const header=document.querySelector('.navigation');

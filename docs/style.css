@@ -119,8 +119,9 @@ a:hover>.roll-label>.roll-label-track,button:hover>.roll-label>.roll-label-track
 @media(max-width:700px){.session-page .session-content{padding-top:125px}.session-page .session-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:380px){.session-page .session-grid{grid-template-columns:1fr}}
 
-.home-blackout{position:fixed;inset:0;z-index:30000;background:#000;opacity:0;pointer-events:auto;transition:opacity .4s ease}
+.home-blackout{position:fixed;inset:0;z-index:30000;background:#fff;opacity:0;pointer-events:auto;transition:opacity .4s ease}
 .home-blackout.visible{opacity:1}
+.white-page-transition>.navigation{z-index:30001;pointer-events:none}
 @media(prefers-reduced-motion:reduce){.home-blackout{transition:none}}
 
 .session-cover{position:relative}
@@ -148,23 +149,24 @@ a:hover>.roll-label>.roll-label-track,button:hover>.roll-label>.roll-label-track
 @media(max-width:700px){.photo-viewer{padding:60px 44px}.photo-viewer-previous{left:0}.photo-viewer-next{right:0}}
 
 .photo-viewer{background:transparent;padding:60px 12vw;box-shadow:none}
-.photo-viewer::backdrop{background:rgba(0,0,0,.8)}
+.photo-viewer::backdrop{background:rgba(0,0,0,.92)}
 .photo-viewer-content{display:flex;align-items:center;justify-content:center;width:100%;height:100%;pointer-events:none}
 .photo-viewer-content>*{pointer-events:auto}
+.photo-viewer .photo-viewer-image{width:auto;height:auto;max-width:100%;max-height:100%;object-fit:contain}
+.photo-viewer button:focus-visible,.session-photo-open:focus-visible,.session-video .hover-video:focus-visible{outline:none}
 .photo-viewer-content img{max-width:100%;max-height:100%;object-fit:contain}
 .photo-viewer-content video{width:100%;height:100%;object-fit:contain}
 .photo-viewer-content iframe{width:100%;aspect-ratio:16/9;max-height:100%;border:0;background:#000}
 .photo-viewer-close{font:300 34px/1 Inter,sans-serif;z-index:4;padding:4px}
-.photo-viewer-previous,.photo-viewer-next{top:60px;bottom:60px;width:11vw;transform:none;padding:0;font-size:0;z-index:2}
+.photo-viewer-previous,.photo-viewer-next{top:0;bottom:0;width:11vw;transform:none;padding:0;font-size:36px;z-index:2;display:flex;align-items:center;justify-content:center}
 .photo-viewer-previous{left:0}.photo-viewer-next{right:0}
 .photo-viewer-dots{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);display:flex;gap:8px;align-items:center;justify-content:center;max-width:85vw;flex-wrap:wrap;z-index:4}
 .photo-viewer-dot{width:8px;height:8px;padding:0;border-radius:50%;background:#ffffff66;transition:background .2s}
 .photo-viewer-dot[aria-current=true]{background:#fff}
-.photo-viewer-arrow{position:fixed;transform:translate(-50%,-50%);font:400 42px/1 Inter,sans-serif;color:#fff;pointer-events:none;z-index:10001;opacity:0}
-.photo-viewer-arrow.visible{opacity:1}.photo-viewer.has-arrow .pointer-dot{opacity:0!important}
 @media(max-width:700px){.photo-viewer{padding:60px 10vw}.photo-viewer-previous,.photo-viewer-next{width:9vw}}
 
-.gallery-status[data-loading]{display:flex;justify-content:center;padding:24px}
+.category-content,.session-content{position:relative}
+.gallery-status[data-loading]{position:absolute;left:50%;transform:translateX(-50%);display:flex;justify-content:center;padding:24px;margin:0;pointer-events:none}
 .gallery-status[data-loading]::after{content:"";width:22px;height:22px;border:2px solid #0002;border-top-color:var(--ink);border-radius:50%;animation:gallery-spin .8s linear infinite}
 .session-cover:has(img:not([data-loaded]))::after,.session-grid figure:has(img:not([data-loaded]))::after{content:"";position:absolute;left:50%;top:50%;width:22px;height:22px;margin:-11px;border:2px solid #0002;border-top-color:var(--ink);border-radius:50%;animation:gallery-spin .8s linear infinite;pointer-events:none}
 .session-grid figure{position:relative}
@@ -175,3 +177,26 @@ a:hover>.roll-label>.roll-label-track,button:hover>.roll-label>.roll-label-track
 .placeholder-content{min-height:100svh;display:grid;place-items:center;padding:100px 28px}
 .placeholder-content h1{margin:0;text-align:center;font:400 48px/1.15 'Instrument Serif',serif}
 @media(max-width:700px){.placeholder-content h1{font-size:36px}}
+
+.reveal-media{opacity:0;transition:opacity .5s ease}
+*{scrollbar-width:none}
+*::-webkit-scrollbar{display:none;width:0;height:0}
+.direct-photos #hero,.direct-photos #page-loader{display:none!important}
+.reveal-media.is-ready{opacity:1}
+.film-spinner{position:absolute;left:50%;top:50%;width:24px;height:24px;margin:-12px;border:2px solid #0002;border-top-color:var(--ink);border-radius:50%;animation:gallery-spin .8s linear infinite,content-opacity-in .25s ease;opacity:1;transition:opacity .25s ease;pointer-events:none}
+.film-spinner.is-hidden{opacity:0}
+.photo-viewer-content .reveal-media{transition:none}
+.photo-viewer-content{position:relative}
+.photo-viewer-content::after{content:"";position:absolute;left:50%;top:50%;width:22px;height:22px;margin:-11px;border:2px solid #ffffff40;border-top-color:#fff;border-radius:50%;animation:gallery-spin .8s linear infinite;pointer-events:none;opacity:0;transition:opacity .25s ease}
+.photo-viewer-content:has(.reveal-media:not(.is-ready))::after{opacity:1}
+@starting-style{.session-cover::after,.session-grid figure::after,.photo-viewer-content::after{opacity:0}}
+.gallery-status[data-loading]{animation:content-opacity-in .25s ease both}
+.session-cover::after,.session-grid figure::after{content:"";position:absolute;left:50%;top:50%;width:22px;height:22px;margin:-11px;border:2px solid #0002;border-top-color:var(--ink);border-radius:50%;animation:gallery-spin .8s linear infinite;pointer-events:none;opacity:0;transition:opacity .25s ease}
+.session-cover:has(img:not([data-loaded]))::after,.session-grid figure:has(img:not([data-loaded]))::after{opacity:1}
+.session-cover:has(.hover-video .reveal-media:not(.is-ready))::after,.session-grid figure:has(.hover-video .reveal-media:not(.is-ready))::after{opacity:1}
+.media-card,.session-grid figure{animation:gallery-block-in .6s cubic-bezier(.22,.61,.36,1) both}
+.photo-viewer.is-opening{animation:content-opacity-in .35s ease both}
+.photo-viewer.is-opening::backdrop{animation:content-opacity-in .35s ease both}
+@keyframes content-opacity-in{from{opacity:0}to{opacity:1}}
+@keyframes gallery-block-in{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.reveal-media,.session-cover::after,.session-grid figure::after{transition:none}.media-card,.session-grid figure,.photo-viewer.is-opening,.photo-viewer.is-opening::backdrop,.gallery-status[data-loading]{animation:none}}

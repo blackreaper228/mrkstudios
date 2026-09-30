@@ -1,4 +1,5 @@
 (() => {
+ if(location.hash==='#photos'){document.documentElement.classList.add('direct-photos');document.querySelector('#page-loader')?.remove();return}
  const overlay=document.querySelector('#page-loader'),letters=[...overlay.querySelectorAll('.loader-letter')];
  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
  const target='mrk',symbols='abcdefghijklmnopqrstuvwxyz0123456789#$%&*+?';

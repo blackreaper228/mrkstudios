@@ -1,4 +1,6 @@
-import { halftonePhoto } from './halftone.js?v=20260930-diagonal-dots';
+import {revealMedia} from './loading-effects.js?v=20260930-1';
+import {fadeToWhite} from './page-transition.js?v=20260930-keep-navigation';
+import { halftonePhoto } from './halftone.js?v=20260930-loading';
 import { titleLayout } from './title-layout.js';
 import { loadPortfolio } from './content.js?v=20260930-gallery-links';
 const $=s=>document.querySelector(s);
@@ -11,7 +13,21 @@ let films=[
 ];
 const track=$('#film-track'),stage=$('#film-stage'),tilt=$('#film-tilt'),cursor=$('#custom-cursor'),titles=$('.titles');
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
-let index=0,busy=false,opened=false,pendingContent=null;
+let index=0,busy=false,opened=location.hash==='#photos',pendingContent=null;
+let navigating=false;
+stage.addEventListener('click',async event=>{
+ const link=event.target.closest('a.film');
+ if(!link||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
+ event.preventDefault();if(busy||navigating)return;navigating=true;busy=true;
+ cursor.classList.remove('active');
+ if(!reduce){
+  const animation=stage.animate([{transform:'scale(1)',opacity:1},{transform:'scale(1.22)',opacity:1,offset:.6},{transform:'scale(1.4)',opacity:0}],{duration:650,easing:'cubic-bezier(.4,0,.2,1)',fill:'forwards'});
+  await new Promise(resolve=>setTimeout(resolve,300));
+  await Promise.all([animation.finished,fadeToWhite()]);
+ }
+ location.assign(link.href);
+});
+window.addEventListener('pageshow',()=>{if(navigating){stage.getAnimations().forEach(animation=>animation.cancel());navigating=false;busy=false}});
 const wrap=n=>(n+films.length)%films.length;
 let tx=0,ty=0,rx=0,ry=0,mx=innerWidth/2,my=innerHeight/2,cx=mx,cy=my;
 const duration=reduce?0:950,easing='cubic-bezier(.76,0,.24,1)';
@@ -34,7 +50,17 @@ function change(direction){
   setTitles();renderTitles();busy=false;
  });
 }
-function makeFilm(n){const button=document.createElement('a'),image=document.createElement('img');button.className='film';button.href=films[n].href||['events.html','concerts.html','commercials.html','documentaries.html','food.html'][n];button.onclick=event=>{if(busy)event.preventDefault()};button.setAttribute('aria-label','View '+films[n].title);const source=films[n].src;image.src=source;image.classList.add('halftone-photo');halftonePhoto(source).then(url=>{image.src=url;image.dataset.effect='halftone'}).catch(error=>console.warn('Halftone unavailable for this image:',error));image.alt=films[n].title;image.width=1600;image.height=900;image.decoding='async';image.draggable=false;button.append(image);return button}
+function makeFilm(n){
+ const button=document.createElement('a'),image=document.createElement('img');
+ button.className='film';button.href=films[n].href||['events.html','concerts.html','commercials.html','documentaries.html','food.html'][n];button.onclick=event=>{if(busy)event.preventDefault()};button.setAttribute('aria-label','View '+films[n].title);
+ const spinner=document.createElement('span');spinner.className='film-spinner';spinner.setAttribute('role','status');spinner.setAttribute('aria-label','Loading photograph');button.setAttribute('aria-busy','true');
+ image.classList.add('halftone-photo');image.alt=films[n].title;image.width=1600;image.height=900;image.decoding='async';image.draggable=false;
+ revealMedia(image);button.append(image,spinner);
+ const finish=()=>{button.setAttribute('aria-busy','false');spinner.classList.add('is-hidden')};
+ image.addEventListener('load',async()=>{try{await image.decode()}catch{}finish()},{once:true});image.addEventListener('error',finish,{once:true});
+ halftonePhoto(films[n].src).then(url=>{image.dataset.effect='halftone';image.src=url}).catch(error=>{console.warn('Halftone unavailable for this image:',error);image.src=films[n].src});
+ return button;
+}
 $('#previous').onclick=()=>change(-1);$('#next').onclick=()=>change(1);
 document.addEventListener('keydown',e=>{if(!opened)return;if(e.key==='ArrowLeft'){e.preventDefault();change(-1)}if(e.key==='ArrowRight'){e.preventDefault();change(1)}});
 function cursorMode(kind,label){if(!fine)return;cursor.className='custom-cursor active '+kind;$('.cursor-label').textContent=label}

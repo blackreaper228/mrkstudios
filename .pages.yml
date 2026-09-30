@@ -1,415 +1,692 @@
 media:
   input: docs/uploads
   output: /mrkstudios/uploads
-  extensions: [jpg, jpeg, png, webp, avif]
+  extensions:
+  - jpg
+  - jpeg
+  - png
+  - webp
+  - avif
   rename: safe
 content:
-  - name: navigation
-    label: Меню и названия разделов
-    type: file
-    path: docs/content/menu.json
+- name: navigation
+  label: Navigation and page names
+  type: file
+  path: docs/content/menu.json
+  fields:
+  - name: items
+    label: Menu items
+    type: object
+    list: true
     fields:
-      - name: items
-        label: Пункты меню
-        type: object
+    - name: page
+      label: Page
+      type: select
+      required: true
+      options:
+        values:
+        - events
+        - concerts
+        - commercials
+        - documentaries
+        - food
+        - gear-rental
+        - team
+    - name: label
+      label: Menu and page title
+      type: string
+      required: true
+    - name: secondary
+      label: Secondary menu group
+      type: boolean
+      default: false
+- name: portfolio
+  label: Homepage — photos, titles and links
+  type: file
+  path: docs/content/portfolio.json
+  fields:
+  - name: slide1
+    label: Photo 1
+    type: object
+    required: true
+    fields:
+    - name: title
+      label: Title
+      type: string
+      required: true
+      options:
+        minlength: 1
+        maxlength: 80
+    - name: image
+      label: Photo
+      type: image
+      required: true
+      description: 'Upload JPG, PNG, WebP or AVIF. Recommended size: 1600 × 900 pixels.'
+    - name: link
+      label: Gallery link
+      type: string
+      description: 'For example: events.html or session.html?category=events&work=2. Both the photo and its title
+        use this link.'
+  - name: slide2
+    label: Photo 2
+    type: object
+    required: true
+    fields:
+    - name: title
+      label: Title
+      type: string
+      required: true
+      options:
+        minlength: 1
+        maxlength: 80
+    - name: image
+      label: Photo
+      type: image
+      required: true
+      description: 'Upload JPG, PNG, WebP or AVIF. Recommended size: 1600 × 900 pixels.'
+    - name: link
+      label: Gallery link
+      type: string
+      description: 'For example: events.html or session.html?category=events&work=2. Both the photo and its title
+        use this link.'
+  - name: slide3
+    label: Photo 3
+    type: object
+    required: true
+    fields:
+    - name: title
+      label: Title
+      type: string
+      required: true
+      options:
+        minlength: 1
+        maxlength: 80
+    - name: image
+      label: Photo
+      type: image
+      required: true
+      description: 'Upload JPG, PNG, WebP or AVIF. Recommended size: 1600 × 900 pixels.'
+    - name: link
+      label: Gallery link
+      type: string
+      description: 'For example: events.html or session.html?category=events&work=2. Both the photo and its title
+        use this link.'
+  - name: slide4
+    label: Photo 4
+    type: object
+    required: true
+    fields:
+    - name: title
+      label: Title
+      type: string
+      required: true
+      options:
+        minlength: 1
+        maxlength: 80
+    - name: image
+      label: Photo
+      type: image
+      required: true
+      description: 'Upload JPG, PNG, WebP or AVIF. Recommended size: 1600 × 900 pixels.'
+    - name: link
+      label: Gallery link
+      type: string
+      description: 'For example: events.html or session.html?category=events&work=2. Both the photo and its title
+        use this link.'
+  - name: slide5
+    label: Photo 5
+    type: object
+    required: true
+    fields:
+    - name: title
+      label: Title
+      type: string
+      required: true
+      options:
+        minlength: 1
+        maxlength: 80
+    - name: image
+      label: Photo
+      type: image
+      required: true
+      description: 'Upload JPG, PNG, WebP or AVIF. Recommended size: 1600 × 900 pixels.'
+    - name: link
+      label: Gallery link
+      type: string
+      description: 'For example: events.html or session.html?category=events&work=2. Both the photo and its title
+        use this link.'
+- name: events
+  label: Events
+  type: file
+  path: docs/content/galleries/events.json
+  fields:
+  - name: items
+    label: Photoshoots
+    type: block
+    list: true
+    blockKey: type
+    blocks:
+    - name: image
+      label: Image
+      fields:
+      - name: title
+        label: Photoshoot title
+        type: string
+        required: true
+      - name: image
+        label: Photo / video poster
+        type: image
+      - name: slug
+        label: Photoshoot URL ID
+        type: string
+        description: Optional unique URL ID within this category, e.g. summer-2026. Used as work=summer-2026 in
+          the photoshoot link. Leave empty to use the item number. Keep unchanged after sharing the link.
+      - name: description
+        label: Photoshoot description
+        type: text
+      - name: session
+        label: Photoshoot media — add, remove and reorder
+        type: block
         list: true
-        fields:
-          - name: page
-            label: Страница
-            type: select
-            required: true
-            options:
-              values: [events, concerts, commercials, documentaries, food, gear-rental, team]
-          - name: label
-            label: Название в меню и на странице
-            type: string
-            required: true
-          - name: secondary
-            label: Дополнительная группа с отступом
-            type: boolean
-            default: false
-  - name: portfolio
-    label: Главная — тильт-фотографии, заголовки и ссылки
-    type: file
-    path: docs/content/portfolio.json
-    fields:
-      - name: slide1
-        label: Фотография 1
-        type: object
-        required: true
-        fields:
+        blockKey: type
+        blocks:
+        - name: image
+          label: Image
+          fields:
           - name: title
-            label: Заголовок
+            label: Caption / description
             type: string
-            required: true
-            options:
-              minlength: 1
-              maxlength: 80
           - name: image
-            label: Фотография
+            label: Photo / poster
             type: image
-            required: true
-            description: Загрузите JPG, PNG, WebP или AVIF. Рекомендуемый размер — 1600 × 900 пикселей.
-          - name: link
-            label: Ссылка на галерею
-            type: string
-            description: Например events.html или session.html?category=events&work=2. Эта ссылка используется фотографией и её заголовком.
-
-      - name: slide2
-        label: Фотография 2
-        type: object
-        required: true
-        fields:
+        - name: video
+          label: Video
+          fields:
           - name: title
-            label: Заголовок
+            label: Caption / description
             type: string
-            required: true
-            options:
-              minlength: 1
-              maxlength: 80
           - name: image
-            label: Фотография
-            type: image
-            required: true
-            description: Загрузите JPG, PNG, WebP или AVIF. Рекомендуемый размер — 1600 × 900 пикселей.
-          - name: link
-            label: Ссылка на галерею
-            type: string
-            description: Например events.html или session.html?category=events&work=2. Эта ссылка используется фотографией и её заголовком.
-
-      - name: slide3
-        label: Фотография 3
-        type: object
-        required: true
-        fields:
-          - name: title
-            label: Заголовок
-            type: string
-            required: true
-            options:
-              minlength: 1
-              maxlength: 80
-          - name: image
-            label: Фотография
-            type: image
-            required: true
-            description: Загрузите JPG, PNG, WebP или AVIF. Рекомендуемый размер — 1600 × 900 пикселей.
-          - name: link
-            label: Ссылка на галерею
-            type: string
-            description: Например events.html или session.html?category=events&work=2. Эта ссылка используется фотографией и её заголовком.
-
-      - name: slide4
-        label: Фотография 4
-        type: object
-        required: true
-        fields:
-          - name: title
-            label: Заголовок
-            type: string
-            required: true
-            options:
-              minlength: 1
-              maxlength: 80
-          - name: image
-            label: Фотография
-            type: image
-            required: true
-            description: Загрузите JPG, PNG, WebP или AVIF. Рекомендуемый размер — 1600 × 900 пикселей.
-          - name: link
-            label: Ссылка на галерею
-            type: string
-            description: Например events.html или session.html?category=events&work=2. Эта ссылка используется фотографией и её заголовком.
-
-      - name: slide5
-        label: Фотография 5
-        type: object
-        required: true
-        fields:
-          - name: title
-            label: Заголовок
-            type: string
-            required: true
-            options:
-              minlength: 1
-              maxlength: 80
-          - name: image
-            label: Фотография
-            type: image
-            required: true
-            description: Загрузите JPG, PNG, WebP или AVIF. Рекомендуемый размер — 1600 × 900 пикселей.
-          - name: link
-            label: Ссылка на галерею
-            type: string
-            description: Например events.html или session.html?category=events&work=2. Эта ссылка используется фотографией и её заголовком.
-
-  - name: events
-    label: Events
-    type: file
-    path: docs/content/galleries/events.json
-    fields:
-      - name: items
-        label: Фотосессии
-        type: object
-        list: true
-        fields:
-          - name: title
-            label: Название карточки / фотосессии
-            type: string
-            required: true
-          - name: type
-            label: Тип обложки
-            type: select
-            required: true
-            default: image
-            options:
-              values: [image, video]
-          - name: image
-            label: Фотография или обложка видео
+            label: Photo / poster
             type: image
           - name: video
-            label: Ссылка на видео
+            label: Video URL
             type: string
-          - name: slug
-            label: Адрес фотосессии
-            type: string
-            description: Уникальное постоянное имя внутри раздела, например summer-2026. Не меняйте после публикации ссылки.
-          - name: description
-            label: Описание фотосессии
-            type: text
-          - name: session
-            label: Контент фотосессии — добавление, удаление и порядок
-            type: object
-            list: true
-            fields:
-              - name: title
-                label: Подпись / описание
-                type: string
-              - name: type
-                label: Тип
-                type: select
-                default: image
-                options:
-                  values: [image, video]
-              - name: image
-                label: Фотография / обложка
-                type: image
-              - name: video
-                label: Ссылка на видео
-                type: string
-  - name: concerts
-    label: Concerts
-    type: file
-    path: docs/content/galleries/concerts.json
-    fields:
-      - name: items
-        label: Фотосессии
-        type: object
+            description: Paste a Vimeo URL, including the privacy token for an unlisted video.
+    - name: video
+      label: Video
+      fields:
+      - name: title
+        label: Photoshoot title
+        type: string
+        required: true
+      - name: image
+        label: Photo / video poster
+        type: image
+      - name: video
+        label: Video URL
+        type: string
+        description: Paste a Vimeo URL, including the privacy token for an unlisted video.
+      - name: slug
+        label: Photoshoot URL ID
+        type: string
+        description: Optional unique URL ID within this category, e.g. summer-2026. Used as work=summer-2026 in
+          the photoshoot link. Leave empty to use the item number. Keep unchanged after sharing the link.
+      - name: description
+        label: Photoshoot description
+        type: text
+      - name: session
+        label: Photoshoot media — add, remove and reorder
+        type: block
         list: true
-        fields:
+        blockKey: type
+        blocks:
+        - name: image
+          label: Image
+          fields:
           - name: title
-            label: Название карточки / фотосессии
+            label: Caption / description
             type: string
-            required: true
-          - name: type
-            label: Тип обложки
-            type: select
-            required: true
-            default: image
-            options:
-              values: [image, video]
           - name: image
-            label: Фотография или обложка видео
+            label: Photo / poster
+            type: image
+        - name: video
+          label: Video
+          fields:
+          - name: title
+            label: Caption / description
+            type: string
+          - name: image
+            label: Photo / poster
             type: image
           - name: video
-            label: Ссылка на видео
+            label: Video URL
             type: string
-          - name: slug
-            label: Адрес фотосессии
-            type: string
-            description: Уникальное постоянное имя внутри раздела, например summer-2026. Не меняйте после публикации ссылки.
-          - name: description
-            label: Описание фотосессии
-            type: text
-          - name: session
-            label: Контент фотосессии — добавление, удаление и порядок
-            type: object
-            list: true
-            fields:
-              - name: title
-                label: Подпись / описание
-                type: string
-              - name: type
-                label: Тип
-                type: select
-                default: image
-                options:
-                  values: [image, video]
-              - name: image
-                label: Фотография / обложка
-                type: image
-              - name: video
-                label: Ссылка на видео
-                type: string
-  - name: commercials
-    label: Commercials
-    type: file
-    path: docs/content/galleries/commercials.json
-    fields:
-      - name: items
-        label: Фотосессии
-        type: object
+            description: Paste a Vimeo URL, including the privacy token for an unlisted video.
+- name: concerts
+  label: Concerts
+  type: file
+  path: docs/content/galleries/concerts.json
+  fields:
+  - name: items
+    label: Photoshoots
+    type: block
+    list: true
+    blockKey: type
+    blocks:
+    - name: image
+      label: Image
+      fields:
+      - name: title
+        label: Photoshoot title
+        type: string
+        required: true
+      - name: image
+        label: Photo / video poster
+        type: image
+      - name: slug
+        label: Photoshoot URL ID
+        type: string
+        description: Optional unique URL ID within this category, e.g. summer-2026. Used as work=summer-2026 in
+          the photoshoot link. Leave empty to use the item number. Keep unchanged after sharing the link.
+      - name: description
+        label: Photoshoot description
+        type: text
+      - name: session
+        label: Photoshoot media — add, remove and reorder
+        type: block
         list: true
-        fields:
+        blockKey: type
+        blocks:
+        - name: image
+          label: Image
+          fields:
           - name: title
-            label: Название карточки / фотосессии
+            label: Caption / description
             type: string
-            required: true
-          - name: type
-            label: Тип обложки
-            type: select
-            required: true
-            default: image
-            options:
-              values: [image, video]
           - name: image
-            label: Фотография или обложка видео
+            label: Photo / poster
+            type: image
+        - name: video
+          label: Video
+          fields:
+          - name: title
+            label: Caption / description
+            type: string
+          - name: image
+            label: Photo / poster
             type: image
           - name: video
-            label: Ссылка на видео
+            label: Video URL
             type: string
-          - name: slug
-            label: Адрес фотосессии
-            type: string
-            description: Уникальное постоянное имя внутри раздела, например summer-2026. Не меняйте после публикации ссылки.
-          - name: description
-            label: Описание фотосессии
-            type: text
-          - name: session
-            label: Контент фотосессии — добавление, удаление и порядок
-            type: object
-            list: true
-            fields:
-              - name: title
-                label: Подпись / описание
-                type: string
-              - name: type
-                label: Тип
-                type: select
-                default: image
-                options:
-                  values: [image, video]
-              - name: image
-                label: Фотография / обложка
-                type: image
-              - name: video
-                label: Ссылка на видео
-                type: string
-  - name: documentaries
-    label: Documentaries
-    type: file
-    path: docs/content/galleries/documentaries.json
-    fields:
-      - name: items
-        label: Фотосессии
-        type: object
+            description: Paste a Vimeo URL, including the privacy token for an unlisted video.
+    - name: video
+      label: Video
+      fields:
+      - name: title
+        label: Photoshoot title
+        type: string
+        required: true
+      - name: image
+        label: Photo / video poster
+        type: image
+      - name: video
+        label: Video URL
+        type: string
+        description: Paste a Vimeo URL, including the privacy token for an unlisted video.
+      - name: slug
+        label: Photoshoot URL ID
+        type: string
+        description: Optional unique URL ID within this category, e.g. summer-2026. Used as work=summer-2026 in
+          the photoshoot link. Leave empty to use the item number. Keep unchanged after sharing the link.
+      - name: description
+        label: Photoshoot description
+        type: text
+      - name: session
+        label: Photoshoot media — add, remove and reorder
+        type: block
         list: true
-        fields:
+        blockKey: type
+        blocks:
+        - name: image
+          label: Image
+          fields:
           - name: title
-            label: Название карточки / фотосессии
+            label: Caption / description
             type: string
-            required: true
-          - name: type
-            label: Тип обложки
-            type: select
-            required: true
-            default: image
-            options:
-              values: [image, video]
           - name: image
-            label: Фотография или обложка видео
+            label: Photo / poster
+            type: image
+        - name: video
+          label: Video
+          fields:
+          - name: title
+            label: Caption / description
+            type: string
+          - name: image
+            label: Photo / poster
             type: image
           - name: video
-            label: Ссылка на видео
+            label: Video URL
             type: string
-          - name: slug
-            label: Адрес фотосессии
-            type: string
-            description: Уникальное постоянное имя внутри раздела, например summer-2026. Не меняйте после публикации ссылки.
-          - name: description
-            label: Описание фотосессии
-            type: text
-          - name: session
-            label: Контент фотосессии — добавление, удаление и порядок
-            type: object
-            list: true
-            fields:
-              - name: title
-                label: Подпись / описание
-                type: string
-              - name: type
-                label: Тип
-                type: select
-                default: image
-                options:
-                  values: [image, video]
-              - name: image
-                label: Фотография / обложка
-                type: image
-              - name: video
-                label: Ссылка на видео
-                type: string
-  - name: food
-    label: Food
-    type: file
-    path: docs/content/galleries/food.json
-    fields:
-      - name: items
-        label: Фотосессии
-        type: object
+            description: Paste a Vimeo URL, including the privacy token for an unlisted video.
+- name: commercials
+  label: Commercials
+  type: file
+  path: docs/content/galleries/commercials.json
+  fields:
+  - name: items
+    label: Photoshoots
+    type: block
+    list: true
+    blockKey: type
+    blocks:
+    - name: image
+      label: Image
+      fields:
+      - name: title
+        label: Photoshoot title
+        type: string
+        required: true
+      - name: image
+        label: Photo / video poster
+        type: image
+      - name: slug
+        label: Photoshoot URL ID
+        type: string
+        description: Optional unique URL ID within this category, e.g. summer-2026. Used as work=summer-2026 in
+          the photoshoot link. Leave empty to use the item number. Keep unchanged after sharing the link.
+      - name: description
+        label: Photoshoot description
+        type: text
+      - name: session
+        label: Photoshoot media — add, remove and reorder
+        type: block
         list: true
-        fields:
+        blockKey: type
+        blocks:
+        - name: image
+          label: Image
+          fields:
           - name: title
-            label: Название карточки / фотосессии
+            label: Caption / description
             type: string
-            required: true
-          - name: type
-            label: Тип обложки
-            type: select
-            required: true
-            default: image
-            options:
-              values: [image, video]
           - name: image
-            label: Фотография или обложка видео
+            label: Photo / poster
+            type: image
+        - name: video
+          label: Video
+          fields:
+          - name: title
+            label: Caption / description
+            type: string
+          - name: image
+            label: Photo / poster
             type: image
           - name: video
-            label: Ссылка на видео
+            label: Video URL
             type: string
-          - name: slug
-            label: Адрес фотосессии
+            description: Paste a Vimeo URL, including the privacy token for an unlisted video.
+    - name: video
+      label: Video
+      fields:
+      - name: title
+        label: Photoshoot title
+        type: string
+        required: true
+      - name: image
+        label: Photo / video poster
+        type: image
+      - name: video
+        label: Video URL
+        type: string
+        description: Paste a Vimeo URL, including the privacy token for an unlisted video.
+      - name: slug
+        label: Photoshoot URL ID
+        type: string
+        description: Optional unique URL ID within this category, e.g. summer-2026. Used as work=summer-2026 in
+          the photoshoot link. Leave empty to use the item number. Keep unchanged after sharing the link.
+      - name: description
+        label: Photoshoot description
+        type: text
+      - name: session
+        label: Photoshoot media — add, remove and reorder
+        type: block
+        list: true
+        blockKey: type
+        blocks:
+        - name: image
+          label: Image
+          fields:
+          - name: title
+            label: Caption / description
             type: string
-            description: Уникальное постоянное имя внутри раздела, например summer-2026. Не меняйте после публикации ссылки.
-          - name: description
-            label: Описание фотосессии
-            type: text
-          - name: session
-            label: Контент фотосессии — добавление, удаление и порядок
-            type: object
-            list: true
-            fields:
-              - name: title
-                label: Подпись / описание
-                type: string
-              - name: type
-                label: Тип
-                type: select
-                default: image
-                options:
-                  values: [image, video]
-              - name: image
-                label: Фотография / обложка
-                type: image
-              - name: video
-                label: Ссылка на видео
-                type: string
+          - name: image
+            label: Photo / poster
+            type: image
+        - name: video
+          label: Video
+          fields:
+          - name: title
+            label: Caption / description
+            type: string
+          - name: image
+            label: Photo / poster
+            type: image
+          - name: video
+            label: Video URL
+            type: string
+            description: Paste a Vimeo URL, including the privacy token for an unlisted video.
+- name: documentaries
+  label: Documentaries
+  type: file
+  path: docs/content/galleries/documentaries.json
+  fields:
+  - name: items
+    label: Photoshoots
+    type: block
+    list: true
+    blockKey: type
+    blocks:
+    - name: image
+      label: Image
+      fields:
+      - name: title
+        label: Photoshoot title
+        type: string
+        required: true
+      - name: image
+        label: Photo / video poster
+        type: image
+      - name: slug
+        label: Photoshoot URL ID
+        type: string
+        description: Optional unique URL ID within this category, e.g. summer-2026. Used as work=summer-2026 in
+          the photoshoot link. Leave empty to use the item number. Keep unchanged after sharing the link.
+      - name: description
+        label: Photoshoot description
+        type: text
+      - name: session
+        label: Photoshoot media — add, remove and reorder
+        type: block
+        list: true
+        blockKey: type
+        blocks:
+        - name: image
+          label: Image
+          fields:
+          - name: title
+            label: Caption / description
+            type: string
+          - name: image
+            label: Photo / poster
+            type: image
+        - name: video
+          label: Video
+          fields:
+          - name: title
+            label: Caption / description
+            type: string
+          - name: image
+            label: Photo / poster
+            type: image
+          - name: video
+            label: Video URL
+            type: string
+            description: Paste a Vimeo URL, including the privacy token for an unlisted video.
+    - name: video
+      label: Video
+      fields:
+      - name: title
+        label: Photoshoot title
+        type: string
+        required: true
+      - name: image
+        label: Photo / video poster
+        type: image
+      - name: video
+        label: Video URL
+        type: string
+        description: Paste a Vimeo URL, including the privacy token for an unlisted video.
+      - name: slug
+        label: Photoshoot URL ID
+        type: string
+        description: Optional unique URL ID within this category, e.g. summer-2026. Used as work=summer-2026 in
+          the photoshoot link. Leave empty to use the item number. Keep unchanged after sharing the link.
+      - name: description
+        label: Photoshoot description
+        type: text
+      - name: session
+        label: Photoshoot media — add, remove and reorder
+        type: block
+        list: true
+        blockKey: type
+        blocks:
+        - name: image
+          label: Image
+          fields:
+          - name: title
+            label: Caption / description
+            type: string
+          - name: image
+            label: Photo / poster
+            type: image
+        - name: video
+          label: Video
+          fields:
+          - name: title
+            label: Caption / description
+            type: string
+          - name: image
+            label: Photo / poster
+            type: image
+          - name: video
+            label: Video URL
+            type: string
+            description: Paste a Vimeo URL, including the privacy token for an unlisted video.
+- name: food
+  label: Food
+  type: file
+  path: docs/content/galleries/food.json
+  fields:
+  - name: items
+    label: Photoshoots
+    type: block
+    list: true
+    blockKey: type
+    blocks:
+    - name: image
+      label: Image
+      fields:
+      - name: title
+        label: Photoshoot title
+        type: string
+        required: true
+      - name: image
+        label: Photo / video poster
+        type: image
+      - name: slug
+        label: Photoshoot URL ID
+        type: string
+        description: Optional unique URL ID within this category, e.g. summer-2026. Used as work=summer-2026 in
+          the photoshoot link. Leave empty to use the item number. Keep unchanged after sharing the link.
+      - name: description
+        label: Photoshoot description
+        type: text
+      - name: session
+        label: Photoshoot media — add, remove and reorder
+        type: block
+        list: true
+        blockKey: type
+        blocks:
+        - name: image
+          label: Image
+          fields:
+          - name: title
+            label: Caption / description
+            type: string
+          - name: image
+            label: Photo / poster
+            type: image
+        - name: video
+          label: Video
+          fields:
+          - name: title
+            label: Caption / description
+            type: string
+          - name: image
+            label: Photo / poster
+            type: image
+          - name: video
+            label: Video URL
+            type: string
+            description: Paste a Vimeo URL, including the privacy token for an unlisted video.
+    - name: video
+      label: Video
+      fields:
+      - name: title
+        label: Photoshoot title
+        type: string
+        required: true
+      - name: image
+        label: Photo / video poster
+        type: image
+      - name: video
+        label: Video URL
+        type: string
+        description: Paste a Vimeo URL, including the privacy token for an unlisted video.
+      - name: slug
+        label: Photoshoot URL ID
+        type: string
+        description: Optional unique URL ID within this category, e.g. summer-2026. Used as work=summer-2026 in
+          the photoshoot link. Leave empty to use the item number. Keep unchanged after sharing the link.
+      - name: description
+        label: Photoshoot description
+        type: text
+      - name: session
+        label: Photoshoot media — add, remove and reorder
+        type: block
+        list: true
+        blockKey: type
+        blocks:
+        - name: image
+          label: Image
+          fields:
+          - name: title
+            label: Caption / description
+            type: string
+          - name: image
+            label: Photo / poster
+            type: image
+        - name: video
+          label: Video
+          fields:
+          - name: title
+            label: Caption / description
+            type: string
+          - name: image
+            label: Photo / poster
+            type: image
+          - name: video
+            label: Video URL
+            type: string
+            description: Paste a Vimeo URL, including the privacy token for an unlisted video.

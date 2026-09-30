@@ -1,5 +1,6 @@
+import {finishLoading} from './loading-effects.js?v=20260930-1';
 import {categories,parseMedia} from './media.js';
-import {mediaElement} from './media-element.js?v=20260930-spinner';
+import {mediaElement} from './media-element.js?v=20260930-reveal';
 import {sessionURL} from './session-link.js';
 const grid=document.querySelector('.media-grid'),status=document.querySelector('.gallery-status');
 async function load(){
@@ -9,7 +10,7 @@ async function load(){
   const response=await fetch(new URL(`content/galleries/${category}.json`,import.meta.url),{cache:'no-cache'});
   if(!response.ok)throw new Error('Gallery unavailable');
   const data=await response.json();if(!Array.isArray(data.items))throw new Error('Invalid gallery');
-  let invalid=0;
+  let invalid=0;const cards=document.createDocumentFragment();
   data.items.forEach((record,index)=>{
    let item;try{item=parseMedia(record,import.meta.url)}catch{invalid++;return}
    const card=document.createElement('article');card.className='media-card';
@@ -19,9 +20,10 @@ async function load(){
    label.className='roll-label';text.className='roll-label-track';copy.className='roll-label-copy';copy.setAttribute('aria-hidden','true');
    text.append(document.createTextNode(item.title));copy.textContent=item.title;text.append(copy);label.append(text);title.append(label);
    const cover=document.createElement('div');cover.className='session-cover';cover.append(mediaElement(item,true));
-   link.append(title,cover);card.append(link);grid.append(card);
+   link.append(title,cover);card.append(link);cards.append(card);
   });
-  status.textContent=invalid?'Some works are unavailable.':grid.children.length?'':'New work coming soon.';status.hidden=!status.textContent;
- }catch(error){status.textContent='Unable to load this gallery. Please try again.';console.warn(error)}finally{status.removeAttribute('data-loading')}
+  await finishLoading(status,invalid?'Some works are unavailable.':cards.children.length?'':'New work coming soon.');
+  grid.append(cards);
+ }catch(error){await finishLoading(status,'Unable to load this gallery. Please try again.');console.warn(error)}finally{status.removeAttribute('data-loading')}
 }
 load();

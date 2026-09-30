@@ -1,3 +1,4 @@
+import {revealMedia} from './loading-effects.js?v=20260930-1';
 let vimeoSDK;
 function loadVimeo(){
  if(!vimeoSDK)vimeoSDK=new Promise((resolve,reject)=>{
@@ -21,7 +22,7 @@ export function videoHover(item,preview){
   if(url.hostname==='player.vimeo.com')ready=loadVimeo().then(async Player=>{const player=new Player(media);await player.ready();await player.setMuted(true);wrapper.dataset.playerReady='true';return{play:()=>player.play(),pause:()=>player.pause(),reset:()=>player.setCurrentTime(0)}});
   else ready=Promise.resolve({play:()=>media.contentWindow.postMessage(JSON.stringify({event:'command',func:'playVideo',args:[]}),'https://www.youtube-nocookie.com'),pause:()=>media.contentWindow.postMessage(JSON.stringify({event:'command',func:'pauseVideo',args:[]}),'https://www.youtube-nocookie.com'),reset:()=>media.contentWindow.postMessage(JSON.stringify({event:'command',func:'seekTo',args:[0,true]}),'https://www.youtube-nocookie.com')});
  }
- media.tabIndex=-1;wrapper.append(media);
+ media.tabIndex=-1;revealMedia(media);wrapper.append(media);
  const shade=document.createElement('span');shade.className='hover-video-shade';shade.setAttribute('aria-hidden','true');wrapper.append(shade);
  const play=document.createElement('span');play.className='hover-video-play';play.setAttribute('aria-hidden','true');wrapper.append(play);
  let wanted=false,running=false,revision=0,hasPlayed=false;

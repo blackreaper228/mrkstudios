@@ -15,8 +15,8 @@ function openGallery(){if(mode!=='hero'||(!modelReady&&renderer))return;mode='en
 function showGallery(){mode='gallery';document.body.classList.add('gallery-open');hero.hidden=true;gallery.hidden=false;requestAnimationFrame(()=>{gallery.classList.add('visible');$('#gallery-title').focus({preventScroll:true})});window.scrollTo(0,0);document.dispatchEvent(new Event('films:open'))}
 function back(){if(mode==='hero')return;mode='hero';document.dispatchEvent(new Event('films:close'));document.body.classList.remove('gallery-open');progress=0;gallery.classList.remove('visible');gallery.hidden=true;hero.hidden=false;hero.classList.remove('entering');canvas.style.opacity='1';targetX=targetY=0;if(tv){tv.rotation.set(0,0,0);tv.position.set(0,0,0);for(const bone of [neckBone,headBone,torsoBone])bone?.quaternion.identity()};introProgress=reduced?1:0;hero.animate([{opacity:0},{opacity:1}],{duration:reduced?0:420,easing:'ease-out'});window.scrollTo(0,0);if(camera)camera.position.set(0,0,homeDistance);resize();canvas.focus({preventScroll:true})}
 $('#fallback-open').onclick=openGallery;
-document.addEventListener('home:return',back);
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&mode==='gallery'&&!document.querySelector('dialog[open]'))back()});
+document.addEventListener('home:return',showGallery);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&location.hash!=='#photos'&&mode==='gallery'&&!document.querySelector('dialog[open]'))back()});
 canvas.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openGallery()}};
 async function loadTelevision(){
  const loader=new GLTFLoader();
@@ -94,4 +94,5 @@ function init(){
 function resize(){if(!renderer||hero.hidden)return;const r=canvas.parentElement.getBoundingClientRect();renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;homeDistance=Math.max(9,2.45/(2*Math.tan(THREE.MathUtils.degToRad(37/2))*camera.aspect),2.5/(2*Math.tan(THREE.MathUtils.degToRad(37/2))));camera.updateProjectionMatrix()}
 function animate(now){raf=requestAnimationFrame(animate);const dt=Math.min((now-last)/1000,.05);last=now;if(mode==='gallery'||document.hidden||!renderer)return;if(mode==='hero'){followCursor(dt);tv.rotation.set(0,0,0);tv.position.set(0,0,0);tv.scale.setScalar(characterScale);introProgress=Math.min(1,introProgress+dt/.6);const introEase=1-Math.pow(1-introProgress,3);camera.position.set(0,0,homeDistance*(.90+.10*introEase));camera.lookAt(0,0,0)}else{progress+=dt/1.15;const t=Math.min(progress,1),ease=t*t*t;followCursor(dt,true);const focusY=screenFocus.y*characterScale*ease;camera.position.set(0,focusY,homeDistance-(homeDistance-(screenFocus.z*characterScale+.7))*ease);camera.lookAt(0,focusY,0);canvas.style.opacity=String(1-Math.max(0,(t-.7)/.3));if(t>=1){showGallery();canvas.style.opacity='1'}}if(modelReady&&!reduced){bounce.x+=bounce.vx*dt;bounce.y+=bounce.vy*dt;if(Math.abs(bounce.x)>=bounce.limitX){bounce.x=THREE.MathUtils.clamp(bounce.x,-bounce.limitX,bounce.limitX);bounce.vx*=-1}if(Math.abs(bounce.y)>=bounce.limitY){bounce.y=THREE.MathUtils.clamp(bounce.y,-bounce.limitY,bounce.limitY);bounce.vy*=-1}updateScreen()}renderer.render(scene,camera)}
 window.addEventListener('resize',resize);
-try{init()}catch(error){console.error(error);canvas.hidden=true;$('#fallback').hidden=false;window.mrkLoader?.complete()}
+if(location.hash==='#photos')showGallery();
+else try{init()}catch(error){console.error(error);canvas.hidden=true;$('#fallback').hidden=false;window.mrkLoader?.complete()}
