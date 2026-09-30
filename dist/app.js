@@ -45,7 +45,7 @@ async function loadTelevision(){
  const screenBounds=new THREE.Box3().setFromObject(screen);screenBounds.getCenter(screenFocus);tv.worldToLocal(screenFocus);
  screenContext=screenCanvas.getContext('2d');screenTexture=new THREE.CanvasTexture(screenCanvas);screenTexture.colorSpace=THREE.SRGBColorSpace;
  screen.material=new THREE.MeshBasicMaterial({map:screenTexture,side:THREE.DoubleSide,toneMapped:false});
- createLogoArtwork();document.fonts.load('96px "Instrument Serif"').then(()=>{createLogoArtwork();updateScreen()});
+ await document.fonts.load('96px "Instrument Serif"');createLogoArtwork();
  updateScreen();
  await renderer.compileAsync(scene,camera);renderer.render(scene,camera);
  modelReady=true;canvas.dataset.model='tv-person-neck-rig';
