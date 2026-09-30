@@ -18,7 +18,7 @@
    assemblyStart=performance.now();
    if(!reduced)await wait(700);
    clearInterval(timer);letters.forEach((letter,index)=>letter.textContent=target[index]);
-   await wait(2000);
+   await wait(500);
    const hero=document.querySelector('#hero');
    // Await the compositor animation itself, rather than removing on a timer.
    if(!reduced){

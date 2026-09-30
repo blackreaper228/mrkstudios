@@ -21,8 +21,9 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&location.hash!=='#p
 canvas.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openGallery()}};
 async function loadTelevision(){
  const loader=new GLTFLoader();
+ const artworkReady=createLogoArtwork();
  const [person,television]=await Promise.all([
-  loader.loadAsync(new URL(mobile?'assets/person-rig-mobile.glb':'assets/person-rig-web.glb',import.meta.url).href),
+  loader.loadAsync(new URL('assets/person-rig-lod.glb?v=intact-geometry',import.meta.url).href),
   loader.loadAsync(new URL('assets/old_tv.glb',import.meta.url).href)
  ]);
  const body=person.scene,model=television.scene;televisionModel=model;
@@ -46,7 +47,7 @@ async function loadTelevision(){
  const screenBounds=new THREE.Box3().setFromObject(screen);screenBounds.getCenter(screenFocus);tv.worldToLocal(screenFocus);
  screenContext=screenCanvas.getContext('2d');screenTexture=new THREE.CanvasTexture(screenCanvas);screenTexture.colorSpace=THREE.SRGBColorSpace;
  screen.material=new THREE.MeshBasicMaterial({map:screenTexture,side:THREE.DoubleSide,toneMapped:false});
- await createLogoArtwork();
+ await artworkReady;
  updateScreen();
  if(renderer.compileAsync)await renderer.compileAsync(scene,camera);else renderer.compile(scene,camera);
  renderer.render(scene,camera);
@@ -56,6 +57,22 @@ async function loadTelevision(){
  camera.position.set(0,0,homeDistance);renderer.render(scene,camera);
  await window.mrkLoader?.complete();
  if(!hasLoader)hero.animate([{opacity:0},{opacity:1}],{duration:reduced?0:450,easing:'ease-out'});
+ canvas.dataset.detail='lod';
+ const connection=navigator.connection;
+ if(!connection?.saveData&&!['slow-2g','2g'].includes(connection?.effectiveType))setTimeout(()=>upgradeBody(loader,body,model),500);
+}
+async function upgradeBody(loader,oldBody,model){
+ try{
+  const person=await loader.loadAsync(new URL(mobile?'assets/person-rig-mobile.glb':'assets/person-rig-web.glb',import.meta.url).href);
+  const body=person.scene,neck=body.getObjectByName('Neck'),head=body.getObjectByName('Head'),torso=body.getObjectByName('Torso');
+  if(!neck||!head||!torso)throw new Error('Detailed character rig missing');
+  body.position.copy(oldBody.position);
+  if(renderer.compileAsync)await renderer.compileAsync(body,camera,scene);
+  neck.quaternion.copy(neckBone.quaternion);head.quaternion.copy(headBone.quaternion);torso.quaternion.copy(torsoBone.quaternion);
+  head.add(model);tv.remove(oldBody);tv.add(body);neckBone=neck;headBone=head;torsoBone=torso;
+  oldBody.traverse(object=>{if(object.isMesh){object.geometry.dispose();for(const material of Array.isArray(object.material)?object.material:[object.material]){for(const value of Object.values(material))if(value?.isTexture)value.dispose();material.dispose()}}});
+  canvas.dataset.detail='full';
+ }catch(error){console.warn('Detailed character unavailable; keeping LOD.',error)}
 }
 const lookQuaternion=new THREE.Quaternion();
 function followCursor(dt,neutral=false){
