@@ -7,30 +7,8 @@
     },
     {
       "type": "video",
-      "title": "Chris Brown Concert",
+      "title": "Chris brown Concert",
       "video": "https://vimeo.com/1230538799?share=copy&fl=sv&fe=ci"
-    },
-    {
-      "type": "video",
-      "title": "Post Malone Concert",
-      "video": "https://vimeo.com/1229996831?share=copy&fl=sv&fe=ci"
-    },
-    {
-      "type": "video",
-      "title": "Benson Boone Concert",
-      "video": "https://vimeo.com/1230000226?share=copy&fl=sv&fe=ci"
-    },
-    {
-      "type": "image",
-      "title": "Concerts / 05"
-    },
-    {
-      "type": "image",
-      "title": "Concerts / 06"
-    },
-    {
-      "type": "image",
-      "title": "Concerts / 07"
     }
   ]
 }
