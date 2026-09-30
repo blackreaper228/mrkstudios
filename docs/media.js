@@ -27,7 +27,7 @@ export function videoSource(value) {
 export function parseMedia(item, base) {
  const title = typeof item?.title === 'string' ? item.title.trim() : '';
  if (!title) throw new Error('Missing title');
- if (item.type === 'image') return {title, kind:'image', src:imageURL(item.image,base)};
+ if (item.type === 'image') return {title, kind:'image', src:imageURL(typeof item.imageUrl==='string'&&item.imageUrl.trim()?item.imageUrl:item.image,base)};
  if (item.type === 'video') return {title,...videoSource(item.video),poster:item.image ? imageURL(item.image,base) : ''};
  throw new Error('Unknown media type');
 }

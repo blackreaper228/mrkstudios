@@ -167,15 +167,20 @@ content:
     blockKey: type
     blocks:
     - name: image
-      label: Image
+      label: Photo
       fields:
       - name: title
         label: Photoshoot title
         type: string
         required: true
       - name: image
-        label: Photo / video poster
+        label: Upload photo
         type: image
+        description: Upload a photo, or use Photo URL below.
+      - name: imageUrl
+        label: Photo URL
+        type: string
+        description: Optional direct image URL. When provided, it takes priority over the uploaded photo.
       - name: slug
         label: Photoshoot URL ID
         type: string
@@ -191,23 +196,25 @@ content:
         blockKey: type
         blocks:
         - name: image
-          label: Image
+          label: Photo
           fields:
           - name: title
             label: Caption / description
             type: string
           - name: image
-            label: Photo / poster
+            label: Upload photo
             type: image
+            description: Upload a photo, or use Photo URL below.
+          - name: imageUrl
+            label: Photo URL
+            type: string
+            description: Optional direct image URL. When provided, it takes priority over the uploaded photo.
         - name: video
           label: Video
           fields:
           - name: title
             label: Caption / description
             type: string
-          - name: image
-            label: Photo / poster
-            type: image
           - name: video
             label: Video URL
             type: string
@@ -219,9 +226,6 @@ content:
         label: Photoshoot title
         type: string
         required: true
-      - name: image
-        label: Photo / video poster
-        type: image
       - name: video
         label: Video URL
         type: string
@@ -241,23 +245,25 @@ content:
         blockKey: type
         blocks:
         - name: image
-          label: Image
+          label: Photo
           fields:
           - name: title
             label: Caption / description
             type: string
           - name: image
-            label: Photo / poster
+            label: Upload photo
             type: image
+            description: Upload a photo, or use Photo URL below.
+          - name: imageUrl
+            label: Photo URL
+            type: string
+            description: Optional direct image URL. When provided, it takes priority over the uploaded photo.
         - name: video
           label: Video
           fields:
           - name: title
             label: Caption / description
             type: string
-          - name: image
-            label: Photo / poster
-            type: image
           - name: video
             label: Video URL
             type: string
@@ -274,15 +280,20 @@ content:
     blockKey: type
     blocks:
     - name: image
-      label: Image
+      label: Photo
       fields:
       - name: title
         label: Photoshoot title
         type: string
         required: true
       - name: image
-        label: Photo / video poster
+        label: Upload photo
         type: image
+        description: Upload a photo, or use Photo URL below.
+      - name: imageUrl
+        label: Photo URL
+        type: string
+        description: Optional direct image URL. When provided, it takes priority over the uploaded photo.
       - name: slug
         label: Photoshoot URL ID
         type: string
@@ -298,23 +309,25 @@ content:
         blockKey: type
         blocks:
         - name: image
-          label: Image
+          label: Photo
           fields:
           - name: title
             label: Caption / description
             type: string
           - name: image
-            label: Photo / poster
+            label: Upload photo
             type: image
+            description: Upload a photo, or use Photo URL below.
+          - name: imageUrl
+            label: Photo URL
+            type: string
+            description: Optional direct image URL. When provided, it takes priority over the uploaded photo.
         - name: video
           label: Video
           fields:
           - name: title
             label: Caption / description
             type: string
-          - name: image
-            label: Photo / poster
-            type: image
           - name: video
             label: Video URL
             type: string
@@ -326,9 +339,6 @@ content:
         label: Photoshoot title
         type: string
         required: true
-      - name: image
-        label: Photo / video poster
-        type: image
       - name: video
         label: Video URL
         type: string
@@ -348,23 +358,25 @@ content:
         blockKey: type
         blocks:
         - name: image
-          label: Image
+          label: Photo
           fields:
           - name: title
             label: Caption / description
             type: string
           - name: image
-            label: Photo / poster
+            label: Upload photo
             type: image
+            description: Upload a photo, or use Photo URL below.
+          - name: imageUrl
+            label: Photo URL
+            type: string
+            description: Optional direct image URL. When provided, it takes priority over the uploaded photo.
         - name: video
           label: Video
           fields:
           - name: title
             label: Caption / description
             type: string
-          - name: image
-            label: Photo / poster
-            type: image
           - name: video
             label: Video URL
             type: string
@@ -381,15 +393,20 @@ content:
     blockKey: type
     blocks:
     - name: image
-      label: Image
+      label: Photo
       fields:
       - name: title
         label: Photoshoot title
         type: string
         required: true
       - name: image
-        label: Photo / video poster
+        label: Upload photo
         type: image
+        description: Upload a photo, or use Photo URL below.
+      - name: imageUrl
+        label: Photo URL
+        type: string
+        description: Optional direct image URL. When provided, it takes priority over the uploaded photo.
       - name: slug
         label: Photoshoot URL ID
         type: string
@@ -405,23 +422,25 @@ content:
         blockKey: type
         blocks:
         - name: image
-          label: Image
+          label: Photo
           fields:
           - name: title
             label: Caption / description
             type: string
           - name: image
-            label: Photo / poster
+            label: Upload photo
             type: image
+            description: Upload a photo, or use Photo URL below.
+          - name: imageUrl
+            label: Photo URL
+            type: string
+            description: Optional direct image URL. When provided, it takes priority over the uploaded photo.
         - name: video
           label: Video
           fields:
           - name: title
             label: Caption / description
             type: string
-          - name: image
-            label: Photo / poster
-            type: image
           - name: video
             label: Video URL
             type: string
@@ -433,9 +452,6 @@ content:
         label: Photoshoot title
         type: string
         required: true
-      - name: image
-        label: Photo / video poster
-        type: image
       - name: video
         label: Video URL
         type: string
@@ -455,23 +471,25 @@ content:
         blockKey: type
         blocks:
         - name: image
-          label: Image
+          label: Photo
           fields:
           - name: title
             label: Caption / description
             type: string
           - name: image
-            label: Photo / poster
+            label: Upload photo
             type: image
+            description: Upload a photo, or use Photo URL below.
+          - name: imageUrl
+            label: Photo URL
+            type: string
+            description: Optional direct image URL. When provided, it takes priority over the uploaded photo.
         - name: video
           label: Video
           fields:
           - name: title
             label: Caption / description
             type: string
-          - name: image
-            label: Photo / poster
-            type: image
           - name: video
             label: Video URL
             type: string
@@ -488,15 +506,20 @@ content:
     blockKey: type
     blocks:
     - name: image
-      label: Image
+      label: Photo
       fields:
       - name: title
         label: Photoshoot title
         type: string
         required: true
       - name: image
-        label: Photo / video poster
+        label: Upload photo
         type: image
+        description: Upload a photo, or use Photo URL below.
+      - name: imageUrl
+        label: Photo URL
+        type: string
+        description: Optional direct image URL. When provided, it takes priority over the uploaded photo.
       - name: slug
         label: Photoshoot URL ID
         type: string
@@ -512,23 +535,25 @@ content:
         blockKey: type
         blocks:
         - name: image
-          label: Image
+          label: Photo
           fields:
           - name: title
             label: Caption / description
             type: string
           - name: image
-            label: Photo / poster
+            label: Upload photo
             type: image
+            description: Upload a photo, or use Photo URL below.
+          - name: imageUrl
+            label: Photo URL
+            type: string
+            description: Optional direct image URL. When provided, it takes priority over the uploaded photo.
         - name: video
           label: Video
           fields:
           - name: title
             label: Caption / description
             type: string
-          - name: image
-            label: Photo / poster
-            type: image
           - name: video
             label: Video URL
             type: string
@@ -540,9 +565,6 @@ content:
         label: Photoshoot title
         type: string
         required: true
-      - name: image
-        label: Photo / video poster
-        type: image
       - name: video
         label: Video URL
         type: string
@@ -562,23 +584,25 @@ content:
         blockKey: type
         blocks:
         - name: image
-          label: Image
+          label: Photo
           fields:
           - name: title
             label: Caption / description
             type: string
           - name: image
-            label: Photo / poster
+            label: Upload photo
             type: image
+            description: Upload a photo, or use Photo URL below.
+          - name: imageUrl
+            label: Photo URL
+            type: string
+            description: Optional direct image URL. When provided, it takes priority over the uploaded photo.
         - name: video
           label: Video
           fields:
           - name: title
             label: Caption / description
             type: string
-          - name: image
-            label: Photo / poster
-            type: image
           - name: video
             label: Video URL
             type: string
@@ -595,15 +619,20 @@ content:
     blockKey: type
     blocks:
     - name: image
-      label: Image
+      label: Photo
       fields:
       - name: title
         label: Photoshoot title
         type: string
         required: true
       - name: image
-        label: Photo / video poster
+        label: Upload photo
         type: image
+        description: Upload a photo, or use Photo URL below.
+      - name: imageUrl
+        label: Photo URL
+        type: string
+        description: Optional direct image URL. When provided, it takes priority over the uploaded photo.
       - name: slug
         label: Photoshoot URL ID
         type: string
@@ -619,23 +648,25 @@ content:
         blockKey: type
         blocks:
         - name: image
-          label: Image
+          label: Photo
           fields:
           - name: title
             label: Caption / description
             type: string
           - name: image
-            label: Photo / poster
+            label: Upload photo
             type: image
+            description: Upload a photo, or use Photo URL below.
+          - name: imageUrl
+            label: Photo URL
+            type: string
+            description: Optional direct image URL. When provided, it takes priority over the uploaded photo.
         - name: video
           label: Video
           fields:
           - name: title
             label: Caption / description
             type: string
-          - name: image
-            label: Photo / poster
-            type: image
           - name: video
             label: Video URL
             type: string
@@ -647,9 +678,6 @@ content:
         label: Photoshoot title
         type: string
         required: true
-      - name: image
-        label: Photo / video poster
-        type: image
       - name: video
         label: Video URL
         type: string
@@ -669,23 +697,25 @@ content:
         blockKey: type
         blocks:
         - name: image
-          label: Image
+          label: Photo
           fields:
           - name: title
             label: Caption / description
             type: string
           - name: image
-            label: Photo / poster
+            label: Upload photo
             type: image
+            description: Upload a photo, or use Photo URL below.
+          - name: imageUrl
+            label: Photo URL
+            type: string
+            description: Optional direct image URL. When provided, it takes priority over the uploaded photo.
         - name: video
           label: Video
           fields:
           - name: title
             label: Caption / description
             type: string
-          - name: image
-            label: Photo / poster
-            type: image
           - name: video
             label: Video URL
             type: string
