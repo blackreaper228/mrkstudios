@@ -1,0 +1,7 @@
+TV-person composite
+Television: Old TV by visualdiscette (https://sketchfab.com/visualdiscette)
+Source: https://sketchfab.com/3d-models/old-tv-3fb1a4b9d14c44abaac69fec119bf251
+Television license: Creative Commons Attribution 4.0 International (CC BY 4.0)
+https://creativecommons.org/licenses/by/4.0/
+Changes to the television: reduced texture resolution, baked transforms, projected screen UVs, positioned above a cropped human torso. Animated screen material and tilt applied at runtime.
+Human component: rp_eric_rigged_001, supplied by the project owner. Its original license is separate from the television CC BY license.

@@ -1,0 +1,15 @@
+{
+  "human_triangles": 120200,
+  "body_bytes": 21280660,
+  "source": "A-Pose - Male Full Body 3D Scan by OverseerThuror",
+  "rig": [
+    "Torso",
+    "Neck",
+    "Head"
+  ],
+  "modifications": [
+    "Cropped lower body and hidden upper head",
+    "Original clothing and 8K atlas retained",
+    "Smooth neck rig; hidden head follows TV"
+  ]
+}

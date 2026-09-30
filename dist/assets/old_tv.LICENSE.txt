@@ -1,0 +1,5 @@
+Old TV by visualdiscette (https://sketchfab.com/visualdiscette)
+Source: https://sketchfab.com/3d-models/old-tv-3fb1a4b9d14c44abaac69fec119bf251
+License: Creative Commons Attribution 4.0 International (CC BY 4.0)
+https://creativecommons.org/licenses/by/4.0/
+The distributed GLB is unchanged. Website display changes: scale and position, interactive tilt, and animated CLICK TO PLAY artwork projected onto the screen at runtime.

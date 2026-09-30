@@ -1,0 +1,3 @@
+.tools/
+preview.*.log
+__pycache__/

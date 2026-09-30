@@ -22,4 +22,11 @@ python -m http.server 4173
 
 Сайт: https://blackreaper228.github.io/mrkstudios/
 
-Фотографии — временные внешние изображения Picsum. Фотографии и заголовки редактируются через Pages CMS; источник — docs/content/portfolio.json, загрузки — docs/uploads. Инструкция подключения: [PAGES-CMS.md](PAGES-CMS.md). Массив в carousel.js служит только резервом при ошибке загрузки контента. Three.js загружается с jsDelivr, шрифты — с Google Fonts. Для contact пока указан mailto: без получателя; адрес клиента ещё не задан. Menu намеренно статичен.
+Фотографии — временные внешние изображения Picsum. Фотографии и заголовки редактируются через Pages CMS; источник — docs/content/portfolio.json, загрузки — docs/uploads. Инструкция подключения: [PAGES-CMS.md](PAGES-CMS.md). Массив в carousel.js служит только резервом при ошибке загрузки контента. Three.js загружается с jsDelivr, шрифты — с Google Fonts. Для contact пока указан mailto: без получателя; адрес клиента ещё не задан. Menu открывает пять галерей с фотографиями и видео, редактируемыми через Pages CMS. Логотип возвращает к телевизору. Атрибуция модели находится на credits/.
+
+Модель: Old TV by visualdiscette, CC BY 4.0. Оригинальный GLB и сведения о лицензии находятся в assets; авторство и изменения при отображении указаны на странице credits/.
+
+
+## Category photoshoots
+
+Category covers now link to `session.html?category=events&work=...`. In Pages CMS each category item has an optional permanent `slug`, `description`, and `session` list of photographs or videos. Keep the slug unchanged once shared; without a slug the current item position is used. Existing records remain intact, and an empty session displays the cover. Category pages use four portrait columns, titles above covers, and a large top margin; mobile uses two columns.

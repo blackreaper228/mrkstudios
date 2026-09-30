@@ -1,0 +1,4 @@
+A-Pose - Male Full Body 3D Scan by OverseerThuror
+https://sketchfab.com/3d-models/a-pose-male-full-body-3d-scan-78c2d136f91c46a8a696d5bacfde2daf
+CC BY 4.0 https://creativecommons.org/licenses/by/4.0/
+Changes: cropped lower body and upper head, simplified geometry, added neck rig. Original clothing and texture retained.

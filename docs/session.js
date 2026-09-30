@@ -1,0 +1,35 @@
+import {createPhotoViewer} from './photo-viewer.js?v=20260930-media-dots';
+import {categories,parseMedia} from './media.js';
+import {mediaElement} from './media-element.js?v=20260930-first-play-fix';
+import {workKey} from './session-link.js';
+const params=new URLSearchParams(location.search),category=params.get('category'),key=params.get('work');
+const status=document.querySelector('.gallery-status'),grid=document.querySelector('.session-grid');
+const photoViewer=createPhotoViewer(),photos=[];
+async function load(){
+ try{
+  if(!categories.includes(category)||!key)throw new Error('Invalid photoshoot');
+  const response=await fetch(new URL(`content/galleries/${category}.json`,import.meta.url),{cache:'no-cache'});
+  if(!response.ok)throw new Error('Photoshoot unavailable');
+  const data=await response.json();const record=data.items.find((item,index)=>workKey(item,index)===key);
+  if(!record)throw new Error('Photoshoot not found');
+  document.body.dataset.category=category;
+  document.querySelector('.session-title').textContent=record.title;document.title=record.title+' — mrk';
+  const back=document.querySelector('.session-back');back.href=category+'.html';back.textContent='\u2190 back to gallery';
+  document.querySelector('.session-description').textContent=record.description||'';
+  const contents=Array.isArray(record.session)&&record.session.length?record.session:[];
+  const entries=record.type==='video'?[record,...contents]:contents.length?contents:[record];
+  let invalid=0;
+  entries.forEach(entry=>{
+   try{
+    const item=parseMedia({...entry,title:entry.title||record.title},import.meta.url),figure=document.createElement('figure');
+    const photoIndex=photos.length;photos.push(item);
+    if(item.kind==='image'){
+     const button=document.createElement('button');button.className='session-photo-open';button.setAttribute('aria-label','Open '+item.title);button.append(mediaElement(item));button.onclick=()=>photoViewer.open(photos,photoIndex,button);figure.append(button);
+    }else{figure.className='session-video';const preview=mediaElement(item);preview.addEventListener('click',()=>photoViewer.open(photos,photoIndex,preview));preview.addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();photoViewer.open(photos,photoIndex,preview)}});figure.append(preview)}
+    grid.append(figure);
+   }catch{invalid++}
+  });
+  status.textContent=invalid?'Some photographs are unavailable.':'';status.hidden=!status.textContent;
+ }catch(error){status.textContent='Photoshoot unavailable.';console.warn(error)}
+}
+load();

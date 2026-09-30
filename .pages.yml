@@ -94,3 +94,273 @@ content:
             type: image
             required: true
             description: Загрузите JPG, PNG, WebP или AVIF. Рекомендуемый размер — 1600 × 900 пикселей.
+  - name: events
+    label: Events
+    type: file
+    path: docs/content/galleries/events.json
+    fields:
+      - name: items
+        label: Фотосессии
+        type: object
+        list: true
+        fields:
+          - name: title
+            label: Название фотосессии
+            type: string
+            required: true
+          - name: type
+            label: Тип обложки
+            type: select
+            required: true
+            default: image
+            options:
+              values: [image, video]
+          - name: image
+            label: Фотография или обложка видео
+            type: image
+          - name: video
+            label: Ссылка на видео
+            type: string
+          - name: slug
+            label: Адрес фотосессии
+            type: string
+            description: Уникальное постоянное имя внутри раздела, например summer-2026. Не меняйте после публикации ссылки.
+          - name: description
+            label: Описание фотосессии
+            type: text
+          - name: session
+            label: Фотографии и видео фотосессии
+            type: object
+            list: true
+            fields:
+              - name: title
+                label: Подпись / описание
+                type: string
+              - name: type
+                label: Тип
+                type: select
+                default: image
+                options:
+                  values: [image, video]
+              - name: image
+                label: Фотография / обложка
+                type: image
+              - name: video
+                label: Ссылка на видео
+                type: string
+  - name: concerts
+    label: Concerts
+    type: file
+    path: docs/content/galleries/concerts.json
+    fields:
+      - name: items
+        label: Фотосессии
+        type: object
+        list: true
+        fields:
+          - name: title
+            label: Название фотосессии
+            type: string
+            required: true
+          - name: type
+            label: Тип обложки
+            type: select
+            required: true
+            default: image
+            options:
+              values: [image, video]
+          - name: image
+            label: Фотография или обложка видео
+            type: image
+          - name: video
+            label: Ссылка на видео
+            type: string
+          - name: slug
+            label: Адрес фотосессии
+            type: string
+            description: Уникальное постоянное имя внутри раздела, например summer-2026. Не меняйте после публикации ссылки.
+          - name: description
+            label: Описание фотосессии
+            type: text
+          - name: session
+            label: Фотографии и видео фотосессии
+            type: object
+            list: true
+            fields:
+              - name: title
+                label: Подпись / описание
+                type: string
+              - name: type
+                label: Тип
+                type: select
+                default: image
+                options:
+                  values: [image, video]
+              - name: image
+                label: Фотография / обложка
+                type: image
+              - name: video
+                label: Ссылка на видео
+                type: string
+  - name: commercials
+    label: Commercials
+    type: file
+    path: docs/content/galleries/commercials.json
+    fields:
+      - name: items
+        label: Фотосессии
+        type: object
+        list: true
+        fields:
+          - name: title
+            label: Название фотосессии
+            type: string
+            required: true
+          - name: type
+            label: Тип обложки
+            type: select
+            required: true
+            default: image
+            options:
+              values: [image, video]
+          - name: image
+            label: Фотография или обложка видео
+            type: image
+          - name: video
+            label: Ссылка на видео
+            type: string
+          - name: slug
+            label: Адрес фотосессии
+            type: string
+            description: Уникальное постоянное имя внутри раздела, например summer-2026. Не меняйте после публикации ссылки.
+          - name: description
+            label: Описание фотосессии
+            type: text
+          - name: session
+            label: Фотографии и видео фотосессии
+            type: object
+            list: true
+            fields:
+              - name: title
+                label: Подпись / описание
+                type: string
+              - name: type
+                label: Тип
+                type: select
+                default: image
+                options:
+                  values: [image, video]
+              - name: image
+                label: Фотография / обложка
+                type: image
+              - name: video
+                label: Ссылка на видео
+                type: string
+  - name: documentaries
+    label: Documentaries
+    type: file
+    path: docs/content/galleries/documentaries.json
+    fields:
+      - name: items
+        label: Фотосессии
+        type: object
+        list: true
+        fields:
+          - name: title
+            label: Название фотосессии
+            type: string
+            required: true
+          - name: type
+            label: Тип обложки
+            type: select
+            required: true
+            default: image
+            options:
+              values: [image, video]
+          - name: image
+            label: Фотография или обложка видео
+            type: image
+          - name: video
+            label: Ссылка на видео
+            type: string
+          - name: slug
+            label: Адрес фотосессии
+            type: string
+            description: Уникальное постоянное имя внутри раздела, например summer-2026. Не меняйте после публикации ссылки.
+          - name: description
+            label: Описание фотосессии
+            type: text
+          - name: session
+            label: Фотографии и видео фотосессии
+            type: object
+            list: true
+            fields:
+              - name: title
+                label: Подпись / описание
+                type: string
+              - name: type
+                label: Тип
+                type: select
+                default: image
+                options:
+                  values: [image, video]
+              - name: image
+                label: Фотография / обложка
+                type: image
+              - name: video
+                label: Ссылка на видео
+                type: string
+  - name: food
+    label: Food
+    type: file
+    path: docs/content/galleries/food.json
+    fields:
+      - name: items
+        label: Фотосессии
+        type: object
+        list: true
+        fields:
+          - name: title
+            label: Название фотосессии
+            type: string
+            required: true
+          - name: type
+            label: Тип обложки
+            type: select
+            required: true
+            default: image
+            options:
+              values: [image, video]
+          - name: image
+            label: Фотография или обложка видео
+            type: image
+          - name: video
+            label: Ссылка на видео
+            type: string
+          - name: slug
+            label: Адрес фотосессии
+            type: string
+            description: Уникальное постоянное имя внутри раздела, например summer-2026. Не меняйте после публикации ссылки.
+          - name: description
+            label: Описание фотосессии
+            type: text
+          - name: session
+            label: Фотографии и видео фотосессии
+            type: object
+            list: true
+            fields:
+              - name: title
+                label: Подпись / описание
+                type: string
+              - name: type
+                label: Тип
+                type: select
+                default: image
+                options:
+                  values: [image, video]
+              - name: image
+                label: Фотография / обложка
+                type: image
+              - name: video
+                label: Ссылка на видео
+                type: string
