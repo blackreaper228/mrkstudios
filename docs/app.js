@@ -5,7 +5,7 @@ import { DRACOLoader } from 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples
 const $=s=>document.querySelector(s),hero=$('#hero'),gallery=$('#gallery'),canvas=$('#tv');
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const mobile=matchMedia('(max-width: 700px), (pointer: coarse)').matches;
-const characterScale=8.5;
+const characterScale=mobile?7.3:8.5;
 let neckBone,headBone,torsoBone,televisionModel;
 let homeDistance=9,modelReady=false,screenContext,screenTexture,logoArtwork;
 let introProgress=1;
