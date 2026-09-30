@@ -1,22 +1,22 @@
 {
   "slide1": {
     "title": "mixtape / showreel",
-    "image": "https://picsum.photos/id/1018/1600/900"
+    "image": "/mrkstudios/uploads/testpic01-1.png"
   },
   "slide2": {
     "title": "somewhere / away",
-    "image": "https://picsum.photos/id/1015/1600/900"
+    "image": "/mrkstudios/uploads/testpic02-1.png"
   },
   "slide3": {
     "title": "motion / instinct",
-    "image": "https://picsum.photos/id/1016/1600/900"
+    "image": "/mrkstudios/uploads/testpic03-1.png"
   },
   "slide4": {
     "title": "after / hours",
-    "image": "https://picsum.photos/id/1043/1600/900"
+    "image": "/mrkstudios/uploads/testpic04-1.png"
   },
   "slide5": {
     "title": "into / the light",
-    "image": "https://picsum.photos/id/1039/1600/900"
+    "image": "/mrkstudios/uploads/testpic05-1.png"
   }
 }
