@@ -1,5 +1,5 @@
 import {finishLoading} from './loading-effects.js?v=20260930-1';
-import {createPhotoViewer} from './photo-viewer.js?v=20260930-popup';
+import {createPhotoViewer} from './photo-viewer.js?v=20260930-single-item';
 import {categories,parseMedia} from './media.js';
 import {mediaElement} from './media-element.js?v=20260930-hover-stop';
 import {workKey} from './session-link.js';

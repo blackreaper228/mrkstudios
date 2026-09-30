@@ -2,7 +2,7 @@ import {finishLoading} from './loading-effects.js?v=20260930-1';
 import {categories,parseMedia} from './media.js';
 import {mediaElement} from './media-element.js?v=20260930-hover-stop';
 import {sessionURL} from './session-link.js';
-import {createPhotoViewer} from './photo-viewer.js?v=20260930-popup';
+import {createPhotoViewer} from './photo-viewer.js?v=20260930-single-item';
 const grid=document.querySelector('.media-grid'),status=document.querySelector('.gallery-status');
 const photoViewer=createPhotoViewer();
 async function load(){

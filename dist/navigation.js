@@ -1,7 +1,7 @@
 import {loadMenu} from './menu-content.js?v=20260930-cms';
 import {fadeToWhite} from './page-transition.js?v=20260930-keep-navigation';
 import './pointer.js?v=20260930-gallery-links';
-import './text-hover.js?v=20260930-roll';
+import './text-hover.js?v=20260930-static-titles';
 const menu = document.querySelector('.menu-toggle');
 const dropdown = document.querySelector('#category-menu');
 const menuGroup=menu.closest('.menu-group');

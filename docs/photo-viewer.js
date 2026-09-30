@@ -17,6 +17,7 @@ export function createPhotoViewer(){
   else{media=document.createElement('iframe');media.src=item.src;media.title=item.title;media.allow='autoplay; fullscreen; picture-in-picture';media.allowFullscreen=true;media.referrerPolicy='strict-origin-when-cross-origin'}
   revealMedia(media);content.append(media);dots.replaceChildren(...items.map((item,i)=>{const dot=document.createElement('button');dot.className='photo-viewer-dot';dot.setAttribute('aria-label','Slide '+(i+1)+': '+item.title);dot.setAttribute('aria-current',String(i===index));dot.onclick=()=>{index=i;render()};return dot}));
   previous.hidden=next.hidden=items.length<2;
+  dots.hidden=items.length<2;
  }
  function move(step){index=(index+step+items.length)%items.length;render()}
  close.onclick=()=>dialog.close();previous.onclick=()=>move(-1);next.onclick=()=>move(1);
