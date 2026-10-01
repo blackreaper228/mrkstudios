@@ -39,6 +39,11 @@
       "page": "team",
       "label": "Team",
       "spaceAbove": false
+    },
+    {
+      "page": "test",
+      "label": "test",
+      "spaceAbove": false
     }
   ]
 }
