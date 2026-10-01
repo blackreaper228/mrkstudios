@@ -102,7 +102,119 @@
     {
       "type": "image",
       "title": "Ricky Martin",
-      "image": "/mrkstudios/uploads/nkl310126223605921srgbretouch.jpg"
+      "image": "/mrkstudios/uploads/nkl310126223605921srgbretouch.jpg",
+      "photos": [
+        "/mrkstudios/uploads/nkl310126224206150srgbretouch-2.jpg"
+      ],
+      "session": [
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/lvc1976.jpg"
+        },
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/lvc1902.jpg"
+        },
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/nkl310126224206150srgbretouch-3.jpg"
+        },
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/lvc1860.jpg"
+        },
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/lvc1829.jpg"
+        },
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/lvc1655.jpg"
+        },
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/lvc1404.jpg"
+        },
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/lvc1316.jpg"
+        },
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/lvc1299.jpg"
+        },
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/lvc1299-1.jpg"
+        },
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/lvc1248.jpg"
+        },
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/lvc1083.jpg"
+        },
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/lvc1042-1.jpg"
+        },
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/lvc1034.jpg"
+        },
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/lvc1007.jpg"
+        },
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/lvc0979.jpg"
+        },
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/lvc0975.jpg"
+        },
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/lvc0938.jpg"
+        },
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/lvc0897.jpg"
+        },
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/lvc0883.jpg"
+        },
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/lvc0836.jpg"
+        },
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/lvc0752.jpg"
+        },
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/lvc0694.jpg"
+        },
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/lvc0670.jpg"
+        },
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/lvc0581-1.jpg"
+        },
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/lvc0541-1.jpg"
+        },
+        {
+          "type": "image"
+        }
+      ]
     }
   ]
 }
