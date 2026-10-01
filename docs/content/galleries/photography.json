@@ -101,7 +101,13 @@
     },
     {
       "type": "image",
-      "title": "Ricky Martin"
+      "title": "Ricky Martin",
+      "image": "/mrkstudios/uploads/nkl310126223605921srgbretouch.jpg",
+      "photos": [
+        "/mrkstudios/uploads/lvc0541.jpg",
+        "/mrkstudios/uploads/lvc1042.jpg",
+        "/mrkstudios/uploads/lvc0531-1.jpg"
+      ]
     }
   ]
 }
