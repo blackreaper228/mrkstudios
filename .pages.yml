@@ -20,18 +20,12 @@ content:
     list: true
     fields:
     - name: page
-      label: Page
-      type: select
+      label: Page URL ID
+      type: string
       required: true
-      options:
-        values:
-        - events
-        - concerts
-        - commercials
-        - documentaries
-        - food
-        - gear-rental
-        - team
+      pattern: ^[a-z0-9]+(?:-[a-z0-9]+)*$
+      description: Create a new page by entering a unique ID, e.g. weddings. Existing IDs keep their current pages.
+        Keep this ID unchanged after sharing links.
     - name: label
       label: Menu and page title
       type: string
@@ -40,6 +34,121 @@ content:
       label: Secondary menu group
       type: boolean
       default: false
+    - name: works
+      label: New page — photoshoots
+      type: block
+      list: true
+      blockKey: type
+      blocks:
+      - name: image
+        label: Photo
+        fields:
+        - name: title
+          label: Photoshoot title
+          type: string
+          required: true
+        - name: image
+          label: Upload photo
+          type: image
+          description: Used only when Photo is selected. Upload a photo or use Photo URL below.
+        - name: imageUrl
+          label: Photo URL
+          type: string
+          description: Used only when Photo is selected. A direct image URL takes priority over the uploaded photo.
+        - name: slug
+          label: Photoshoot URL ID
+          type: string
+          description: Optional unique URL ID within this category, e.g. summer-2026. Used as work=summer-2026 in
+            the photoshoot link. Leave empty to use the item number. Keep unchanged after sharing the link.
+        - name: description
+          label: Photoshoot description
+          type: text
+        - name: session
+          label: Photoshoot media — add, remove and reorder
+          type: block
+          list: true
+          blockKey: type
+          blocks:
+          - name: image
+            label: Photo
+            fields:
+            - name: title
+              label: Caption / description
+              type: string
+            - name: image
+              label: Upload photo
+              type: image
+              description: Used only when Photo is selected. Upload a photo or use Photo URL below.
+            - name: imageUrl
+              label: Photo URL
+              type: string
+              description: Used only when Photo is selected. A direct image URL takes priority over the uploaded
+                photo.
+          - name: video
+            label: Video
+            fields:
+            - name: title
+              label: Caption / description
+              type: string
+            - name: video
+              label: Video URL
+              type: string
+              description: Used only when Video is selected. Paste a Vimeo URL, including its privacy token for
+                unlisted videos.
+      - name: video
+        label: Video
+        fields:
+        - name: title
+          label: Photoshoot title
+          type: string
+          required: true
+        - name: video
+          label: Video URL
+          type: string
+          description: Used only when Video is selected. Paste a Vimeo URL, including its privacy token for unlisted
+            videos.
+        - name: slug
+          label: Photoshoot URL ID
+          type: string
+          description: Optional unique URL ID within this category, e.g. summer-2026. Used as work=summer-2026 in
+            the photoshoot link. Leave empty to use the item number. Keep unchanged after sharing the link.
+        - name: description
+          label: Photoshoot description
+          type: text
+        - name: session
+          label: Photoshoot media — add, remove and reorder
+          type: block
+          list: true
+          blockKey: type
+          blocks:
+          - name: image
+            label: Photo
+            fields:
+            - name: title
+              label: Caption / description
+              type: string
+            - name: image
+              label: Upload photo
+              type: image
+              description: Used only when Photo is selected. Upload a photo or use Photo URL below.
+            - name: imageUrl
+              label: Photo URL
+              type: string
+              description: Used only when Photo is selected. A direct image URL takes priority over the uploaded
+                photo.
+          - name: video
+            label: Video
+            fields:
+            - name: title
+              label: Caption / description
+              type: string
+            - name: video
+              label: Video URL
+              type: string
+              description: Used only when Video is selected. Paste a Vimeo URL, including its privacy token for
+                unlisted videos.
+      description: For new pages, add covers and photoshoot media here. Existing gallery sections continue using
+        their separate editors.
 - name: portfolio
   label: Homepage — photos, titles and links
   type: file

@@ -1,3 +1,4 @@
+import {loadGallery,galleryURL} from './menu-content.js?v=20261001-custom-pages';
 import {finishLoading} from './loading-effects.js?v=20260930-1';
 import {categories,parseMedia} from './media.js';
 import {mediaElement} from './media-element.js?v=20260930-hover-stop';
@@ -7,11 +8,9 @@ const grid=document.querySelector('.media-grid'),status=document.querySelector('
 const photoViewer=createPhotoViewer();
 async function load(){
  try{
-  const category=document.body.dataset.category;
-  if(!categories.includes(category))throw new Error('Unknown gallery');
-  const response=await fetch(new URL(`content/galleries/${category}.json`,import.meta.url),{cache:'no-cache'});
-  if(!response.ok)throw new Error('Gallery unavailable');
-  const data=await response.json();if(!Array.isArray(data.items))throw new Error('Invalid gallery');
+  const category=new URLSearchParams(location.search).get('category')||document.body.dataset.category;
+  document.body.dataset.category=category;
+  const data=await loadGallery(category);if(!Array.isArray(data.items))throw new Error('Invalid gallery');
   let invalid=0;const cards=document.createDocumentFragment();
   data.items.forEach((record,index)=>{
    let item;try{item=parseMedia(record,import.meta.url)}catch{invalid++;return}

@@ -1,3 +1,4 @@
+import {loadGallery,galleryURL} from './menu-content.js?v=20261001-custom-pages';
 import {finishLoading} from './loading-effects.js?v=20260930-1';
 import {createPhotoViewer} from './photo-viewer.js?v=20260930-single-item';
 import {categories,parseMedia} from './media.js';
@@ -8,14 +9,12 @@ const status=document.querySelector('.gallery-status'),grid=document.querySelect
 const photoViewer=createPhotoViewer(),photos=[];
 async function load(){
  try{
-  if(!categories.includes(category)||!key)throw new Error('Invalid photoshoot');
-  const response=await fetch(new URL(`content/galleries/${category}.json`,import.meta.url),{cache:'no-cache'});
-  if(!response.ok)throw new Error('Photoshoot unavailable');
-  const data=await response.json();const record=data.items.find((item,index)=>workKey(item,index)===key);
+  if(!key)throw new Error('Invalid photoshoot');
+  const data=await loadGallery(category);const record=data.items.find((item,index)=>workKey(item,index)===key);
   if(!record)throw new Error('Photoshoot not found');
   document.body.dataset.category=category;
   document.querySelector('.session-title').textContent=record.title;document.title=record.title+' — mrk';
-  const back=document.querySelector('.session-back');back.href=category+'.html';back.textContent='\u2190 back to gallery';
+  const back=document.querySelector('.session-back');back.href=galleryURL(category);back.textContent='\u2190 back to gallery';
   document.querySelector('.session-description').textContent=record.description||'';
   const contents=Array.isArray(record.session)&&record.session.length?record.session:[];
   const entries=record.type==='video'?[record,...contents]:contents.length?contents:[record];

@@ -1,4 +1,4 @@
-import {loadMenu} from './menu-content.js?v=20260930-cms';
+import {loadMenu,galleryURL} from './menu-content.js?v=20261001-custom-pages';
 import {fadeToWhite} from './page-transition.js?v=20260930-keep-navigation';
 import './pointer.js?v=20260930-gallery-links';
 import './text-hover.js?v=20260930-static-titles';
@@ -73,11 +73,12 @@ loadMenu().then(items=>{
  const existing=new Map([...dropdown.querySelectorAll('a')].map(link=>[new URL(link.href).pathname.split('/').pop().replace(/\.html$/,''),link]));
  const main=document.createDocumentFragment(),secondary=document.createElement('div');secondary.className='menu-secondary';
  for(const item of items){
-  const link=existing.get(item.page);if(!link)continue;
-  link.textContent=item.label;link.href=new URL(item.page+'.html',import.meta.url).href;
+  const link=existing.get(item.page)||document.createElement('a');
+  link.textContent=item.label;link.href=galleryURL(item.page);
   (item.secondary?secondary:main).append(link);
-  const current=location.pathname.split('/').pop().replace(/\.html$/,'');
+  const current=new URLSearchParams(location.search).get('category')||location.pathname.split('/').pop().replace(/\.html$/,'');
   if(current===item.page){
+   link.setAttribute('aria-current','page');
    const heading=document.querySelector('.category-content>h1,.placeholder-content>h1');if(heading)heading.textContent=item.label;
    document.title=item.label+' — mrk';
    document.querySelector('.media-grid')?.setAttribute('aria-label',item.label+' gallery');
