@@ -2,8 +2,18 @@
   "items": [
     {
       "type": "image",
-      "title": "test",
-      "image": "/mrkstudios/uploads/02.jpg"
+      "title": "test title",
+      "image": "/mrkstudios/uploads/slide05-2.jpg",
+      "session": [
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/photo2026-09-2410-45-18-2.jpg"
+        },
+        {
+          "type": "image",
+          "image": "/mrkstudios/uploads/photo2026-09-2410-45-18-3.jpg"
+        }
+      ]
     }
   ]
 }
