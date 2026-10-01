@@ -26,6 +26,11 @@
       "secondary": false
     },
     {
+      "page": "photography",
+      "label": "photography",
+      "secondary": true
+    },
+    {
       "page": "gear-rental",
       "label": "Gear Rental",
       "secondary": true
