@@ -1,4 +1,4 @@
-import {loadMenu,galleryURL} from './menu-content.js?v=20261001-custom-pages';
+import {loadMenu,galleryURL} from './menu-content.js?v=20261001-menu-spacing';
 import {fadeToWhite} from './page-transition.js?v=20260930-keep-navigation';
 import './pointer.js?v=20260930-gallery-links';
 import './text-hover.js?v=20260930-static-titles';
@@ -71,11 +71,11 @@ if(document.body.classList.contains('category-page')){
 
 loadMenu().then(items=>{
  const existing=new Map([...dropdown.querySelectorAll('a')].map(link=>[new URL(link.href).pathname.split('/').pop().replace(/\.html$/,''),link]));
- const main=document.createDocumentFragment(),secondary=document.createElement('div');secondary.className='menu-secondary';
+ const main=document.createDocumentFragment();
  for(const item of items){
   const link=existing.get(item.page)||document.createElement('a');
   link.textContent=item.label;link.href=galleryURL(item.page);
-  (item.secondary?secondary:main).append(link);
+  link.classList.toggle('menu-space-above',item.spaceAbove);main.append(link);
   const current=new URLSearchParams(location.search).get('category')||location.pathname.split('/').pop().replace(/\.html$/,'');
   if(current===item.page){
    link.setAttribute('aria-current','page');
@@ -84,5 +84,5 @@ loadMenu().then(items=>{
    document.querySelector('.media-grid')?.setAttribute('aria-label',item.label+' gallery');
   }
  }
- if(secondary.children.length)main.append(secondary);dropdown.replaceChildren(main);
+ dropdown.replaceChildren(main);
 }).catch(error=>console.warn('Menu content unavailable; using default navigation.',error));

@@ -3,7 +3,7 @@ export function parseMenu(data){
  if(!Array.isArray(data?.items))throw new Error('Invalid menu');
  const seen=new Set();return data.items.map(item=>{
   if(typeof item.page!=='string'||! /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(item.page)||seen.has(item.page)||typeof item.label!=='string'||!item.label.trim())throw new Error('Invalid menu item');
-  seen.add(item.page);return{page:item.page,label:item.label.trim(),secondary:item.secondary===true,works:Array.isArray(item.works)?item.works:undefined};
+  seen.add(item.page);return{page:item.page,label:item.label.trim(),spaceAbove:item.spaceAbove===true,works:Array.isArray(item.works)?item.works:undefined};
  });
 }
 export async function loadMenu(){

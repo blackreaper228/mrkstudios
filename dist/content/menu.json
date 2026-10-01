@@ -3,37 +3,42 @@
     {
       "page": "events",
       "label": "Events",
-      "secondary": false
+      "spaceAbove": false
     },
     {
       "page": "concerts",
       "label": "Concerts",
-      "secondary": false
+      "spaceAbove": false
     },
     {
       "page": "commercials",
       "label": "Commercials",
-      "secondary": false
+      "spaceAbove": false
     },
     {
       "page": "documentaries",
       "label": "Documentaries",
-      "secondary": false
+      "spaceAbove": false
     },
     {
       "page": "food",
       "label": "Food",
-      "secondary": false
+      "spaceAbove": false
+    },
+    {
+      "page": "photography",
+      "label": "photography",
+      "spaceAbove": true
     },
     {
       "page": "gear-rental",
       "label": "Gear Rental",
-      "secondary": true
+      "spaceAbove": false
     },
     {
       "page": "team",
       "label": "Team",
-      "secondary": true
+      "spaceAbove": false
     }
   ]
 }

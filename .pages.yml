@@ -30,8 +30,8 @@ content:
       label: Menu and page title
       type: string
       required: true
-    - name: secondary
-      label: Secondary menu group
+    - name: spaceAbove
+      label: Add space above
       type: boolean
       default: false
     - name: works
