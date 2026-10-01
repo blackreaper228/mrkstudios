@@ -4,99 +4,31 @@
       "type": "image",
       "title": "JLO Concert",
       "image": "/mrkstudios/uploads/pcd02926.jpg",
-      "session": [
-        {
-          "type": "image",
-          "image": "/mrkstudios/uploads/pcd02926-1.jpg"
-        },
-        {
-          "type": "image",
-          "image": "/mrkstudios/uploads/pcd03585.jpg"
-        },
-        {
-          "type": "image",
-          "image": "/mrkstudios/uploads/pcd03552.jpg"
-        },
-        {
-          "type": "image",
-          "image": "/mrkstudios/uploads/pcd03377.jpg"
-        },
-        {
-          "type": "image",
-          "image": "/mrkstudios/uploads/pcd03337.jpg"
-        },
-        {
-          "type": "image",
-          "image": "/mrkstudios/uploads/pcd03662.jpg"
-        },
-        {
-          "type": "image",
-          "image": "/mrkstudios/uploads/pcd03083.jpg"
-        },
-        {
-          "type": "image",
-          "image": "/mrkstudios/uploads/pcd03230.jpg"
-        },
-        {
-          "type": "image",
-          "image": "/mrkstudios/uploads/pcd02864.jpg"
-        },
-        {
-          "type": "image",
-          "image": "/mrkstudios/uploads/pcd02824.jpg"
-        },
-        {
-          "type": "image",
-          "image": "/mrkstudios/uploads/pcd02768.jpg"
-        },
-        {
-          "type": "image",
-          "image": "/mrkstudios/uploads/pcd02514.jpg"
-        },
-        {
-          "type": "image",
-          "image": "/mrkstudios/uploads/pcd02510.jpg"
-        },
-        {
-          "type": "image",
-          "image": "/mrkstudios/uploads/pcd02443.jpg"
-        },
-        {
-          "type": "image",
-          "image": "/mrkstudios/uploads/pcd02077.jpg"
-        },
-        {
-          "type": "image",
-          "image": "/mrkstudios/uploads/pcd01926.jpg"
-        },
-        {
-          "type": "image",
-          "image": "/mrkstudios/uploads/pcd01787.jpg"
-        },
-        {
-          "type": "image",
-          "image": "/mrkstudios/uploads/pcd01055.jpg"
-        },
-        {
-          "type": "image",
-          "image": "/mrkstudios/uploads/pcd01026.jpg"
-        },
-        {
-          "type": "image",
-          "image": "/mrkstudios/uploads/pcd00579.jpg"
-        },
-        {
-          "type": "image",
-          "image": "/mrkstudios/uploads/pcd00552.jpg"
-        },
-        {
-          "type": "image",
-          "image": "/mrkstudios/uploads/pcd00357.jpg"
-        },
-        {
-          "type": "image",
-          "image": "/mrkstudios/uploads/pcd00106.jpg"
-        }
+      "photos": [
+        "/mrkstudios/uploads/pcd00106-1.jpg",
+        "/mrkstudios/uploads/pcd00357-1.jpg",
+        "/mrkstudios/uploads/pcd00552-1.jpg",
+        "/mrkstudios/uploads/pcd00579-1.jpg",
+        "/mrkstudios/uploads/pcd01026-1.jpg",
+        "/mrkstudios/uploads/pcd01055-1.jpg",
+        "/mrkstudios/uploads/pcd01746.jpg",
+        "/mrkstudios/uploads/pcd01787-2.jpg",
+        "/mrkstudios/uploads/pcd01926-1.jpg",
+        "/mrkstudios/uploads/pcd02077-1.jpg",
+        "/mrkstudios/uploads/pcd02443-1.jpg",
+        "/mrkstudios/uploads/pcd02510-1.jpg",
+        "/mrkstudios/uploads/pcd02768-1.jpg",
+        "/mrkstudios/uploads/pcd02514-1.jpg",
+        "/mrkstudios/uploads/pcd02824-1.jpg",
+        "/mrkstudios/uploads/pcd02864-1.jpg",
+        "/mrkstudios/uploads/pcd02926-3.jpg",
+        "/mrkstudios/uploads/pcd03083-1.jpg",
+        "/mrkstudios/uploads/pcd03230-2.jpg",
+        "/mrkstudios/uploads/pcd03337-1.jpg",
+        "/mrkstudios/uploads/pcd03377-1.jpg",
+        "/mrkstudios/uploads/pcd03552-2.jpg",
+        "/mrkstudios/uploads/pcd03585-1.jpg",
+        "/mrkstudios/uploads/pcd03662-1.jpg"
       ]
     },
     {
