@@ -12,18 +12,18 @@
     },
     {
       "type": "video",
-      "title": "Team Lab Ludovico Einaudi ",
-      "video": "TeamLab"
-    },
-    {
-      "type": "video",
-      "title": "Beyond Event",
-      "video": "https://vimeo.com/1106850079?share=copy&fl=sv&fe=ci"
-    },
-    {
-      "type": "video",
       "title": "UFC 321",
       "video": "https://vimeo.com/1130891951?share=copy&fl=sv&fe=ci"
+    },
+    {
+      "type": "video",
+      "title": "ICD wellness Week",
+      "video": "https://vimeo.com/1231971664?share=copy&fl=sv&fe=ci"
+    },
+    {
+      "type": "video",
+      "title": "Team Lab Ludovico Einaudi ",
+      "video": "TeamLab"
     },
     {
       "type": "video",
@@ -32,8 +32,8 @@
     },
     {
       "type": "video",
-      "title": "HypeBeast X ICD",
-      "video": "https://vimeo.com/1050053273?share=copy&fl=sv&fe=ci"
+      "title": "Beyond Event",
+      "video": "https://vimeo.com/1106850079?share=copy&fl=sv&fe=ci"
     },
     {
       "type": "video",
@@ -42,8 +42,8 @@
     },
     {
       "type": "video",
-      "title": "Games of the future",
-      "video": "https://vimeo.com/1231780359?share=copy&fl=sv&fe=ci"
+      "title": "HypeBeast X ICD",
+      "video": "https://vimeo.com/1050053273?share=copy&fl=sv&fe=ci"
     },
     {
       "type": "video",
@@ -57,8 +57,38 @@
     },
     {
       "type": "video",
-      "title": "ICD wellness Week",
-      "video": "https://vimeo.com/1231971664?share=copy&fl=sv&fe=ci"
+      "title": "Games of the future",
+      "video": "https://vimeo.com/1231780359?share=copy&fl=sv&fe=ci"
+    },
+    {
+      "type": "video",
+      "title": "Gucci Ancora",
+      "video": "https://vimeo.com/1050059421?share=copy&fl=sv&fe=ci"
+    },
+    {
+      "type": "video",
+      "title": "Gucci Dubai mall",
+      "video": "https://vimeo.com/1050063312?share=copy&fl=sv&fe=ci"
+    },
+    {
+      "type": "video",
+      "title": "Workshop ICD",
+      "video": "https://vimeo.com/792884022?share=copy&fl=sv&fe=ci"
+    },
+    {
+      "type": "video",
+      "title": "Comic Con",
+      "video": "https://vimeo.com/805874755?share=copy&fl=sv&fe=ci"
+    },
+    {
+      "type": "video",
+      "title": "Arcade Nights - Mamsha Saadiyat",
+      "video": "https://vimeo.com/792883747?share=copy&fl=sv&fe=ci"
+    },
+    {
+      "type": "video",
+      "title": "Porsche Mecan",
+      "video": "https://vimeo.com/1050075249?share=copy&fl=sv&fe=ci"
     }
   ]
 }
