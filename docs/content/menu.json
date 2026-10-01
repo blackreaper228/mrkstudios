@@ -33,7 +33,7 @@
     {
       "page": "gear-rental",
       "label": "Gear Rental",
-      "spaceAbove": false
+      "spaceAbove": true
     },
     {
       "page": "team",
