@@ -213,6 +213,15 @@
           "type": "image"
         }
       ]
+    },
+    {
+      "type": "image",
+      "title": "Teddy Swims",
+      "image": "/mrkstudios/uploads/nkl07758.jpg",
+      "photos": [
+        "/mrkstudios/uploads/nkl07721.jpg",
+        "/mrkstudios/uploads/nkl07501.jpg"
+      ]
     }
   ]
 }
