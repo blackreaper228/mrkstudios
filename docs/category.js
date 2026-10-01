@@ -1,4 +1,4 @@
-import {loadGallery,galleryURL} from './menu-content.js?v=20261001-custom-pages';
+import {loadGallery,galleryURL} from './menu-content.js?v=20261001-page-editors';
 import {finishLoading} from './loading-effects.js?v=20260930-1';
 import {categories,parseMedia} from './media.js';
 import {mediaElement} from './media-element.js?v=20260930-hover-stop';

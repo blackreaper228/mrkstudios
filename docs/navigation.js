@@ -1,4 +1,4 @@
-import {loadMenu,galleryURL} from './menu-content.js?v=20261001-menu-spacing';
+import {loadMenu,galleryURL} from './menu-content.js?v=20261001-page-editors';
 import {fadeToWhite} from './page-transition.js?v=20260930-keep-navigation';
 import './pointer.js?v=20260930-gallery-links';
 import './text-hover.js?v=20260930-static-titles';
