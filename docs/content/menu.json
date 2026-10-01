@@ -28,14 +28,7 @@
     {
       "page": "photography",
       "label": "photography",
-      "spaceAbove": true,
-      "works": [
-        {
-          "type": "image",
-          "title": "test",
-          "image": "/mrkstudios/uploads/02.jpg"
-        }
-      ]
+      "spaceAbove": true
     },
     {
       "page": "gear-rental",
