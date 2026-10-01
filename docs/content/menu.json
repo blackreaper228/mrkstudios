@@ -28,12 +28,19 @@
     {
       "page": "photography",
       "label": "photography",
-      "spaceAbove": true
+      "spaceAbove": true,
+      "works": [
+        {
+          "type": "image",
+          "title": "test",
+          "image": "/mrkstudios/uploads/02.jpg"
+        }
+      ]
     },
     {
       "page": "gear-rental",
       "label": "Gear Rental",
-      "spaceAbove": false
+      "spaceAbove": true
     },
     {
       "page": "team",
