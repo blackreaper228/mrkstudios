@@ -12,11 +12,6 @@
     },
     {
       "type": "video",
-      "title": "Team Lab Ludovico Einaudi ",
-      "video": "TeamLab"
-    },
-    {
-      "type": "video",
       "title": "UFC 321",
       "video": "https://vimeo.com/1130891951?share=copy&fl=sv&fe=ci"
     },
@@ -24,6 +19,11 @@
       "type": "video",
       "title": "ICD wellness Week",
       "video": "https://vimeo.com/1231971664?share=copy&fl=sv&fe=ci"
+    },
+    {
+      "type": "video",
+      "title": "Team Lab Ludovico Einaudi ",
+      "video": "TeamLab"
     },
     {
       "type": "video",
