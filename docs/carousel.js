@@ -2,7 +2,7 @@ import {revealMedia} from './loading-effects.js?v=20260930-1';
 import {subscribeDeviceTilt} from './device-tilt.js';
 import {fadeToWhite} from './page-transition.js?v=20260930-keep-navigation';
 import { halftonePhoto } from './halftone.js?v=20260930-loading';
-import { titleLayout } from './title-layout.js';
+import { titleLayout } from './title-layout.js?v=20261001-lower-neighbors';
 import { loadPortfolio } from './content.js?v=20260930-gallery-links';
 const $=s=>document.querySelector(s);
 let films=[
@@ -34,7 +34,7 @@ const wrap=n=>(n+films.length)%films.length;
 let tx=0,ty=0,rx=0,ry=0,mx=innerWidth/2,my=innerHeight/2,cx=mx,cy=my;
 subscribeDeviceTilt(({x,y})=>{tx=x;ty=y});
 const duration=reduce?0:950,easing='cubic-bezier(.76,0,.24,1)';
-function poses(activeSlot=0){const buttons=[...titles.querySelectorAll('.carousel-title')];return titleLayout(buttons.map(b=>b.offsetWidth),activeSlot+2,16/(innerWidth<=700?22:28))}
+function poses(activeSlot=0){const buttons=[...titles.querySelectorAll('.carousel-title')];return titleLayout(buttons.map(b=>b.offsetWidth),activeSlot+2,16/(innerWidth<=700?30:36))}
 function renderTitles(){titles.querySelectorAll('.carousel-title').forEach(e=>e.remove());for(let slot=-2;slot<=2;slot++){const b=document.createElement(slot===0?'a':'button');if(slot!==0)b.type='button';b.className='carousel-title';const film=films[wrap(index+slot)];b.textContent=film.title;if(slot===0)b.href=film.href||['events.html','concerts.html','commercials.html','documentaries.html','food.html'][wrap(index+slot)];b.dataset.slot=slot;b.style.opacity=slot===0?'1':Math.abs(slot)===1?'.22':'0';b.tabIndex=Math.abs(slot)<=1?0:-1;b.setAttribute('aria-hidden',String(Math.abs(slot)>1));b.setAttribute('aria-label',(slot===0?'View ':slot<0?'Previous photo: ':'Next photo: ')+b.textContent);b.onclick=event=>{if(busy){event.preventDefault();return}if(slot!==0){event.preventDefault();change(Math.sign(slot))}};titles.append(b)}const layout=poses();titles.querySelectorAll('.carousel-title').forEach((b,i)=>b.style.transform=layout[i])}
 function setTitles(){const prev=films[wrap(index-1)],next=films[wrap(index+1)];$('#gallery-title').textContent=films[index].title;$('#previous').setAttribute('aria-label','Previous photo: '+prev.title);$('#next').setAttribute('aria-label','Next photo: '+next.title)}
 function render(){
