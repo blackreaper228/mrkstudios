@@ -845,3 +845,119 @@ content:
             type: string
             description: Used only when Video is selected. Paste a Vimeo URL, including its privacy token for unlisted
               videos.
+- name: gallery-test
+  label: test
+  type: file
+  path: docs/content/galleries/test.json
+  fields:
+  - name: items
+    label: Photoshoots
+    type: block
+    list: true
+    blockKey: type
+    blocks:
+    - name: image
+      label: Photo
+      fields:
+      - name: title
+        label: Photoshoot title
+        type: string
+        required: true
+      - name: image
+        label: Upload photo
+        type: image
+        description: Used only when Photo is selected. Upload a photo or use Photo URL below.
+      - name: imageUrl
+        label: Photo URL
+        type: string
+        description: Used only when Photo is selected. A direct image URL takes priority over the uploaded photo.
+      - name: slug
+        label: Photoshoot URL ID
+        type: string
+        description: Optional unique URL ID within this category, e.g. summer-2026. Used as work=summer-2026 in
+          the photoshoot link. Leave empty to use the item number. Keep unchanged after sharing the link.
+      - name: description
+        label: Photoshoot description
+        type: text
+      - name: session
+        label: Photoshoot media — add, remove and reorder
+        type: block
+        list: true
+        blockKey: type
+        blocks:
+        - name: image
+          label: Photo
+          fields:
+          - name: title
+            label: Caption / description
+            type: string
+          - name: image
+            label: Upload photo
+            type: image
+            description: Used only when Photo is selected. Upload a photo or use Photo URL below.
+          - name: imageUrl
+            label: Photo URL
+            type: string
+            description: Used only when Photo is selected. A direct image URL takes priority over the uploaded photo.
+        - name: video
+          label: Video
+          fields:
+          - name: title
+            label: Caption / description
+            type: string
+          - name: video
+            label: Video URL
+            type: string
+            description: Used only when Video is selected. Paste a Vimeo URL, including its privacy token for unlisted
+              videos.
+    - name: video
+      label: Video
+      fields:
+      - name: title
+        label: Photoshoot title
+        type: string
+        required: true
+      - name: video
+        label: Video URL
+        type: string
+        description: Used only when Video is selected. Paste a Vimeo URL, including its privacy token for unlisted
+          videos.
+      - name: slug
+        label: Photoshoot URL ID
+        type: string
+        description: Optional unique URL ID within this category, e.g. summer-2026. Used as work=summer-2026 in
+          the photoshoot link. Leave empty to use the item number. Keep unchanged after sharing the link.
+      - name: description
+        label: Photoshoot description
+        type: text
+      - name: session
+        label: Photoshoot media — add, remove and reorder
+        type: block
+        list: true
+        blockKey: type
+        blocks:
+        - name: image
+          label: Photo
+          fields:
+          - name: title
+            label: Caption / description
+            type: string
+          - name: image
+            label: Upload photo
+            type: image
+            description: Used only when Photo is selected. Upload a photo or use Photo URL below.
+          - name: imageUrl
+            label: Photo URL
+            type: string
+            description: Used only when Photo is selected. A direct image URL takes priority over the uploaded photo.
+        - name: video
+          label: Video
+          fields:
+          - name: title
+            label: Caption / description
+            type: string
+          - name: video
+            label: Video URL
+            type: string
+            description: Used only when Video is selected. Paste a Vimeo URL, including its privacy token for unlisted
+              videos.
