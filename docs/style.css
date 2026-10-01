@@ -208,3 +208,5 @@ a:hover>.roll-label>.roll-label-track,button:hover>.roll-label>.roll-label-track
 @keyframes content-opacity-in{from{opacity:0}to{opacity:1}}
 @keyframes gallery-block-in{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){.reveal-media,.session-cover::after,.session-grid figure::after{transition:none}.media-card,.session-grid figure,.photo-viewer.is-opening,.photo-viewer.is-opening::backdrop,.gallery-status[data-loading]{animation:none}}
+
+.carousel-title{font-size:28px}@media(max-width:700px){.carousel-title{font-size:22px}}

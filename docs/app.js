@@ -7,8 +7,9 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const mobile=matchMedia('(max-width: 700px), (pointer: coarse)').matches;
 const characterScale=mobile?7.3:8.5;
 let neckBone,headBone,torsoBone,televisionModel;
-let homeDistance=9,modelReady=false,screenContext,screenTexture,logoArtwork;
+let homeDistance=9,modelReady=false,screenContext,screenTexture,logoArtwork,glowArtwork,crtOverlay,screenNoise,screenBlur;
 let introProgress=1;
+let nextGlitch=performance.now()+700,glitchUntil=0,glitchKind='bands',glitchBands=[],rgbArtwork=[];
 const screenCanvas=document.createElement('canvas');screenCanvas.width=1024;screenCanvas.height=776;
 let renderer,scene,camera,tv,mode='hero',progress=0,last=0,raf,targetX=0,targetY=0;
 subscribeDeviceTilt(({x,y})=>{targetX=x;targetY=y});
@@ -29,7 +30,7 @@ async function loadTelevision(){
  const artworkReady=createLogoArtwork();
  const [person,television]=await Promise.all([
   loader.loadAsync(new URL('assets/person-rig-compressed.glb',import.meta.url).href),
-  loader.loadAsync(new URL('assets/old_tv.glb',import.meta.url).href)
+  loader.loadAsync(new URL('assets/old_tv-hq.glb',import.meta.url).href)
  ]);
  const body=person.scene,model=television.scene;televisionModel=model;
  neckBone=body.getObjectByName('Neck');headBone=body.getObjectByName('Head');torsoBone=body.getObjectByName('Torso');
@@ -42,7 +43,10 @@ async function loadTelevision(){
  body.position.y=-(1.625+size.y*modelScale/2);
  tv.add(body);tv.scale.setScalar(characterScale);tv.updateMatrixWorld(true);
  let screen;
- model.traverse(mesh=>{if(mesh.isMesh){mesh.castShadow=false;mesh.receiveShadow=false;if(mesh.material?.name==='Glass')screen=mesh}});
+ const textureQuality=Math.min(renderer.capabilities.getMaxAnisotropy(),mobile?4:16);
+ model.traverse(mesh=>{if(mesh.isMesh){mesh.castShadow=false;mesh.receiveShadow=false;
+  for(const material of Array.isArray(mesh.material)?mesh.material:[mesh.material])for(const value of Object.values(material))if(value?.isTexture){value.anisotropy=textureQuality;value.needsUpdate=true}
+  if(mesh.material?.name==='Glass')screen=mesh}});
  if(!screen)throw new Error('Television screen not found');
  // Original TV geometry and texture data stay intact; only its glass gets the idle artwork.
  const geometry=screen.geometry.clone();geometry.computeBoundingBox();const bounds=geometry.boundingBox;
@@ -51,6 +55,7 @@ async function loadTelevision(){
  geometry.setAttribute('uv',new THREE.BufferAttribute(uv,2));screen.geometry=geometry;
  const screenBounds=new THREE.Box3().setFromObject(screen);screenBounds.getCenter(screenFocus);tv.worldToLocal(screenFocus);
  screenContext=screenCanvas.getContext('2d');screenTexture=new THREE.CanvasTexture(screenCanvas);screenTexture.colorSpace=THREE.SRGBColorSpace;
+ screenTexture.anisotropy=textureQuality;
  screen.material=new THREE.MeshBasicMaterial({map:screenTexture,side:THREE.DoubleSide,toneMapped:false});
  await artworkReady;
  const assetsReady=performance.now();
@@ -63,7 +68,7 @@ async function loadTelevision(){
  camera.position.set(0,0,homeDistance);renderer.render(scene,camera);
  await window.mrkLoader?.complete();
  console.info('TV startup timings (ms)',{assets:Math.round(assetsReady-loadStarted),firstRender:Math.round(performance.now()-loadStarted)});
- if(!mobile){renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));resize()}
+ renderer.setPixelRatio(mobile?Math.min(devicePixelRatio,1.5):2);resize();
  if(!hasLoader)hero.animate([{opacity:0},{opacity:1}],{duration:reduced?0:450,easing:'ease-out'});
  canvas.dataset.detail='lod';
  const connection=navigator.connection;
@@ -99,17 +104,100 @@ async function createLogoArtwork(){
  const left=162,top=313,right=1328,bottom=773;
  logoArtwork=document.createElement('canvas');logoArtwork.width=right-left+1;logoArtwork.height=bottom-top+1;
  logoArtwork.getContext('2d').drawImage(image,left,top,logoArtwork.width,logoArtwork.height,0,0,logoArtwork.width,logoArtwork.height);
+ screenNoise=document.createElement('canvas');screenNoise.width=256;screenNoise.height=256;
+ const noiseContext=screenNoise.getContext('2d'),grain=noiseContext.createImageData(256,256);
+ for(let i=0;i<grain.data.length;i+=4){const value=Math.random()<.75?0:210;grain.data[i]=grain.data[i+1]=grain.data[i+2]=value;grain.data[i+3]=75+Math.random()*75}
+ noiseContext.putImageData(grain,0,0);
+ screenBlur=document.createElement('canvas');screenBlur.width=screenCanvas.width;screenBlur.height=screenCanvas.height;
+
+
+ rgbArtwork=['#ff0000','#00ff00','#0000ff'].map(color=>{
+  const layer=document.createElement('canvas');layer.width=logoArtwork.width;layer.height=logoArtwork.height;
+  const ctx=layer.getContext('2d');ctx.drawImage(logoArtwork,0,0);ctx.globalCompositeOperation='multiply';ctx.fillStyle=color;ctx.fillRect(0,0,layer.width,layer.height);
+  ctx.globalCompositeOperation='destination-in';ctx.drawImage(logoArtwork,0,0);return layer;
+ });
+ glowArtwork=document.createElement('canvas');glowArtwork.width=logoArtwork.width+2800;glowArtwork.height=logoArtwork.height+2800;
+ const glow=glowArtwork.getContext('2d');glow.globalCompositeOperation='screen';
+ for(const filter of ['blur(500px) brightness(2.3)','blur(280px) brightness(1.8)','blur(90px) brightness(1.1)']){glow.filter=filter;glow.drawImage(logoArtwork,1400,1400)}
+ crtOverlay=document.createElement('canvas');crtOverlay.width=screenCanvas.width;crtOverlay.height=screenCanvas.height;
+ const crt=crtOverlay.getContext('2d'),w=crtOverlay.width,h=crtOverlay.height;
+ // A sparse horizontal mask covers the entire screen.
+ crt.fillStyle='rgba(0,0,0,.40)';for(let y=10;y<h;y+=14)crt.fillRect(0,y,w,2);
+ const vignette=crt.createRadialGradient(w/2,h/2,h*.15,w/2,h/2,w*.64);vignette.addColorStop(0,'rgba(0,0,0,0)');vignette.addColorStop(.65,'rgba(0,0,0,.06)');vignette.addColorStop(1,'rgba(0,0,0,.65)');crt.fillStyle=vignette;crt.fillRect(0,0,w,h);
 }
 function updateScreen(){
- if(!screenContext)return;const w=screenCanvas.width,h=screenCanvas.height;
- screenContext.fillStyle='#000';screenContext.fillRect(0,0,w,h);
+ if(!screenContext)return;const w=screenCanvas.width,h=screenCanvas.height,now=performance.now();
+ if(!reduced&&now>=nextGlitch){
+  const kinds=['bands','rgb','jitter','roll','dropout'];
+  const choices=kinds.filter(kind=>kind!==glitchKind);
+  glitchKind=choices[Math.floor(Math.random()*choices.length)];
+  glitchUntil=now+90+Math.random()*170;nextGlitch=glitchUntil+220+Math.random()*620;
+  glitchBands=Array.from({length:2+Math.floor(Math.random()*4)},()=>({y:Math.floor(Math.random()*(h-24)),height:4+Math.floor(Math.random()*24),shift:(Math.random()>.5?1:-1)*(10+Math.random()*36)}));
+ }
+ screenContext.fillStyle='#171a1e';screenContext.fillRect(0,0,w,h);
+
  if(logoArtwork){const tw=w*.35,th=tw*logoArtwork.height/logoArtwork.width,lx=(w-tw)/2,ly=(h-th)/2;
- screenContext.drawImage(logoArtwork,w/2+bounce.x/bounce.limitX*lx-tw/2,h/2-bounce.y/bounce.limitY*ly-th/2,tw,th)}
+ const x=w/2+bounce.x/bounce.limitX*lx-tw/2,y=h/2-bounce.y/bounce.limitY*ly-th/2,pad=1400*tw/logoArtwork.width;
+ screenContext.save();screenContext.globalCompositeOperation='screen';screenContext.globalAlpha=1;screenContext.drawImage(glowArtwork,x-pad,y-pad,tw+2*pad,th+2*pad);
+ screenContext.globalCompositeOperation='screen';screenContext.filter='none';
+ if(!reduced&&glitchKind==='rgb'&&performance.now()<glitchUntil){
+  const split=8+Math.random()*10;
+  screenContext.globalCompositeOperation='screen';
+  screenContext.filter='blur(2px)';
+  rgbArtwork.forEach((layer,index)=>screenContext.drawImage(layer,x+(index-1)*split,y+(index===1?0:(index-1)*2),tw,th));
+ }else{
+  const split=2;
+  rgbArtwork.forEach((layer,index)=>screenContext.drawImage(layer,x+(index-1)*split,y,tw,th));
+ }
+ screenContext.restore()}
+ if(crtOverlay){screenContext.save();screenContext.globalCompositeOperation='multiply';screenContext.drawImage(crtOverlay,0,0);screenContext.restore()}
+ if(!reduced&&glitchKind==='bands'&&now<glitchUntil){
+  for(const band of glitchBands){
+   screenContext.drawImage(screenCanvas,0,band.y,w,band.height,band.shift,band.y,w,band.height);
+   screenContext.save();screenContext.globalCompositeOperation='screen';screenContext.globalAlpha=.18;
+   screenContext.fillStyle=Math.random()>.5?'#18b9ff':'#ff2269';screenContext.fillRect(0,band.y,w,1);screenContext.restore();
+  }
+ }
+ if(!reduced&&now<glitchUntil){
+  screenContext.save();
+  if(glitchKind==='jitter'){
+   const shift=Math.sin(now*.09)*3;
+   screenContext.drawImage(screenCanvas,0,0,w,h,shift,0,w,h);
+  }else if(glitchKind==='roll'){
+   const line=(now*.75)%h;
+   screenContext.drawImage(screenCanvas,0,line,w,18,Math.sin(now*.05)*24,line,w,18);
+   screenContext.fillStyle='rgba(150,190,255,.18)';screenContext.fillRect(0,line,w,2);
+  }else if(glitchKind==='dropout'){
+   for(const band of glitchBands){screenContext.fillStyle='rgba(4,8,18,.65)';screenContext.fillRect(0,band.y,w,band.height*.35)}
+  }
+  screenContext.restore();
+ }
+ // Blur the complete composited screen, then apply a thresholded unsharp mask.
+ if(screenBlur){
+  const blurContext=screenBlur.getContext('2d',{willReadFrequently:true});
+  blurContext.clearRect(0,0,w,h);blurContext.filter='blur(3px)';blurContext.drawImage(screenCanvas,0,0);
+  screenContext.clearRect(0,0,w,h);screenContext.drawImage(screenBlur,0,0);
+  const pixels=blurContext.getImageData(0,0,w,h),source=pixels.data;
+  blurContext.clearRect(0,0,w,h);blurContext.filter='blur(4px)';blurContext.drawImage(screenCanvas,0,0);
+  const softened=blurContext.getImageData(0,0,w,h).data;
+  for(let i=0;i<source.length;i+=4){
+   const edge=(source[i]-softened[i])*.2126+(source[i+1]-softened[i+1])*.7152+(source[i+2]-softened[i+2])*.0722;
+   if(Math.abs(edge)<7)continue;
+   for(let channel=0;channel<3;channel++)source[i+channel]+=(source[i+channel]-softened[i+channel])*3.2;
+  }
+  screenContext.putImageData(pixels,0,0);
+ }
+ if(screenNoise){
+  screenContext.save();screenContext.globalAlpha=.30;
+  const offsetX=reduced?0:Math.floor(Math.random()*256),offsetY=reduced?0:Math.floor(Math.random()*256);
+  for(let y=-offsetY;y<h;y+=256)for(let x=-offsetX;x<w;x+=256)screenContext.drawImage(screenNoise,x,y);
+  screenContext.restore();
+ }
  screenTexture.needsUpdate=true;
 }
 function hitsTelevision(){tv.updateMatrixWorld(true);return televisionModel&&raycaster.intersectObject(televisionModel,true).length>0}
 function init(){
- renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:false,powerPreference:mobile?'low-power':'high-performance'});renderer.setPixelRatio(1);renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.35;
+ renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:!mobile,powerPreference:mobile?'low-power':'high-performance'});renderer.setPixelRatio(1);renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.35;
  scene=new THREE.Scene();camera=new THREE.PerspectiveCamera(37,1,.1,100);camera.position.set(0,0,homeDistance);camera.lookAt(0,0,0);
  scene.add(new THREE.HemisphereLight(0xffffff,0x858585,2.7));const key=new THREE.DirectionalLight(0xffffff,4);key.position.set(-3,7,6);scene.add(key);const rim=new THREE.DirectionalLight(0xffffff,1.2);rim.position.set(5,2,-3);scene.add(rim);
  tv=new THREE.Group();tv.rotation.set(0,0,0);scene.add(tv);
