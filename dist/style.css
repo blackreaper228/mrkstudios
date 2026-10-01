@@ -211,3 +211,8 @@ a:hover>.roll-label>.roll-label-track,button:hover>.roll-label>.roll-label-track
 
 
 .category-menu a.menu-space-above{margin-top:22px}
+
+.category-index .media-grid{align-items:stretch}
+.category-index .media-card{display:flex;flex-direction:column}
+.category-index .session-card-link{display:flex;flex-direction:column;justify-content:flex-end;flex:1;min-width:0}
+.category-index .session-cover{flex-shrink:0}
