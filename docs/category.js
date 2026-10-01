@@ -1,3 +1,4 @@
+import {sessionMedia} from './session-media.js';
 import {loadGallery,galleryURL} from './menu-content.js?v=20261001-page-editors';
 import {finishLoading} from './loading-effects.js?v=20260930-1';
 import {categories,parseMedia} from './media.js';
@@ -16,7 +17,7 @@ async function load(){
    let item;try{item=parseMedia(record,import.meta.url)}catch{invalid++;return}
    const card=document.createElement('article');card.className='media-card';
    const link=document.createElement('a');link.className='session-card-link';link.href=sessionURL(category,record,index);link.setAttribute('aria-label',item.title+' — photoshoot');
-   if(!Array.isArray(record.session)||!record.session.length){
+   if(!sessionMedia(record).length){
     link.setAttribute('aria-label','Open '+item.title);
     link.addEventListener('click',event=>{if(event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;event.preventDefault();photoViewer.open([item],0,link)});
    }

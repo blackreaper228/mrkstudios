@@ -1,3 +1,4 @@
+import {sessionMedia} from './session-media.js';
 import {loadGallery,galleryURL} from './menu-content.js?v=20261001-page-editors';
 import {finishLoading} from './loading-effects.js?v=20260930-1';
 import {createPhotoViewer} from './photo-viewer.js?v=20260930-single-item';
@@ -16,7 +17,7 @@ async function load(){
   document.querySelector('.session-title').textContent=record.title;document.title=record.title+' — mrk';
   const back=document.querySelector('.session-back');back.href=galleryURL(category);back.textContent='\u2190 back to gallery';
   document.querySelector('.session-description').textContent=record.description||'';
-  const contents=Array.isArray(record.session)&&record.session.length?record.session:[];
+  const contents=sessionMedia(record);
   const entries=record.type==='video'?[record,...contents]:contents.length?contents:[record];
   let invalid=0;const figures=document.createDocumentFragment();
   entries.forEach(entry=>{
