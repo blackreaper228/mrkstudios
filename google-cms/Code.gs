@@ -23,6 +23,12 @@ function id_(value) {
   const match = text.match(/(?:\/folders\/|\/d\/|[?&]id=)([\w-]+)/);
   return match ? match[1] : (/^[\w-]{20,}$/.test(text) ? text : '');
 }
+function slug_(value) {
+  const slug = String(value || '').trim().toLowerCase()
+    .normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  return slug || 'project';
+}
 function insideRoot_(item, checked) {
   const id = item.getId();
   if (id === ROOT_FOLDER_ID || checked[id]) return true;
@@ -75,8 +81,10 @@ function snapshot_() {
     const usedFolders = {}, seenWorks = {}, items = [];
     records.forEach(row => {const id=id_(row.folder); if(id) usedFolders[id]=true;});
     function add_(row, folder) {
-      const key = String(row.id).trim();
-      if (!key || seenWorks[key]) throw new Error('Missing or duplicate project ID on ' + slug + ': ' + key);
+      const explicitKey = String(row.id || '').trim();
+      const baseKey = explicitKey || slug_(row.title || (folder && folder.getName()));
+      let key = baseKey, suffix = 2;
+      while (seenWorks[key]) key = baseKey + '-' + suffix++;
       seenWorks[key] = true;
       const photos = folder ? photos_(folder,images) : [];
       const image = photos[0] || imageLink_(row.imageUrl,images,checked);

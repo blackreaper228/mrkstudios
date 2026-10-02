@@ -5,7 +5,7 @@ The Google spreadsheet is the content editor. Drive holds the original images. T
 ## Editing
 
 - **Pages:** create a page ID, title, menu order, optional section folder, publication checkbox, spacing checkbox and template. Keep page IDs stable after sharing links.
-- **Works:** project ID (unique within a page), parent page ID, title, photo/video type, album folder or single photo URL, video URL, description, publication and order.
+- **Works:** parent page ID, title, photo/video type, album folder or single photo URL, video URL, description, publication and order. The hidden project ID is optional: when it is empty, the exporter generates one automatically from the title and resolves duplicates.
 - **Media:** additional photo and video links inside a project, identified by page and workId.
 - **Home:** slides for the main carousel, including title, image link, destination link, publication and order.
 
