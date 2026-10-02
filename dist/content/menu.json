@@ -2,7 +2,7 @@
   "items": [
     {
       "page": "events",
-      "label": "Events",
+      "label": "EventsTest",
       "spaceAbove": false,
       "template": "gallery"
     },
