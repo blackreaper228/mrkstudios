@@ -3,9 +3,9 @@ const SPREADSHEET_ID = '10iNKQtCdJrUuLFK7pl08yKWumKb1hFeDt0GVNKhf6DE';
 const ROOT_FOLDER_ID = '1Z2ruN_2GZtiwUIy7EJPlJZ8vi3AVPJsv';
 
 function rows_(name) {
-  const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(name);
-  if (!sheet) throw new Error('Missing sheet: ' + name);
-  const values = sheet.getDataRange().getValues();
+  const result = Sheets.Spreadsheets.Values.get(SPREADSHEET_ID, name);
+  const values = result.values || [];
+  if (!values.length) throw new Error('Missing or empty sheet: ' + name);
   const headers = values.shift().map(String);
   return values.filter(r => r.some(v => v !== '')).map((r, index) => {
     const result = {_row: index};
