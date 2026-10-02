@@ -1,6 +1,7 @@
 export function parsePortfolio(data, base = import.meta.url) {
-  return Array.from({ length: 5 }, (_, index) => {
-    const slide = data?.[`slide${index + 1}`];
+  const slides = Array.isArray(data?.items) ? data.items : Array.from({length:5}, (_,index)=>data?.[`slide${index+1}`]);
+  if (!slides.length) throw new Error('Invalid portfolio: no slides');
+  return slides.map((slide, index) => {
     if (!slide || typeof slide.title !== 'string' || !slide.title.trim() || slide.title.trim().length > 80 || typeof slide.image !== 'string' || !slide.image.trim()) {
       throw new Error(`Invalid portfolio slide ${index + 1}`);
     }

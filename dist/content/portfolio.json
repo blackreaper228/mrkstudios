@@ -1,27 +1,29 @@
 {
-  "slide1": {
-    "title": "mixtape / showreel",
-    "image": "/mrkstudios/uploads/slide01.jpg",
-    "link": "events.html"
-  },
-  "slide2": {
-    "title": "somewhere / away",
-    "image": "/mrkstudios/uploads/slide02.jpg",
-    "link": "concerts.html"
-  },
-  "slide3": {
-    "title": "motion / instinct",
-    "image": "/mrkstudios/uploads/slide03.jpg",
-    "link": "commercials.html"
-  },
-  "slide4": {
-    "title": "after / hours",
-    "image": "/mrkstudios/uploads/slide04.jpg",
-    "link": "documentaries.html"
-  },
-  "slide5": {
-    "title": "into / the light",
-    "image": "/mrkstudios/uploads/slide05.jpg",
-    "link": "food.html"
-  }
+  "items": [
+    {
+      "title": "mixtape / showreel",
+      "image": "uploads/google/47717e168b3bec991260eb92.webp",
+      "link": "events.html"
+    },
+    {
+      "title": "somewhere / away",
+      "image": "uploads/google/cf62e7ac644ffa8f703d6189.webp",
+      "link": "concerts.html"
+    },
+    {
+      "title": "motion / instinct",
+      "image": "uploads/google/6b0dba6dce186cb1ec7651a2.webp",
+      "link": "commercials.html"
+    },
+    {
+      "title": "after / hours",
+      "image": "uploads/google/41cdf3e34b3953aca93b6570.webp",
+      "link": "documentaries.html"
+    },
+    {
+      "title": "into / the light",
+      "image": "uploads/google/ee383b144f4f8dbcb5284ce6.webp",
+      "link": "food.html"
+    }
+  ]
 }

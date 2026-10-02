@@ -1,5 +1,5 @@
 import {sessionMedia} from './session-media.js';
-import {loadGallery,galleryURL} from './menu-content.js?v=20261001-page-editors';
+import {loadGallery,galleryURL} from './menu-content.js?v=20261002-google-cms';
 import {finishLoading} from './loading-effects.js?v=20260930-1';
 import {categories,parseMedia} from './media.js';
 import {mediaElement} from './media-element.js?v=20260930-hover-stop';
@@ -12,6 +12,13 @@ async function load(){
   const category=new URLSearchParams(location.search).get('category')||document.body.dataset.category;
   document.body.dataset.category=category;
   const data=await loadGallery(category);if(!Array.isArray(data.items))throw new Error('Invalid gallery');
+  if(data.template==='placeholder'){
+   await finishLoading(status);status.hidden=true;grid.hidden=true;
+   document.body.classList.add('placeholder-page');
+   document.querySelector('.category-content').className='placeholder-content';
+   document.querySelector('.placeholder-content>h1').textContent=data.title||category;
+   document.querySelector('.site-footer')?.remove();return;
+  }
   let invalid=0;const cards=document.createDocumentFragment();
   data.items.forEach((record,index)=>{
    let item;try{item=parseMedia(record,import.meta.url)}catch{invalid++;return}

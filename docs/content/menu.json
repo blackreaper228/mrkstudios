@@ -3,47 +3,56 @@
     {
       "page": "events",
       "label": "Events",
-      "spaceAbove": false
+      "spaceAbove": false,
+      "template": "gallery"
     },
     {
       "page": "concerts",
       "label": "Concerts",
-      "spaceAbove": false
+      "spaceAbove": false,
+      "template": "gallery"
     },
     {
       "page": "commercials",
       "label": "Commercials",
-      "spaceAbove": false
+      "spaceAbove": false,
+      "template": "gallery"
     },
     {
       "page": "documentaries",
       "label": "Documentaries",
-      "spaceAbove": false
+      "spaceAbove": false,
+      "template": "gallery"
     },
     {
       "page": "food",
       "label": "Food",
-      "spaceAbove": false
+      "spaceAbove": false,
+      "template": "gallery"
     },
     {
       "page": "photography",
       "label": "photography",
-      "spaceAbove": true
+      "spaceAbove": true,
+      "template": "gallery"
     },
     {
       "page": "gear-rental",
       "label": "Gear Rental",
-      "spaceAbove": true
+      "spaceAbove": true,
+      "template": "placeholder"
     },
     {
       "page": "team",
       "label": "Team",
-      "spaceAbove": false
+      "spaceAbove": false,
+      "template": "placeholder"
     },
     {
       "page": "test",
       "label": "test",
-      "spaceAbove": false
+      "spaceAbove": false,
+      "template": "gallery"
     }
   ]
 }

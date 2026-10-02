@@ -3,7 +3,7 @@ import {subscribeDeviceTilt} from './device-tilt.js';
 import {fadeToWhite} from './page-transition.js?v=20260930-keep-navigation';
 import { halftonePhoto } from './halftone.js?v=20260930-loading';
 import { titleLayout } from './title-layout.js?v=20261001-lower-neighbors';
-import { loadPortfolio } from './content.js?v=20260930-gallery-links';
+import { loadPortfolio } from './content.js?v=20261002-google-cms';
 const $=s=>document.querySelector(s);
 let films=[
  {title:'mixtape / showreel',src:'https://picsum.photos/id/1018/1600/900'},

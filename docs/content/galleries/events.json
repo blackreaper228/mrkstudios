@@ -1,94 +1,114 @@
 {
   "items": [
     {
-      "type": "video",
+      "slug": "1",
       "title": "Disney Opening",
+      "type": "video",
       "video": "https://vimeo.com/1089154174?share=copy&fl=sv&fe=ci"
     },
     {
-      "type": "video",
+      "slug": "2",
       "title": "Team Recap",
+      "type": "video",
       "video": "https://vimeo.com/1089151598?share=copy&fl=sv&fe=ci"
     },
     {
-      "type": "video",
+      "slug": "3",
       "title": "UFC 321",
+      "type": "video",
       "video": "https://vimeo.com/1130891951?share=copy&fl=sv&fe=ci"
     },
     {
-      "type": "video",
+      "slug": "4",
       "title": "ICD wellness Week",
+      "type": "video",
       "video": "https://vimeo.com/1231971664?share=copy&fl=sv&fe=ci"
     },
     {
-      "type": "video",
+      "slug": "5",
       "title": "Team Lab Ludovico Einaudi ",
+      "type": "video",
       "video": "TeamLab"
     },
     {
-      "type": "video",
+      "slug": "6",
       "title": "UFC Qatar",
+      "type": "video",
       "video": "https://vimeo.com/1231779256?share=copy&fl=sv&fe=ci"
     },
     {
-      "type": "video",
+      "slug": "7",
       "title": "Beyond Event",
+      "type": "video",
       "video": "https://vimeo.com/1106850079?share=copy&fl=sv&fe=ci"
     },
     {
-      "type": "video",
+      "slug": "8",
       "title": "ICD Wellness week",
+      "type": "video",
       "video": "https://vimeo.com/1169498477?share=copy&fl=sv&fe=ci"
     },
     {
-      "type": "video",
+      "slug": "9",
       "title": "HypeBeast X ICD",
+      "type": "video",
       "video": "https://vimeo.com/1050053273?share=copy&fl=sv&fe=ci"
     },
     {
-      "type": "video",
+      "slug": "10",
       "title": "Defavela Alserkal",
+      "type": "video",
       "video": "https://vimeo.com/1050050177?share=copy&fl=sv&fe=ci"
     },
     {
-      "type": "video",
+      "slug": "11",
       "title": "Defavela Room 3",
+      "type": "video",
       "video": "https://vimeo.com/1231968965?share=copy&fl=sv&fe=ci"
     },
     {
-      "type": "video",
+      "slug": "12",
       "title": "Games of the future",
+      "type": "video",
       "video": "https://vimeo.com/1231780359?share=copy&fl=sv&fe=ci"
     },
     {
-      "type": "video",
+      "slug": "13",
       "title": "Gucci Ancora",
+      "type": "video",
       "video": "https://vimeo.com/1050059421?share=copy&fl=sv&fe=ci"
     },
     {
-      "type": "video",
+      "slug": "14",
       "title": "Gucci Dubai mall",
+      "type": "video",
       "video": "https://vimeo.com/1050063312?share=copy&fl=sv&fe=ci"
     },
     {
-      "type": "video",
+      "slug": "15",
       "title": "Workshop ICD",
+      "type": "video",
       "video": "https://vimeo.com/792884022?share=copy&fl=sv&fe=ci"
     },
     {
-      "type": "video",
+      "slug": "16",
       "title": "Comic Con",
+      "type": "video",
       "video": "https://vimeo.com/805874755?share=copy&fl=sv&fe=ci"
     },
     {
-      "type": "video",
+      "slug": "17",
       "title": "Arcade Nights - Mamsha Saadiyat",
+      "type": "video",
       "video": "https://vimeo.com/792883747?share=copy&fl=sv&fe=ci"
     },
     {
-      "type": "video",
+      "slug": "18",
       "title": "Porsche Mecan",
+      "type": "video",
       "video": "https://vimeo.com/1050075249?share=copy&fl=sv&fe=ci"
     }
-  ]
+  ],
+  "template": "gallery",
+  "title": "Events"
 }

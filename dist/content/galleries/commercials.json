@@ -1,54 +1,66 @@
 {
   "items": [
     {
-      "type": "video",
+      "slug": "1",
       "title": "Club Ocha",
+      "type": "video",
       "video": "https://vimeo.com/1231975351?share=copy&fl=sv&fe=ci"
     },
     {
-      "type": "video",
+      "slug": "2",
       "title": "Defavela Commercial",
+      "type": "video",
       "video": "https://vimeo.com/1221410122?share=copy&fl=sv&fe=ci"
     },
     {
-      "type": "video",
+      "slug": "3",
       "title": "Bred Campaign Film",
+      "type": "video",
       "video": "https://vimeo.com/1089164404?share=copy&fl=sv&fe=ci"
     },
     {
-      "type": "video",
+      "slug": "4",
       "title": "NewyorkKnicks X AbuDhabiExperience Commercial",
+      "type": "video",
       "video": "https://vimeo.com/1089158958?share=copy&fl=sv&fe=ci"
     },
     {
-      "type": "video",
+      "slug": "5",
       "title": "Infinix Phone Commercial",
+      "type": "video",
       "video": "https://vimeo.com/1089469258?share=copy&fl=sv&fe=ci"
     },
     {
-      "type": "video",
+      "slug": "6",
       "title": "Smashbox Mini Series",
+      "type": "video",
       "video": "https://vimeo.com/1089282159?share=copy&fl=sv&fe=ci"
     },
     {
-      "type": "video",
+      "slug": "7",
       "title": "Namshi",
+      "type": "video",
       "video": "https://vimeo.com/1231987882?share=copy&fl=sv&fe=ci"
     },
     {
-      "type": "video",
+      "slug": "8",
       "title": "Hind Al Oud Aliye E",
+      "type": "video",
       "video": "https://vimeo.com/1089222431?share=copy&fl=sv&fe=ci"
     },
     {
-      "type": "video",
+      "slug": "9",
       "title": "Slo Campaign film",
+      "type": "video",
       "video": "https://vimeo.com/1172086799?share=copy&fl=sv&fe=ci"
     },
     {
-      "type": "video",
+      "slug": "10",
       "title": "Leak Coin ",
+      "type": "video",
       "video": "https://vimeo.com/774203455?share=copy&fl=sv&fe=ci"
     }
-  ]
+  ],
+  "template": "gallery",
+  "title": "Commercials"
 }

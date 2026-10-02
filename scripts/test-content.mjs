@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { parsePortfolio } from '../dist/content.js';
-const data = JSON.parse(readFileSync(new URL('../docs/content/portfolio.json', import.meta.url), 'utf8'));
+const source = JSON.parse(readFileSync(new URL('../docs/content/portfolio.json', import.meta.url), 'utf8'));
+const data = Array.isArray(source.items) ? Object.fromEntries(source.items.map((item,index)=>['slide'+(index+1),item])) : source;
 assert.equal(parsePortfolio(data, 'https://example.com/mrkstudios/content.js').length, 5);
 const changed = structuredClone(data);
 changed.slide1.title = 'Client title';
@@ -12,6 +13,7 @@ assert.equal(live[0].title, 'Client title');
 assert.equal(parsePortfolio(changed, 'http://127.0.0.1:4173/content.js')[0].src, 'http://127.0.0.1:4173/uploads/client-photo.webp');
 assert.equal(live[1].src, new URL(data.slide2.image.replace('/mrkstudios/', ''), 'https://blackreaper228.github.io/mrkstudios/content.js').href);
 assert.throws(() => parsePortfolio({}), /Invalid portfolio/);
+assert.equal(parsePortfolio({items:[data.slide1,data.slide2]},'https://example.com/content.js').length,2);
 changed.slide1.image = 'javascript:alert(1)';
 assert.throws(() => parsePortfolio(changed), /Unsupported image/);
 console.log('PASS: five slides, edited titles, uploaded image paths on local and Pages, invalid content.');
