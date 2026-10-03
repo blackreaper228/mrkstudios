@@ -473,6 +473,12 @@
         "uploads/google/73345cfca02121ff5d55966e.webp",
         "uploads/google/4e39d4920af913ee196cf79d.webp"
       ]
+    },
+    {
+      "slug": "new-title",
+      "title": "New Title",
+      "type": "image",
+      "image": "uploads/google/cf009c9ae26d982f673a4f43.webp"
     }
   ],
   "template": "gallery",

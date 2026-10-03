@@ -49,9 +49,9 @@
       "template": "placeholder"
     },
     {
-      "page": "test",
-      "label": "test",
-      "spaceAbove": false,
+      "page": "testurl",
+      "label": "testTitle",
+      "spaceAbove": true,
       "template": "gallery"
     }
   ]
