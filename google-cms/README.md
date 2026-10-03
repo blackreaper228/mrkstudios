@@ -5,10 +5,10 @@ The Google spreadsheet is the content editor. Drive holds the original images. T
 ## Editing
 
 - **Pages:** create a page ID, title, optional section folder, publication checkbox, spacing checkbox and template. Drag rows to change menu order. Page IDs are normalized to lowercase URL slugs automatically.
-- **Works:** parent page ID, title, photo/video type, album folder or single photo URL, video URL and publication. Drag rows to change project order. The hidden project ID is optional: when it is empty, the exporter generates one automatically from the title and resolves duplicates.
+- **Page tabs:** every row in Pages gets its own content tab automatically. Add projects there using a title, photo/video type, album folder or single photo URL, video URL and publication checkbox. Drag rows to change project order. The hidden project ID is generated automatically when omitted.
 - **Home:** slides for the main carousel, including title, image link, destination link and publication. Drag rows to change slide order.
 
-An album cover is its first image in filename order. Use numbered filenames to control order. New subfolders inside a Pages folder become albums automatically. An explicit Works row allows overriding its title or hiding it. Removing a page from Pages removes it from the menu; stored originals remain recoverable.
+An album cover is its first image in filename order. Use numbered filenames to control order. New subfolders inside a Pages folder become albums automatically. Removing a page from Pages removes it from the menu; stored originals remain recoverable. The legacy Works and Media tabs are hidden after their data is migrated to page tabs.
 
 Drive photos must be inside the dedicated MRK Studios CMS folder. External photo links must be direct HTTPS image URLs. Vimeo URLs retain their original IDs and unlisted access hashes. Folder originals remain unchanged; website copies are resized to a maximum of 2560 pixels and encoded as WebP.
 

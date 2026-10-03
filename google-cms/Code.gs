@@ -1,6 +1,7 @@
 // Read-only website export. Editing takes place in the spreadsheet and Drive.
 const SPREADSHEET_ID = '10iNKQtCdJrUuLFK7pl08yKWumKb1hFeDt0GVNKhf6DE';
 const ROOT_FOLDER_ID = '1Z2ruN_2GZtiwUIy7EJPlJZ8vi3AVPJsv';
+const PAGE_HEADERS = ['id', 'title', 'type', 'folder', 'imageUrl', 'videoUrl', 'published'];
 
 function rows_(name) {
   const result = Sheets.Spreadsheets.Values.get(SPREADSHEET_ID, name);
@@ -27,6 +28,57 @@ function slug_(value) {
     .normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
     .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
   return slug || 'project';
+}
+function rowsFromSheet_(sheet) {
+  if (!sheet) return [];
+  const values = sheet.getDataRange().getValues();
+  if (!values.length) return [];
+  const headers = values.shift().map(String);
+  return values.filter(r => r.some(v => v !== '')).map((r, index) => {
+    const result = {_row: index};
+    headers.forEach((h, i) => result[h] = r[i]);
+    return result;
+  });
+}
+function pageRows_(page) {
+  const slug = slug_(page.page || page.title);
+  try { return rows_(slug); }
+  catch (error) { return rows_('Works').filter(row => slug_(row.page) === slug); }
+}
+function ensurePageSheet_(spreadsheet, page) {
+  const slug = slug_(page.page || page.title);
+  let sheet = spreadsheet.getSheetByName(slug);
+  if (!sheet) {
+    sheet = spreadsheet.insertSheet(slug);
+    sheet.getRange(1, 1, 1, PAGE_HEADERS.length).setValues([PAGE_HEADERS]);
+    sheet.getRange('C2:C').setDataValidation(SpreadsheetApp.newDataValidation().requireValueInList(['photo', 'video'], true).build());
+    sheet.getRange('G2:G').insertCheckboxes();
+    sheet.setFrozenRows(1);
+    sheet.hideColumns(1);
+  }
+  return sheet;
+}
+function syncPageSheets(spreadsheet) {
+  spreadsheet = spreadsheet || SpreadsheetApp.openById(SPREADSHEET_ID);
+  const pages = rowsFromSheet_(spreadsheet.getSheetByName('Pages'));
+  const works = rowsFromSheet_(spreadsheet.getSheetByName('Works'));
+  pages.forEach(page => {
+    const slug = slug_(page.page || page.title);
+    const sheet = ensurePageSheet_(spreadsheet, page);
+    if (sheet.getLastRow() === 1) {
+      const records = works.filter(row => slug_(row.page) === slug);
+      if (records.length) sheet.getRange(2, 1, records.length, PAGE_HEADERS.length).setValues(records.map(row => PAGE_HEADERS.map(header => row[header] === undefined ? '' : row[header])));
+    }
+  });
+  ['Works', 'Media'].forEach(name => { const sheet = spreadsheet.getSheetByName(name); if (sheet && !sheet.isSheetHidden()) sheet.hideSheet(); });
+}
+function onEdit(e) {
+  if (!e || !e.range || e.range.getSheet().getName() !== 'Pages' || e.range.getRow() < 2) return;
+  syncPageSheets(e.source);
+}
+function installPageSheetTrigger() {
+  ScriptApp.getProjectTriggers().filter(trigger => trigger.getHandlerFunction() === 'onEdit').forEach(trigger => ScriptApp.deleteTrigger(trigger));
+  ScriptApp.newTrigger('onEdit').forSpreadsheet(SPREADSHEET_ID).onEdit().create();
 }
 function insideRoot_(item, checked) {
   const id = item.getId();
@@ -68,7 +120,6 @@ function imageLink_(value, images, checked) {
 }
 function snapshot_() {
   const checked = {}, images = {}, galleries = {}, pages = [];
-  const allWorks = rows_('Works');
   const pageRows = rows_('Pages').filter(r => published_(r.published)).sort(sort_);
   const seenPages = {};
   pageRows.forEach(page => {
@@ -76,7 +127,7 @@ function snapshot_() {
     if (/^(index|session|gallery|credits|setup)$/.test(slug) || seenPages[slug]) throw new Error('Invalid or duplicate page ID: ' + slug);
     seenPages[slug] = true;
     pages.push({page:slug,label:String(page.title).trim(),spaceAbove:published_(page.spaceAbove),template:page.template === 'placeholder' ? 'placeholder' : 'gallery'});
-    const records = allWorks.filter(r => slug_(r.page) === slug).sort(sort_);
+    const records = pageRows_(page).sort(sort_);
     const usedFolders = {}, seenWorks = {}, items = [];
     records.forEach(row => {const id=id_(row.folder); if(id) usedFolders[id]=true;});
     function add_(row, folder) {
@@ -109,6 +160,37 @@ function snapshot_() {
   if (!home.length) throw new Error('Publish at least one Home slide');
   CacheService.getScriptCache().put('published-images',JSON.stringify(Object.keys(images)),120);
   return {schemaVersion:1,menu:{items:pages},portfolio:{items:home},galleries:galleries,images:images};
+}
+function cleanupUnusedFolders() {
+  const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const referenced = {};
+  rowsFromSheet_(spreadsheet.getSheetByName('Pages')).forEach(page => {
+    const folderId = id_(page.folder);
+    if (folderId) referenced[folderId] = true;
+    pageRows_(page).forEach(row => { const id = id_(row.folder); if (id) referenced[id] = true; });
+  });
+  function hasContent_(folder) {
+    if (folder.getFiles().hasNext()) return true;
+    const children = folder.getFolders();
+    while (children.hasNext()) if (hasContent_(children.next())) return true;
+    return false;
+  }
+  function containsReferenced_(folder) {
+    if (referenced[folder.getId()]) return true;
+    const children = folder.getFolders();
+    while (children.hasNext()) if (containsReferenced_(children.next())) return true;
+    return false;
+  }
+  const root = DriveApp.getFolderById(ROOT_FOLDER_ID), folders = root.getFolders(), removed = [];
+  while (folders.hasNext()) {
+    const folder = folders.next();
+    if (!hasContent_(folder) || !containsReferenced_(folder)) {
+      removed.push(folder.getName());
+      folder.setTrashed(true);
+    }
+  }
+  console.log('Moved unused folders to trash: ' + (removed.join(', ') || 'none'));
+  return removed;
 }
 function doGet(e) {
   let result;
