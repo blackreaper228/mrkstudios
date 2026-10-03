@@ -2,7 +2,7 @@
   "items": [
     {
       "page": "events",
-      "label": "EventsTest",
+      "label": "Events",
       "spaceAbove": false,
       "template": "gallery"
     },
@@ -32,7 +32,7 @@
     },
     {
       "page": "photography",
-      "label": "photography",
+      "label": "Photography",
       "spaceAbove": true,
       "template": "gallery"
     },
@@ -47,12 +47,6 @@
       "label": "Team",
       "spaceAbove": false,
       "template": "placeholder"
-    },
-    {
-      "page": "testurl",
-      "label": "testTitle",
-      "spaceAbove": true,
-      "template": "gallery"
     }
   ]
 }

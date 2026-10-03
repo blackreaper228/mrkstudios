@@ -475,12 +475,11 @@
       ]
     },
     {
-      "slug": "new-title",
-      "title": "New Title",
-      "type": "image",
-      "image": "uploads/google/cf009c9ae26d982f673a4f43.webp"
+      "slug": "project",
+      "title": "project",
+      "type": "image"
     }
   ],
   "template": "gallery",
-  "title": "photography"
+  "title": "Photography"
 }
