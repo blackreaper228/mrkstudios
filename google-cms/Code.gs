@@ -15,8 +15,7 @@ function rows_(name) {
 }
 function published_(v) { return v === true || /^(true|yes|1)$/i.test(String(v)); }
 function sort_(a, b) {
-  const av = a.order === '' ? a._row : Number(a.order), bv = b.order === '' ? b._row : Number(b.order);
-  return av - bv || a._row - b._row;
+  return a._row - b._row;
 }
 function id_(value) {
   const text = String(value || '').trim();
@@ -69,15 +68,15 @@ function imageLink_(value, images, checked) {
 }
 function snapshot_() {
   const checked = {}, images = {}, galleries = {}, pages = [];
-  const allWorks = rows_('Works'), allMedia = rows_('Media');
+  const allWorks = rows_('Works');
   const pageRows = rows_('Pages').filter(r => published_(r.published)).sort(sort_);
   const seenPages = {};
   pageRows.forEach(page => {
-    const slug = String(page.page).trim();
-    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug) || /^(index|session|gallery|credits|setup)$/.test(slug) || seenPages[slug]) throw new Error('Invalid or duplicate page ID: ' + slug);
+    const slug = slug_(page.page || page.title);
+    if (/^(index|session|gallery|credits|setup)$/.test(slug) || seenPages[slug]) throw new Error('Invalid or duplicate page ID: ' + slug);
     seenPages[slug] = true;
     pages.push({page:slug,label:String(page.title).trim(),spaceAbove:published_(page.spaceAbove),template:page.template === 'placeholder' ? 'placeholder' : 'gallery'});
-    const records = allWorks.filter(r => String(r.page).trim() === slug).sort(sort_);
+    const records = allWorks.filter(r => slug_(r.page) === slug).sort(sort_);
     const usedFolders = {}, seenWorks = {}, items = [];
     records.forEach(row => {const id=id_(row.folder); if(id) usedFolders[id]=true;});
     function add_(row, folder) {
@@ -91,12 +90,7 @@ function snapshot_() {
       const item = {slug:key,title:String(row.title || (folder && folder.getName()) || key),type:row.type === 'video' ? 'video' : 'image'};
       if (image) item.image = image;
       if (item.type === 'video') item.video = String(row.videoUrl || '').trim();
-      if (row.description) item.description = String(row.description);
       if (photos.length > 1) item.photos = photos;
-      const media = allMedia.filter(r => String(r.page).trim() === slug && String(r.workId).trim() === key && published_(r.published)).sort(sort_);
-      if (media.length) item.session = media.map(r => r.type === 'video'
-        ? {type:'video',title:String(r.title || item.title),video:String(r.url).trim()}
-        : {type:'image',title:String(r.title || item.title),image:imageLink_(r.url,images,checked)});
       items.push(item);
     }
     records.filter(r => published_(r.published)).forEach(row => add_(row,folder_(row.folder,checked)));
