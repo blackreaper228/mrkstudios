@@ -69,7 +69,7 @@ a:hover>.roll-label>.roll-label-track,button:hover>.roll-label>.roll-label-track
 .film img.halftone-photo{filter:grayscale(1)}
 
 .category-index .category-content{padding:44vh 28px 28px}
-.category-index .category-content>h1{font-size:clamp(24px,3vw,36px);margin:0 0 32px;overflow-wrap:anywhere}
+.category-index .category-content>h1{font-size:48px;line-height:1.1;margin:0 0 36px;overflow-wrap:anywhere}
 .category-index .media-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:40px .4rem}
 .category-index .media-card{aspect-ratio:auto;overflow:visible;background:transparent}
 .session-card-link{display:block}.session-card-title{display:block;font:400 16px/1.35 'IBM Plex Mono',monospace;margin-bottom:10px}
@@ -216,3 +216,5 @@ a:hover>.roll-label>.roll-label-track,button:hover>.roll-label>.roll-label-track
 .category-index .media-card{display:flex;flex-direction:column}
 .category-index .session-card-link{display:flex;flex-direction:column;justify-content:flex-end;flex:1;min-width:0}
 .category-index .session-cover{flex-shrink:0}
+
+@media(max-width:700px){.category-index .category-content>h1{font-size:36px}}

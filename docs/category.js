@@ -21,6 +21,7 @@ async function load(){
    document.querySelector('.placeholder-content>h1').textContent=data.title||category;
    document.querySelector('.site-footer')?.remove();return;
   }
+  const folderPhotos=data.items.filter(record=>record.folderPhoto).map(record=>parseMedia(record,import.meta.url));
   let invalid=0;const cards=document.createDocumentFragment();
   data.items.forEach((record,index)=>{
    let item;try{item=parseMedia(record,import.meta.url)}catch{invalid++;return}
@@ -28,7 +29,7 @@ async function load(){
    const link=document.createElement('a');link.className='session-card-link';link.href=record.type==='page'?galleryURL(record.page):sessionURL(category,record,index);link.setAttribute('aria-label',item.title+' — photoshoot');
    if(record.type!=='page'&&!sessionMedia(record).length){
     link.setAttribute('aria-label','Open '+item.title);
-    link.addEventListener('click',event=>{if(event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;event.preventDefault();photoViewer.open([item],0,link)});
+    link.addEventListener('click',event=>{if(event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;event.preventDefault();photoViewer.open(record.folderPhoto?folderPhotos:[item],record.folderPhoto?data.items.filter(record=>record.folderPhoto).indexOf(record):0,link)});
    }
    const title=document.createElement('span');title.className='session-card-title';
    const label=document.createElement('span'),text=document.createElement('span'),copy=document.createElement('span');

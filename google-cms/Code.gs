@@ -156,13 +156,13 @@ function snapshot_() {
   const owners = pageOwners_(rows_('Pages'));
   const visiting = {};
   const folderPages = {};
-  function folderItem_(row, folder, parentSlug, key) {
+  function folderItem_(row, folder, parentSlug, key, forcePage) {
     const title = String(row.title || folder.getName());
     const children = folder.getFolders(), folders = [];
     while (children.hasNext()) folders.push(children.next());
     folders.sort((a,b) => a.getName().localeCompare(b.getName(),'en',{numeric:true}) || a.getId().localeCompare(b.getId()));
     const photos = photos_(folder, images);
-    if (!folders.length) {
+    if (!folders.length && !forcePage) {
       const item = {slug:key,title:title,type:'image'};
       const cover = photos[0] || imageLink_(row.imageUrl,images,checked);
       if (cover) item.image = cover;
@@ -174,8 +174,8 @@ function snapshot_() {
     if (!target) {
       target = nestedPage_({page:slug_(folder.getName()) + '_' + folderId.slice(-8).toLowerCase()},parentSlug,owners);
       folderPages[folderId] = target;
-      const items = folders.map(child => folderItem_({title:child.getName()},child,target,'drive-'+child.getId()));
-      if (photos.length) items.unshift({slug:'drive-'+folderId,title:title,type:'image',image:photos[0],photos:photos});
+      const items = folders.map(child => folderItem_({title:child.getName()},child,target,'drive-'+child.getId(),true));
+      items.unshift(...photos.map(photo => ({slug:'drive-'+photo.id,title:photo.name,type:'image',image:photo,folderPhoto:true})));
       galleries[target] = {title:title,template:'gallery',items:items};
     }
     const item = {slug:key,title:title,type:'page',page:target};
