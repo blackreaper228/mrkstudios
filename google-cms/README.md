@@ -27,3 +27,7 @@ The pre-migration content and Pages CMS configuration are backed up outside this
 ## Validation
 
 Run `python -m unittest discover -s scripts -p 'test_google*.py'`. This verifies deduplication, caching, stable project identifiers, video preservation and failure recovery. `node scripts/test-content.mjs` verifies the previous five-slide schema; new content also supports an `items` list.
+
+## Nested pages
+
+In any page tab select **page** in the type dropdown, enter a title and a unique **page** ID (or leave it blank to generate it from the title). A matching tab is created automatically. Add folders, photo/video links or further page entries in that tab. Nested pages appear as cards in their parent, not in the main menu. The first available child photo becomes the cover; imageUrl can override it. Check published on the parent card and its contents. Circular page links are rejected.

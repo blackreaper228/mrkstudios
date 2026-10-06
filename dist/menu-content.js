@@ -17,7 +17,7 @@ export function galleryURL(page,base=import.meta.url){
 export async function loadGallery(page){
  if(typeof page!=='string'||! /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(page))throw new Error('Invalid page ID');
  const items=await loadMenu(),entry=items.find(item=>item.page===page);
- if(!entry)throw new Error('Unknown page');
+
  const response=await fetch(new URL('content/galleries/'+page+'.json',import.meta.url),{cache:'no-cache'});
  if(response.status===404&&entry)return {items:entry.works||[]};
  if(!response.ok)throw new Error('Gallery unavailable');return response.json();
