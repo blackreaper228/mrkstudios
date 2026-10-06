@@ -15,7 +15,12 @@
     {
       "slug": "drive-1wTqipQlQ72Imb_HzMI8jEYIMAfxV1qQD",
       "title": "subFolder",
-      "type": "image"
+      "type": "image",
+      "image": "uploads/google/020da4bbeecc3cc867060842.webp",
+      "photos": [
+        "uploads/google/020da4bbeecc3cc867060842.webp",
+        "uploads/google/020da4bbeecc3cc867060842.webp"
+      ]
     }
   ]
 }
