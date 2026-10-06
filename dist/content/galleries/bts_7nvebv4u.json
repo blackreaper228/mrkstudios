@@ -3,6 +3,13 @@
   "template": "gallery",
   "items": [
     {
+      "slug": "drive-1_GGLiXRnLTUzQ3ABvLzHP8skIT84OqzD",
+      "title": "01.jpg",
+      "type": "image",
+      "image": "uploads/google/b815cdeb460f1194aa6a00fe.webp",
+      "folderPhoto": true
+    },
+    {
       "slug": "drive-1KZ6Zhfsut34BtQwXFLbC5Vg6iML9TP-5",
       "title": "slide_02.jpg",
       "type": "image",
