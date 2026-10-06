@@ -3,6 +3,28 @@ const SPREADSHEET_ID = '10iNKQtCdJrUuLFK7pl08yKWumKb1hFeDt0GVNKhf6DE';
 const ROOT_FOLDER_ID = '1Z2ruN_2GZtiwUIy7EJPlJZ8vi3AVPJsv';
 const PAGE_HEADERS = ['id', 'title', 'type', 'folder', 'imageUrl', 'videoUrl', 'published', 'page'];
 
+// Store GITHUB_ACTIONS_TOKEN in Script Properties, never in the sheet or export.
+function publishWebsite() {
+  const token = PropertiesService.getScriptProperties().getProperty('GITHUB_ACTIONS_TOKEN');
+  if (!token) throw new Error('Set GITHUB_ACTIONS_TOKEN in Project Settings > Script Properties.');
+  const response = UrlFetchApp.fetch('https://api.github.com/repos/blackreaper228/mrkstudios/actions/workflows/publish-google-cms.yml/dispatches', {
+    method: 'post', contentType: 'application/json',
+    headers: {Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28'},
+    payload: JSON.stringify({ref: 'main'}), muteHttpExceptions: true
+  });
+  const status = response.getResponseCode();
+  if (status !== 204) throw new Error('GitHub publication request failed (HTTP ' + status + '). Check token permissions and expiry.');
+  console.log('Website publication requested.');
+}
+
+function installPublicationTimer() {
+  publishWebsite();
+  ScriptApp.getProjectTriggers().filter(t => t.getHandlerFunction() === 'publishWebsite')
+    .forEach(t => ScriptApp.deleteTrigger(t));
+  ScriptApp.newTrigger('publishWebsite').timeBased().everyMinutes(10).create();
+  console.log('Automatic publication enabled: every 10 minutes.');
+}
+
 function rows_(name) {
   const result = Sheets.Spreadsheets.Values.get(SPREADSHEET_ID, name);
   const values = result.values || [];

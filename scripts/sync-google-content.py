@@ -97,6 +97,13 @@ def synchronize(root=ROOT, fetch=download, seed=None):
             converted[key] = path
             return path
 
+        menu_pages = {item['page'] for item in data['menu']['items']}
+        for parent, gallery in data['galleries'].items():
+            for work in gallery.get('items', []):
+                child = work.get('page') if work.get('type') == 'page' else None
+                if child in data['galleries'] and child not in menu_pages and child != parent:
+                    data['galleries'][child].setdefault('parent', parent)
+
         for gallery in data['galleries'].values():
             if not isinstance(gallery.get('items'), list):
                 raise ValueError('Invalid gallery')

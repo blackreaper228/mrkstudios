@@ -78,7 +78,7 @@ a:hover>.roll-label>.roll-label-track,button:hover>.roll-label>.roll-label-track
 .session-card-title .roll-label-copy{white-space:normal;overflow-wrap:anywhere}
 .session-cover{aspect-ratio:396/496;overflow:hidden;background:#f1f1ef}
 .session-cover>img,.session-cover>video,.session-cover>iframe{display:block;width:100%;height:100%;object-fit:cover;border:0;pointer-events:none}
-.session-content{padding:180px 28px 40px}.session-back{font:400 16px/1.35 'IBM Plex Mono',monospace}
+.session-content{padding:180px 28px 40px}.session-back{font:400 16px/1.35 'IBM Plex Mono',monospace}.category-back{display:inline-block;margin-bottom:24px}
 .session-title{font:400 48px/1.1 'IBM Plex Mono',monospace;margin:28px 0 16px}.session-description{max-width:640px;line-height:1.6;white-space:pre-line;margin-bottom:36px}
 .session-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.4rem;align-items:start}
 .session-grid figure{margin:0}.session-grid img,.session-grid video{display:block;width:100%;height:auto}.session-grid iframe{width:100%;aspect-ratio:16/9;border:0}

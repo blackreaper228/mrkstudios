@@ -13,6 +13,13 @@ async function load(){
   document.body.dataset.category=category;
   const data=await loadGallery(category);if(!Array.isArray(data.items))throw new Error('Invalid gallery');
   document.querySelector('.category-content>h1').textContent=data.title||category;
+  const requestedParent=new URLSearchParams(location.search).get('from');
+  const parent=requestedParent||data.parent;
+  if(parent&&parent!==category&&/^[a-z0-9]+(?:[-_][a-z0-9]+)*$/.test(parent)){
+   const back=document.createElement('a');back.className='session-back category-back';
+   back.href=galleryURL(parent);back.textContent='\u2190 back to gallery';
+   document.querySelector('.category-content>h1').before(back);
+  }
   grid.setAttribute('aria-label',(data.title||category)+' gallery');
   if(data.template==='placeholder'){
    await finishLoading(status);status.hidden=true;grid.hidden=true;
@@ -27,6 +34,7 @@ async function load(){
    let item;try{item=parseMedia(record,import.meta.url)}catch{invalid++;return}
    const card=document.createElement('article');card.className='media-card';
    const link=document.createElement('a');link.className='session-card-link';link.href=record.type==='page'?galleryURL(record.page):sessionURL(category,record,index);link.setAttribute('aria-label',item.title+' — photoshoot');
+   if(record.type==='page'){const destination=new URL(link.href);destination.searchParams.set('from',category);link.href=destination.href;}
    if(record.type!=='page'&&!sessionMedia(record).length){
     link.setAttribute('aria-label','Open '+item.title);
     link.addEventListener('click',event=>{if(event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;event.preventDefault();photoViewer.open(record.folderPhoto?folderPhotos:[item],record.folderPhoto?data.items.filter(record=>record.folderPhoto).indexOf(record):0,link)});
