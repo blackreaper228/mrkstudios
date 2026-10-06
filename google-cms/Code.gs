@@ -26,8 +26,26 @@ function id_(value) {
 function slug_(value) {
   const slug = String(value || '').trim().toLowerCase()
     .normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+    .replace(/[^a-z0-9_]+/g, '-').replace(/^-+|-+$/g, '');
   return slug || 'project';
+}
+function pageOwners_(pages) {
+  const owners = {};
+  ['index', 'session', 'gallery', 'credits', 'setup', 'pages', 'home', 'works', 'media', 'instructions'].forEach(id => owners[id] = '__reserved');
+  pages.filter(page => page.page || page.title).forEach(page => owners[slug_(page.page || page.title)] = '__menu');
+  return owners;
+}
+function nestedPage_(row, parent, owners) {
+  const base = slug_(row.page || row.title);
+  let target = base;
+  if (owners[target] && owners[target] !== parent) {
+    const prefix = slug_(parent).slice(0, 2);
+    target = base + '_' + prefix;
+    let number = 2;
+    while (owners[target] && owners[target] !== parent) target = base + '_' + prefix + '_' + number++;
+  }
+  owners[target] = parent;
+  return target;
 }
 function rowsFromSheet_(sheet) {
   if (!sheet) return [];
@@ -65,6 +83,7 @@ function syncPageSheets(spreadsheet) {
   const pages = rowsFromSheet_(spreadsheet.getSheetByName('Pages'));
   const works = rowsFromSheet_(spreadsheet.getSheetByName('Works'));
   const visited = {};
+  const owners = pageOwners_(pages);
   function sync_(page) {
     const slug = slug_(page.page || page.title);
     if (visited[slug]) return;
@@ -77,7 +96,7 @@ function syncPageSheets(spreadsheet) {
       if (records.length) sheet.getRange(2, 1, records.length, PAGE_HEADERS.length).setValues(records.map(row => PAGE_HEADERS.map(header => row[header] === undefined ? '' : row[header])));
     }
     rowsFromSheet_(sheet).filter(row => row.type === 'page' && (row.page || row.title)).forEach(row => {
-      const target = slug_(row.page || row.title);
+      const target = nestedPage_(row, slug, owners);
       sheet.getRange(row._row + 2, 8).setValue(target);
       sync_({page:target,title:row.title});
     });
@@ -135,6 +154,7 @@ function snapshot_() {
   const checked = {}, images = {}, galleries = {}, pages = [];
   const pageRows = rows_('Pages').filter(r => published_(r.published)).sort(sort_);
   const seenPages = {};
+  const owners = pageOwners_(rows_('Pages'));
   const visiting = {};
   function exportPage_(page) {
     const slug = slug_(page.page || page.title);
@@ -154,7 +174,7 @@ function snapshot_() {
       while (seenWorks[key]) key = baseKey + '-' + suffix++;
       seenWorks[key] = true;
       if (row.type === 'page') {
-        const target = slug_(row.page || row.title);
+        const target = nestedPage_(row, slug, owners);
         exportPage_({page:target,title:row.title});
         const child = galleries[target];
         const cover = imageLink_(row.imageUrl,images,checked) || (child.items.find(item => item.image) || {}).image;

@@ -28,7 +28,7 @@ export function parseMedia(item, base) {
  const title = typeof item?.title === 'string' ? item.title.trim() : '';
  if (!title) throw new Error('Missing title');
  if (item.type === 'page') {
-  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(item.page || '')) throw new Error('Invalid nested page');
+  if (!/^[a-z0-9]+(?:[-_][a-z0-9]+)*$/.test(item.page || '')) throw new Error('Invalid nested page');
   return {title,kind:'image',src:item.image?imageURL(item.image,base):''};
  }
  if (item.type === 'image') return {title, kind:'image', src:imageURL(typeof item.imageUrl==='string'&&item.imageUrl.trim()?item.imageUrl:item.image,base)};

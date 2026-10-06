@@ -31,3 +31,5 @@ Run `python -m unittest discover -s scripts -p 'test_google*.py'`. This verifies
 ## Nested pages
 
 In any page tab select **page** in the type dropdown, enter a title and a unique **page** ID (or leave it blank to generate it from the title). A matching tab is created automatically. Add folders, photo/video links or further page entries in that tab. Nested pages appear as cards in their parent, not in the main menu. The first available child photo becomes the cover; imageUrl can override it. Check published on the parent card and its contents. Circular page links are rejected.
+
+If a nested page name is already used by another page, its ID gains the first two letters of its parent: Concerts inside Photography becomes `concerts_ph`. The visible heading remains Concerts. IDs are saved so later title changes do not change links.

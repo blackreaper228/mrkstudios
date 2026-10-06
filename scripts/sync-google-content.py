@@ -115,7 +115,7 @@ def synchronize(root=ROOT, fetch=download, seed=None):
         write_json(stage / 'content/menu.json', data['menu'])
         write_json(stage / 'content/portfolio.json', data['portfolio'])
         for slug, gallery in data['galleries'].items():
-            if not slug or slug in ('index','session','gallery','credits','setup') or any(ch not in 'abcdefghijklmnopqrstuvwxyz0123456789-' for ch in slug):
+            if not slug or slug in ('index','session','gallery','credits','setup') or any(ch not in 'abcdefghijklmnopqrstuvwxyz0123456789-_' for ch in slug):
                 raise ValueError('Unsafe page ID')
             write_json(stage / ('content/galleries/' + slug + '.json'), gallery)
             generated_pages.append(slug + '.html')
