@@ -68,6 +68,26 @@ class PublicationTests(unittest.TestCase):
             root=Path(directory);self.setup_root(root)
             with self.assertRaises(ValueError):publisher.synchronize(root,lambda url:b'{"error":"Missing sheet"}')
 
+    def test_failed_import_reuses_completed_photo_on_retry(self):
+        with test_directory() as directory:
+            root=Path(directory);self.setup_root(root)
+            data=self.snapshot()
+            second={'url':'https://example.com/second.jpg'}
+            data['galleries']['new']['items'][0]['photos'].append(second)
+            def failing(url):
+                if url.endswith('/export'):return json.dumps(data).encode()
+                if url.endswith('second.jpg'):raise OSError('Temporary failure')
+                return self.photo()
+            with self.assertRaises(OSError):publisher.synchronize(root,failing)
+            self.assertEqual(json.loads((root/'docs/content/menu.json').read_text())['items'][0]['page'],'old')
+            calls=[]
+            def retry(url):
+                calls.append(url)
+                return json.dumps(data).encode() if url.endswith('/export') else self.photo()
+            publisher.synchronize(root,retry)
+            self.assertNotIn('https://example.com/photo.jpg',calls)
+            self.assertIn('https://example.com/second.jpg',calls)
+
     def test_new_page_generates_html_without_overwriting_home(self):
         with test_directory() as directory:
             root=Path(directory);self.setup_root(root)

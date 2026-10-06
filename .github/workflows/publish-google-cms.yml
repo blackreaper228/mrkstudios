@@ -30,6 +30,11 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install Pillow==11.3.0
+      - uses: actions/cache/restore@v4
+        with:
+          path: .google-image-cache
+          key: google-images-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: google-images-
       - name: Validate CMS integration
         run: |
           python -m unittest discover -s scripts -p 'test_google*.py'
@@ -37,6 +42,11 @@ jobs:
       - name: Import published Google content
         timeout-minutes: 8
         run: python -u scripts/sync-google-content.py
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: .google-image-cache
+          key: google-images-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Synchronize the published site
         run: python scripts/sync-site.py
       - name: Commit refreshed static content

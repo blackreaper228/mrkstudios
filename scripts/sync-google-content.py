@@ -65,6 +65,9 @@ def synchronize(root=ROOT, fetch=download, seed=None):
         raise ValueError('Incomplete Google snapshot')
     previous_path = root / 'google-cms/image-manifest.json'
     previous = json.loads(previous_path.read_text(encoding='utf-8')) if previous_path.exists() else {}
+    cache_root = root / '.google-image-cache'
+    cache_manifest_path = cache_root / 'manifest.json'
+    cached_images = json.loads(cache_manifest_path.read_text(encoding='utf-8')) if cache_manifest_path.exists() else {}
     pages_path = root / 'google-cms/generated-pages.json'
     previous_pages = json.loads(pages_path.read_text(encoding='utf-8')) if pages_path.exists() else []
     generated_pages = []
@@ -83,6 +86,13 @@ def synchronize(root=ROOT, fetch=download, seed=None):
             if cached and cached.get('revision') == revision and (root / 'docs' / cached['path']).is_file():
                 manifest[key], converted[key] = cached, cached['path']
                 return cached['path']
+            partial = cached_images.get(key)
+            if partial and partial.get('revision') == revision and (cache_root / partial['path']).is_file():
+                target = stage / partial['path']
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(cache_root / partial['path'], target)
+                manifest[key], converted[key] = partial, partial['path']
+                return partial['path']
             print(f'Processing new/updated image {len(manifest) + 1} (cached: {len(converted)})...', flush=True)
             if seed and key in seed:
                 raw = Path(seed[key]).read_bytes()
@@ -100,6 +110,11 @@ def synchronize(root=ROOT, fetch=download, seed=None):
             target.write_bytes(encoded)
             manifest[key] = {'revision':revision, 'path':path}
             converted[key] = path
+            cache_file = cache_root / path
+            cache_file.parent.mkdir(parents=True, exist_ok=True)
+            cache_file.write_bytes(encoded)
+            cached_images[key] = manifest[key]
+            write_json(cache_manifest_path, cached_images)
             print(f'Image ready: {len(encoded) // 1024} KiB', flush=True)
             return path
 
