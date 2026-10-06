@@ -25,7 +25,7 @@ def download(url):
         context.load_verify_locations(str(bundle))
     for attempt in range(3):
         try:
-            with urllib.request.urlopen(url, context=context, timeout=180) as response:
+            with urllib.request.urlopen(url, context=context, timeout=90) as response:
                 body = response.read(32 * 1024 * 1024 + 1)
             if len(body) > 32 * 1024 * 1024:
                 raise ValueError('Download exceeds 32 MiB')
@@ -33,6 +33,7 @@ def download(url):
         except (OSError, TimeoutError):
             if attempt == 2:
                 raise
+            print(f'Google download delayed; retry {attempt + 2}/3', flush=True)
             time.sleep(2 ** attempt)
 
 
@@ -54,7 +55,10 @@ def optimize(raw):
 def synchronize(root=ROOT, fetch=download, seed=None):
     config = json.loads((root / 'google-cms/config.json').read_text(encoding='utf-8'))
     endpoint = config['endpoint']
+    started = time.monotonic()
+    print('Requesting published Google snapshot...', flush=True)
     data = json.loads(fetch(endpoint))
+    print(f'Google snapshot received in {time.monotonic() - started:.1f}s', flush=True)
     if data.get('error'):
         raise ValueError(data['error'])
     if data.get('schemaVersion') != 1 or not isinstance(data.get('galleries'), dict) or not isinstance(data.get('menu', {}).get('items'), list) or not isinstance(data.get('portfolio', {}).get('items'), list):
@@ -79,6 +83,7 @@ def synchronize(root=ROOT, fetch=download, seed=None):
             if cached and cached.get('revision') == revision and (root / 'docs' / cached['path']).is_file():
                 manifest[key], converted[key] = cached, cached['path']
                 return cached['path']
+            print(f'Processing new/updated image {len(manifest) + 1} (cached: {len(converted)})...', flush=True)
             if seed and key in seed:
                 raw = Path(seed[key]).read_bytes()
             elif record.get('id'):
@@ -95,6 +100,7 @@ def synchronize(root=ROOT, fetch=download, seed=None):
             target.write_bytes(encoded)
             manifest[key] = {'revision':revision, 'path':path}
             converted[key] = path
+            print(f'Image ready: {len(encoded) // 1024} KiB', flush=True)
             return path
 
         menu_pages = {item['page'] for item in data['menu']['items']}
@@ -149,7 +155,7 @@ def synchronize(root=ROOT, fetch=download, seed=None):
         write_json(previous_path, manifest)
         write_json(pages_path, sorted(generated_pages))
         # Original CMS uploads and unpublished gallery snapshots remain recoverable.
-        print(f"Google snapshot: {len(data['menu']['items'])} pages, {sum(len(g['items']) for g in data['galleries'].values())} works, {len(manifest)} images")
+        print(f"Google snapshot: {len(data['menu']['items'])} pages, {sum(len(g['items']) for g in data['galleries'].values())} works, {len(manifest)} images; {time.monotonic() - started:.1f}s", flush=True)
     finally:
         if stage.parent.resolve() == root.resolve() and stage.name.startswith('.google-sync-'):
             shutil.rmtree(stage)

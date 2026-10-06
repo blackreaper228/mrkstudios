@@ -5,8 +5,18 @@ const PAGE_HEADERS = ['id', 'title', 'type', 'folder', 'imageUrl', 'videoUrl', '
 
 // Store GITHUB_ACTIONS_TOKEN in Script Properties, never in the sheet or export.
 function publishWebsite() {
+  const lock = LockService.getScriptLock();
+  if (!lock.tryLock(1000)) {console.log('Publication check already running.'); return;}
+  try {
   const token = PropertiesService.getScriptProperties().getProperty('GITHUB_ACTIONS_TOKEN');
   if (!token) throw new Error('Set GITHUB_ACTIONS_TOKEN in Project Settings > Script Properties.');
+  const headers = {Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28'};
+  const base = 'https://api.github.com/repos/blackreaper228/mrkstudios/actions/workflows/publish-google-cms.yml';
+  for (const state of ['in_progress','queued','pending','waiting','requested']) {
+    const check = UrlFetchApp.fetch(base + '/runs?per_page=1&status=' + state, {headers:headers,muteHttpExceptions:true});
+    if (check.getResponseCode() !== 200) throw new Error('GitHub publication status check failed (HTTP ' + check.getResponseCode() + ').');
+    if (JSON.parse(check.getContentText()).total_count > 0) {console.log('Publication already active (' + state + '); next timer will retry.'); return;}
+  }
   const response = UrlFetchApp.fetch('https://api.github.com/repos/blackreaper228/mrkstudios/actions/workflows/publish-google-cms.yml/dispatches', {
     method: 'post', contentType: 'application/json',
     headers: {Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28'},
@@ -15,6 +25,7 @@ function publishWebsite() {
   const status = response.getResponseCode();
   if (status !== 204) throw new Error('GitHub publication request failed (HTTP ' + status + '). Check token permissions and expiry.');
   console.log('Website publication requested.');
+  } finally {lock.releaseLock();}
 }
 
 function installPublicationTimer() {
