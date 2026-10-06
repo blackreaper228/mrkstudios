@@ -1,0 +1,20 @@
+{
+  "title": "subFolder",
+  "template": "gallery",
+  "items": [
+    {
+      "slug": "drive-18eozcbUPT_9VEwJdVuXua6PVeY3t9CFX",
+      "title": "photo_2026-09-24_10-45-18 (1).jpg",
+      "type": "image",
+      "image": "uploads/google/020da4bbeecc3cc867060842.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1i4lhGIusZhBzaxOVrZBPW4Zni204c3vn",
+      "title": "photo_2026-09-24_10-45-18.jpg",
+      "type": "image",
+      "image": "uploads/google/020da4bbeecc3cc867060842.webp",
+      "folderPhoto": true
+    }
+  ]
+}

@@ -3,19 +3,25 @@
   "template": "gallery",
   "items": [
     {
-      "slug": "drive-1o1p8yZTbYLCt5IacWaukMFdO7nvEbv4u",
-      "title": "BTS",
+      "slug": "drive-1KZ6Zhfsut34BtQwXFLbC5Vg6iML9TP-5",
+      "title": "slide_02.jpg",
       "type": "image",
       "image": "uploads/google/cf62e7ac644ffa8f703d6189.webp",
-      "photos": [
-        "uploads/google/cf62e7ac644ffa8f703d6189.webp",
-        "uploads/google/604c8f01f47d3e19e3cc87fd.webp"
-      ]
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1qOqmjMrBIsNLA4z23pcKq92bKlpAnICm",
+      "title": "testPic.jpg",
+      "type": "image",
+      "image": "uploads/google/604c8f01f47d3e19e3cc87fd.webp",
+      "folderPhoto": true
     },
     {
       "slug": "drive-1wTqipQlQ72Imb_HzMI8jEYIMAfxV1qQD",
       "title": "subFolder",
-      "type": "image"
+      "type": "page",
+      "page": "subfolder_afxv1qqd",
+      "image": "uploads/google/020da4bbeecc3cc867060842.webp"
     }
   ]
 }
