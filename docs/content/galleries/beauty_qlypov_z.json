@@ -1,0 +1,21 @@
+{
+  "title": "Beauty",
+  "template": "gallery",
+  "items": [
+    {
+      "slug": "drive-1DdJ9CrEVqOqok0GaE9q4cF2sc-8aUi_Y",
+      "title": "KYZA",
+      "type": "page",
+      "page": "kyza_c-8aui_y",
+      "image": "uploads/google/5779947c06a4f2f53bfee3ae.webp"
+    },
+    {
+      "slug": "drive-1CHdUdAdvX9v_uhv-JRSnsYHfcL4L9LUe",
+      "title": "Pantene",
+      "type": "page",
+      "page": "pantene_cl4l9lue",
+      "image": "uploads/google/9e0f2171548c60db41ab1d7e.webp"
+    }
+  ],
+  "parent": "photography"
+}
