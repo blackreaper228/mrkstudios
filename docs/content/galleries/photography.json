@@ -478,43 +478,43 @@
       "slug": "concerts",
       "title": "Concerts",
       "type": "page",
-      "page": "concerts-ph"
+      "page": "concerts_ph"
     },
     {
       "slug": "events",
       "title": "Events",
       "type": "page",
-      "page": "events-ph"
+      "page": "events_ph"
     },
     {
       "slug": "corporate",
       "title": "Corporate",
       "type": "page",
-      "page": "corporate"
+      "page": "corporate_ph"
     },
     {
       "slug": "beauty",
       "title": "Beauty",
       "type": "page",
-      "page": "beauty"
+      "page": "beauty_ph"
     },
     {
       "slug": "fashion",
       "title": "Fashion",
       "type": "page",
-      "page": "fashion"
+      "page": "fashion_ph"
     },
     {
       "slug": "food",
       "title": "Food",
       "type": "page",
-      "page": "food-ph"
+      "page": "food_ph"
     },
     {
       "slug": "bts",
       "title": "BTS",
       "type": "page",
-      "page": "bts"
+      "page": "bts_ph"
     },
     {
       "slug": "drive-1EokzWWKWKziWanM9dNP53QzcQLYpOV_Z",
