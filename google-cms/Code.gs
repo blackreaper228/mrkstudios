@@ -15,7 +15,16 @@ function publishWebsite() {
   for (const state of ['in_progress','queued','pending','waiting','requested']) {
     const check = UrlFetchApp.fetch(base + '/runs?per_page=1&status=' + state, {headers:headers,muteHttpExceptions:true});
     if (check.getResponseCode() !== 200) throw new Error('GitHub publication status check failed (HTTP ' + check.getResponseCode() + ').');
-    if (JSON.parse(check.getContentText()).total_count > 0) {console.log('Publication already active (' + state + '); next timer will retry.'); return;}
+    const active = JSON.parse(check.getContentText());
+    if (active.total_count > 0) {
+      const run = active.workflow_runs[0];
+      if (Date.now() - Date.parse(run.created_at) > 15 * 60 * 1000) {
+        const cancelled = UrlFetchApp.fetch('https://api.github.com/repos/blackreaper228/mrkstudios/actions/runs/' + run.id + '/cancel', {method:'post',headers:headers,muteHttpExceptions:true});
+        if (cancelled.getResponseCode() !== 202 && cancelled.getResponseCode() !== 409) throw new Error('Stalled publication cancellation failed (HTTP ' + cancelled.getResponseCode() + ').');
+        console.log('Cancellation requested for stalled publication ' + run.id + '.');
+      } else console.log('Publication already active (' + state + '); next timer will retry.');
+      return;
+    }
   }
   const response = UrlFetchApp.fetch('https://api.github.com/repos/blackreaper228/mrkstudios/actions/workflows/publish-google-cms.yml/dispatches', {
     method: 'post', contentType: 'application/json',
