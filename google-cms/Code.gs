@@ -18,7 +18,7 @@ function publishWebsite() {
     const active = JSON.parse(check.getContentText());
     if (active.total_count > 0) {
       const run = active.workflow_runs[0];
-      if (Date.now() - Date.parse(run.created_at) > 15 * 60 * 1000) {
+      if (Date.now() - Date.parse(run.created_at) > 40 * 60 * 1000) {
         const cancelled = UrlFetchApp.fetch('https://api.github.com/repos/blackreaper228/mrkstudios/actions/runs/' + run.id + '/cancel', {method:'post',headers:headers,muteHttpExceptions:true});
         if (cancelled.getResponseCode() !== 202 && cancelled.getResponseCode() !== 409) throw new Error('Stalled publication cancellation failed (HTTP ' + cancelled.getResponseCode() + ').');
         console.log('Cancellation requested for stalled publication ' + run.id + '.');

@@ -11,6 +11,8 @@ import time
 import urllib.parse
 import urllib.request
 import uuid
+from concurrent.futures import ThreadPoolExecutor
+from threading import Lock
 from PIL import Image, ImageOps
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -74,6 +76,40 @@ def synchronize(root=ROOT, fetch=download, seed=None):
     manifest, converted = {}, {}
     stage = root / ('.google-sync-' + uuid.uuid4().hex)
     stage.mkdir()
+    executor = ThreadPoolExecutor(max_workers=6)
+    cache_lock = Lock()
+    futures = {}
+    def prepare(record):
+        key = 'drive:' + record['id'] if record.get('id') else 'url:' + record['url']
+        if record.get('id'):
+            result = json.loads(fetch(endpoint + '?' + urllib.parse.urlencode({'action':'image', 'id':record['id']})))
+            if result.get('error'):raise ValueError(result['error'])
+            raw = base64.b64decode(result['base64'], validate=True)
+        else:raw = fetch(record['url'])
+        encoded = optimize(raw)
+        path = 'uploads/google/' + hashlib.sha256(encoded).hexdigest()[:24] + '.webp'
+        with cache_lock:
+            target = cache_root / path
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(encoded)
+            cached_images[key] = {'revision':record.get('modifiedAt',''), 'path':path}
+            write_json(cache_manifest_path, cached_images)
+        print('Background image ready: ' + path, flush=True)
+        return encoded
+    def prefetch(value):
+        if isinstance(value, dict):
+            if (value.get('id') and 'modifiedAt' in value) or value.get('url'):
+                key = 'drive:' + value['id'] if value.get('id') else 'url:' + value['url']
+                existing = previous.get(key)
+                partial = cached_images.get(key)
+                revision = value.get('modifiedAt','')
+                if key not in futures and not (existing and existing.get('revision') == revision and (root/'docs'/existing['path']).is_file()) and not (partial and partial.get('revision') == revision and (cache_root/partial['path']).is_file()):
+                    futures[key] = executor.submit(prepare, value.copy())
+            else:
+                for child in value.values():prefetch(child)
+        elif isinstance(value,list):
+            for child in value:prefetch(child)
+    if fetch is download and not seed:prefetch(data)
     try:
         def image(record):
             if not record:
@@ -94,7 +130,9 @@ def synchronize(root=ROOT, fetch=download, seed=None):
                 manifest[key], converted[key] = partial, partial['path']
                 return partial['path']
             print(f'Processing new/updated image {len(manifest) + 1} (cached: {len(converted)})...', flush=True)
-            if seed and key in seed:
+            if key in futures:
+                raw = None
+            elif seed and key in seed:
                 raw = Path(seed[key]).read_bytes()
             elif record.get('id'):
                 result = json.loads(fetch(endpoint + '?' + urllib.parse.urlencode({'action':'image', 'id':record['id']})))
@@ -103,7 +141,7 @@ def synchronize(root=ROOT, fetch=download, seed=None):
                 raw = base64.b64decode(result['base64'], validate=True)
             else:
                 raw = fetch(record['url'])
-            encoded = optimize(raw)
+            encoded = futures[key].result() if key in futures else optimize(raw)
             path = 'uploads/google/' + hashlib.sha256(encoded).hexdigest()[:24] + '.webp'
             target = stage / path
             target.parent.mkdir(parents=True, exist_ok=True)
@@ -113,8 +151,9 @@ def synchronize(root=ROOT, fetch=download, seed=None):
             cache_file = cache_root / path
             cache_file.parent.mkdir(parents=True, exist_ok=True)
             cache_file.write_bytes(encoded)
-            cached_images[key] = manifest[key]
-            write_json(cache_manifest_path, cached_images)
+            with cache_lock:
+                cached_images[key] = manifest[key]
+                write_json(cache_manifest_path, cached_images)
             print(f'Image ready: {len(encoded) // 1024} KiB', flush=True)
             return path
 
@@ -172,6 +211,7 @@ def synchronize(root=ROOT, fetch=download, seed=None):
         # Original CMS uploads and unpublished gallery snapshots remain recoverable.
         print(f"Google snapshot: {len(data['menu']['items'])} pages, {sum(len(g['items']) for g in data['galleries'].values())} works, {len(manifest)} images; {time.monotonic() - started:.1f}s", flush=True)
     finally:
+        executor.shutdown(wait=True, cancel_futures=True)
         if stage.parent.resolve() == root.resolve() and stage.name.startswith('.google-sync-'):
             shutil.rmtree(stage)
 
