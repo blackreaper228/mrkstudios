@@ -69,13 +69,13 @@ function ensurePageSheet_(spreadsheet, page) {
   if (!sheet) {
     sheet = spreadsheet.insertSheet(slug);
     sheet.getRange(1, 1, 1, PAGE_HEADERS.length).setValues([PAGE_HEADERS]);
-    sheet.getRange('C2:C').setDataValidation(SpreadsheetApp.newDataValidation().requireValueInList(['photo', 'video', 'page'], true).build());
+    sheet.getRange('C2:C').setDataValidation(SpreadsheetApp.newDataValidation().requireValueInList(['photo', 'video'], true).build());
     sheet.getRange('G2:G').insertCheckboxes();
     sheet.setFrozenRows(1);
     sheet.hideColumns(1);
   }
-  sheet.getRange(1, 8).setValue('page');
-  sheet.getRange('C2:C').setDataValidation(SpreadsheetApp.newDataValidation().requireValueInList(['photo', 'video', 'page'], true).build());
+  if (sheet.getMaxColumns() >= 8) sheet.hideColumns(8);
+  sheet.getRange('C2:C').setDataValidation(SpreadsheetApp.newDataValidation().requireValueInList(['photo', 'video'], true).build());
   return sheet;
 }
 function syncPageSheets(spreadsheet) {
@@ -95,14 +95,13 @@ function syncPageSheets(spreadsheet) {
       const records = works.filter(row => slug_(row.page) === slug);
       if (records.length) sheet.getRange(2, 1, records.length, PAGE_HEADERS.length).setValues(records.map(row => PAGE_HEADERS.map(header => row[header] === undefined ? '' : row[header])));
     }
-    rowsFromSheet_(sheet).filter(row => row.type === 'page' && (row.page || row.title)).forEach(row => {
-      const target = nestedPage_(row, slug, owners);
-      sheet.getRange(row._row + 2, 8).setValue(target);
-      sync_({page:target,title:row.title});
-    });
+
   }
   pages.filter(page => page.page || page.title).forEach(sync_);
-  ['Works', 'Media'].forEach(name => { const sheet = spreadsheet.getSheetByName(name); if (sheet && !sheet.isSheetHidden()) sheet.hideSheet(); });
+  const visible = ['Instructions', 'Pages', 'Home'].concat(pages.filter(page => page.page || page.title).map(page => slug_(page.page || page.title)));
+  spreadsheet.getSheets().forEach(sheet => {
+    if (visible.indexOf(sheet.getName()) < 0 && !sheet.isSheetHidden()) sheet.hideSheet();
+  });
 }
 function onEdit(e) {
   if (!e || !e.range || e.range.getRow() < 2 || ['Instructions', 'Home', 'Works', 'Media'].indexOf(e.range.getSheet().getName()) >= 0) return;
@@ -156,6 +155,34 @@ function snapshot_() {
   const seenPages = {};
   const owners = pageOwners_(rows_('Pages'));
   const visiting = {};
+  const folderPages = {};
+  function folderItem_(row, folder, parentSlug, key) {
+    const title = String(row.title || folder.getName());
+    const children = folder.getFolders(), folders = [];
+    while (children.hasNext()) folders.push(children.next());
+    folders.sort((a,b) => a.getName().localeCompare(b.getName(),'en',{numeric:true}) || a.getId().localeCompare(b.getId()));
+    const photos = photos_(folder, images);
+    if (!folders.length) {
+      const item = {slug:key,title:title,type:'image'};
+      const cover = photos[0] || imageLink_(row.imageUrl,images,checked);
+      if (cover) item.image = cover;
+      if (photos.length > 1) item.photos = photos;
+      return item;
+    }
+    const folderId = folder.getId();
+    let target = folderPages[folderId];
+    if (!target) {
+      target = nestedPage_({page:slug_(folder.getName()) + '_' + folderId.slice(-8).toLowerCase()},parentSlug,owners);
+      folderPages[folderId] = target;
+      const items = folders.map(child => folderItem_({title:child.getName()},child,target,'drive-'+child.getId()));
+      if (photos.length) items.unshift({slug:'drive-'+folderId,title:title,type:'image',image:photos[0],photos:photos});
+      galleries[target] = {title:title,template:'gallery',items:items};
+    }
+    const item = {slug:key,title:title,type:'page',page:target};
+    const cover = photos[0] || (galleries[target].items.find(item => item.image) || {}).image || imageLink_(row.imageUrl,images,checked);
+    if (cover) item.image = cover;
+    return item;
+  }
   function exportPage_(page) {
     const slug = slug_(page.page || page.title);
     if (/^(index|session|gallery|credits|setup)$/.test(slug)) throw new Error('Invalid page ID: ' + slug);
@@ -173,6 +200,11 @@ function snapshot_() {
       let key = baseKey, suffix = 2;
       while (seenWorks[key]) key = baseKey + '-' + suffix++;
       seenWorks[key] = true;
+      if (folder && row.type !== 'video') {
+        items.push(folderItem_(row,folder,slug,key));
+        return;
+      }
+      // Preserve previous manually created page links during the transition.
       if (row.type === 'page') {
         const target = nestedPage_(row, slug, owners);
         exportPage_({page:target,title:row.title});

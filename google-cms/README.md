@@ -33,3 +33,7 @@ Run `python -m unittest discover -s scripts -p 'test_google*.py'`. This verifies
 In any page tab select **page** in the type dropdown, enter a title and a unique **page** ID (or leave it blank to generate it from the title). A matching tab is created automatically. Add folders, photo/video links or further page entries in that tab. Nested pages appear as cards in their parent, not in the main menu. The first available child photo becomes the cover; imageUrl can override it. Check published on the parent card and its contents. Circular page links are rejected.
 
 If a nested page name is already used by another page, its ID gains the first two letters of its parent: Concerts inside Photography becomes `concerts_ph`. The visible heading remains Concerts. IDs are saved so later title changes do not change links.
+
+## Folder-based nesting
+
+Choose Photo and paste a Drive folder URL in a page row. A folder with subfolders automatically becomes a gallery page; leaf folders become photoshoots. This repeats at any depth. Folder names label child cards, and the first available photo is their cover. Photos directly in a parent folder form an additional album on that page. Generated folder pages have no spreadsheet tabs. Previous manual page tabs are hidden and retained for recovery.

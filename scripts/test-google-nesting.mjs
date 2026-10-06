@@ -36,3 +36,25 @@ const rows=vm.runInContext("rowsFromSheet_({getDataRange:()=>({getValues:()=>[['
 assert.equal(rows.length,1);
 assert.equal(rows[0]._row,1);
 console.log('Nested export, inherited covers, publication, cycles and physical row positions verified.');
+
+function iterator(items){let i=0;return {hasNext:()=>i<items.length,next:()=>items[i++]};}
+const folders=new Map();
+function folder(name,id,children=[],files=[]){const value={getId:()=>id,getName:()=>name,getFolders:()=>iterator(children),getFiles:()=>iterator(files)};folders.set(id,value);return value;}
+function photo(name,id){return {getId:()=>id,getName:()=>name,getMimeType:()=> 'image/jpeg',getLastUpdated:()=>new Date('2026-01-01'),getSize:()=>10};}
+const leaf=folder('Artist','abcdefghijklmnopqrstuv12345678',[],[photo('01.jpg','photo-one'),photo('02.jpg','photo-two')]);
+const middle=folder('Concerts','abcdefghijklmnopqrstuv23456789',[leaf]);
+const root=folder('Photography folder','abcdefghijklmnopqrstuv34567890',[middle],[photo('parent.jpg','parent-photo')]);
+context.DriveApp={getFolderById:id=>folders.get(id)};
+vm.runInContext('insideRoot_=()=>true',context);
+tables.photography=[['title','type','folder','published'],['Concert photos','photo',root.getId(),true]];
+const automatic=vm.runInContext('snapshot_()',context);
+const parentCard=automatic.galleries.photography.items[0];
+assert.equal(parentCard.type,'page');
+const parentGallery=automatic.galleries[parentCard.page];
+assert.equal(parentGallery.items[0].image.id,'parent-photo');
+const middleGallery=automatic.galleries[parentGallery.items[1].page];
+assert.equal(middleGallery.items[0].type,'image');
+assert.equal(middleGallery.items[0].photos.length,2);
+assert.equal(parentGallery.items[1].image.id,'photo-one');
+assert.equal(automatic.menu.items.length,2);
+console.log('Recursive Drive folders, direct parent photos, leaf albums and inherited covers verified.');
