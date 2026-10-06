@@ -477,42 +477,45 @@
     {
       "slug": "concerts",
       "title": "Concerts",
-      "type": "image"
+      "type": "page",
+      "page": "concerts"
     },
     {
       "slug": "events",
       "title": "Events",
-      "type": "image"
+      "type": "page",
+      "page": "events"
     },
     {
       "slug": "corporate",
       "title": "Corporate",
-      "type": "image"
+      "type": "page",
+      "page": "corporate"
     },
     {
       "slug": "beauty",
       "title": "Beauty",
-      "type": "image"
+      "type": "page",
+      "page": "beauty"
     },
     {
       "slug": "fashion",
       "title": "Fashion",
-      "type": "image"
+      "type": "page",
+      "page": "fashion"
     },
     {
       "slug": "food",
       "title": "Food",
-      "type": "image"
+      "type": "page",
+      "page": "food",
+      "image": "uploads/google/8e9ade6237b00601dc961f98.webp"
     },
     {
       "slug": "bts",
       "title": "BTS",
-      "type": "image",
-      "image": "uploads/google/cf62e7ac644ffa8f703d6189.webp",
-      "photos": [
-        "uploads/google/cf62e7ac644ffa8f703d6189.webp",
-        "uploads/google/604c8f01f47d3e19e3cc87fd.webp"
-      ]
+      "type": "page",
+      "page": "bts"
     },
     {
       "slug": "drive-1Ak2IHblM6FYk9gfyQqKNKkbrEFEdRGvW",
