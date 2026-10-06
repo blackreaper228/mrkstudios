@@ -477,59 +477,44 @@
     {
       "slug": "concerts",
       "title": "Concerts",
-      "type": "page",
-      "page": "concerts_ph"
+      "type": "image"
     },
     {
       "slug": "events",
       "title": "Events",
-      "type": "page",
-      "page": "events_ph"
+      "type": "image"
     },
     {
       "slug": "corporate",
       "title": "Corporate",
-      "type": "page",
-      "page": "corporate_ph"
+      "type": "image"
     },
     {
       "slug": "beauty",
       "title": "Beauty",
-      "type": "page",
-      "page": "beauty_ph"
+      "type": "image"
     },
     {
       "slug": "fashion",
       "title": "Fashion",
-      "type": "page",
-      "page": "fashion_ph"
+      "type": "image"
     },
     {
       "slug": "food",
       "title": "Food",
-      "type": "page",
-      "page": "food_ph"
+      "type": "image"
     },
     {
       "slug": "bts",
       "title": "BTS",
       "type": "page",
-      "page": "bts_ph"
+      "page": "bts_7nvebv4u",
+      "image": "uploads/google/cf62e7ac644ffa8f703d6189.webp"
     },
     {
       "slug": "drive-1EokzWWKWKziWanM9dNP53QzcQLYpOV_Z",
       "title": "Beauty",
       "type": "image"
-    },
-    {
-      "slug": "drive-1o1p8yZTbYLCt5IacWaukMFdO7nvEbv4u",
-      "title": "BTS",
-      "type": "image",
-      "image": "uploads/google/cf62e7ac644ffa8f703d6189.webp",
-      "photos": [
-        "uploads/google/cf62e7ac644ffa8f703d6189.webp",
-        "uploads/google/604c8f01f47d3e19e3cc87fd.webp"
-      ]
     },
     {
       "slug": "drive-1Ak2IHblM6FYk9gfyQqKNKkbrEFEdRGvW",
