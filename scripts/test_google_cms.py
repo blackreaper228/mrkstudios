@@ -6,6 +6,9 @@ import shutil
 import uuid
 from contextlib import contextmanager
 import unittest
+from unittest.mock import patch
+from threading import Lock
+import time
 from PIL import Image
 
 spec = importlib.util.spec_from_file_location('publisher', Path(__file__).with_name('sync-google-content.py'))
@@ -21,6 +24,26 @@ def test_directory():
 
 
 class PublicationTests(unittest.TestCase):
+    def test_parallel_downloads_are_not_requested_twice(self):
+        with test_directory() as directory:
+            root=Path(directory);self.setup_root(root)
+            data=self.snapshot()
+            data['galleries']['new']['items'][0]['photos'].append({'url':'https://example.com/second.jpg'})
+            calls=[];active=0;peak=0;lock=Lock()
+            raw=self.photo()
+            def fetch(url):
+                nonlocal active,peak
+                if url.endswith('/export'):return json.dumps(data).encode()
+                with lock:
+                    calls.append(url);active+=1;peak=max(peak,active)
+                time.sleep(0.05)
+                with lock:active-=1
+                return raw
+            with patch.object(publisher,'download',fetch):publisher.synchronize(root,fetch)
+            self.assertEqual(calls.count('https://example.com/photo.jpg'),1)
+            self.assertEqual(calls.count('https://example.com/second.jpg'),1)
+            self.assertEqual(peak,2)
+
     def setup_root(self, root):
         (root/'google-cms').mkdir()
         (root/'google-cms/config.json').write_text(json.dumps({'endpoint':'https://example.com/export'}))
