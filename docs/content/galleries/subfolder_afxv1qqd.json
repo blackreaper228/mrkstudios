@@ -3,6 +3,13 @@
   "template": "gallery",
   "items": [
     {
+      "slug": "drive-1ICDoA0pj9Y3QdrLipGXQsZo3Q9F1Id1p",
+      "title": "02.jpg",
+      "type": "image",
+      "image": "uploads/google/ce8d09f177788c71c8541ae4.webp",
+      "folderPhoto": true
+    },
+    {
       "slug": "drive-18eozcbUPT_9VEwJdVuXua6PVeY3t9CFX",
       "title": "photo_2026-09-24_10-45-18 (1).jpg",
       "type": "image",
@@ -16,5 +23,6 @@
       "image": "uploads/google/020da4bbeecc3cc867060842.webp",
       "folderPhoto": true
     }
-  ]
+  ],
+  "parent": "bts_7nvebv4u"
 }
