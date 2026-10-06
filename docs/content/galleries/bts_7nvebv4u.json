@@ -1,0 +1,21 @@
+{
+  "title": "BTS",
+  "template": "gallery",
+  "items": [
+    {
+      "slug": "drive-1o1p8yZTbYLCt5IacWaukMFdO7nvEbv4u",
+      "title": "BTS",
+      "type": "image",
+      "image": "uploads/google/cf62e7ac644ffa8f703d6189.webp",
+      "photos": [
+        "uploads/google/cf62e7ac644ffa8f703d6189.webp",
+        "uploads/google/604c8f01f47d3e19e3cc87fd.webp"
+      ]
+    },
+    {
+      "slug": "drive-1wTqipQlQ72Imb_HzMI8jEYIMAfxV1qQD",
+      "title": "subFolder",
+      "type": "image"
+    }
+  ]
+}
