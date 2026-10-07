@@ -224,3 +224,43 @@ a:hover>.roll-label>.roll-label-track,button:hover>.roll-label>.roll-label-track
 @media(prefers-reduced-motion:reduce){.showreel-play{transition:none}}
 
 .gear-rental-page .session-cover{background:#F8F6F2}.gear-rental-page .session-cover>img{object-fit:contain}
+
+/* Spacious, asymmetric lens story. Native scrolling stays accessible. */
+.lens-detail-page .category-content{padding-top:180px}
+.lens-detail-page .category-content>h1{max-width:900px;margin-bottom:90px}
+.lens-detail-page .media-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(120px,22vh,260px) 2vw;align-items:start;padding-bottom:160px}
+.lens-detail-page .media-card{grid-column:3 / span 7;background:transparent;animation:none;overflow:visible}
+.lens-detail-page .media-card:nth-child(3n+2){grid-column:1 / span 6}
+.lens-detail-page .media-card:nth-child(3n){grid-column:7 / span 6}
+.lens-detail-page .media-card:nth-child(4n){grid-column:4 / span 6}
+.lens-detail-page .session-cover{aspect-ratio:auto;background:transparent;transform:translate3d(0,var(--float-y,0px),0);will-change:transform;transition:none;overflow:visible}
+.lens-detail-page .session-cover>img{height:auto;object-fit:contain}
+.lens-detail-page .lens-product{grid-column:5 / span 4}
+.lens-detail-page .lens-product .session-cover{background:#F8F6F2}
+.lens-detail-page .session-card-link:hover .session-cover{transform:translate3d(0,var(--float-y,0px),0)}
+@media(max-width:700px){.lens-detail-page .category-content{padding-top:140px}.lens-detail-page .category-content>h1{margin-bottom:60px}.lens-detail-page .media-grid{gap:100px 0}.lens-detail-page .media-card:nth-child(n){grid-column:1 / -1}.lens-detail-page .media-card:nth-child(2n){grid-column:3 / -1}.lens-detail-page .lens-product:nth-child(n){grid-column:3 / span 8}}
+@media(prefers-reduced-motion:reduce){.lens-detail-page .session-cover{transform:none;will-change:auto}}
+
+/* Each photograph occupies its own spacious row; layers float independently. */
+.lens-detail-page .media-grid{row-gap:clamp(260px,48vh,600px);padding-bottom:40vh}
+.lens-detail-page .media-card:nth-child(n){grid-row:auto;grid-column:2 / span 4}
+.lens-detail-page .media-card:nth-child(3n){grid-column:8 / span 4}
+.lens-detail-page .media-card:nth-child(3n+1){grid-column:5 / span 5}
+.lens-detail-page .lens-product:nth-child(n){grid-column:5 / span 4}
+@media(max-width:700px){
+ .lens-detail-page .media-grid{row-gap:32vh}
+ .lens-detail-page .media-card:nth-child(n){grid-column:1 / span 9}
+ .lens-detail-page .media-card:nth-child(2n){grid-column:4 / span 9}
+ .lens-detail-page .lens-product:nth-child(n){grid-column:3 / span 8}
+}
+
+.lens-detail-page .media-card:nth-child(3n+2){grid-column:8 / span 4}
+.lens-detail-page .media-card:nth-child(3n){grid-column:3 / span 5}
+.lens-detail-page .media-card:nth-child(3n+1){grid-column:2 / span 4}
+.lens-detail-page .lens-product:nth-child(n){grid-column:1 / span 4}
+.photo-viewer .photo-viewer-image.has-gear-background{background:#F8F6F2}
+@media(max-width:700px){
+ .lens-detail-page .media-card:nth-child(n){grid-column:1 / span 9}
+ .lens-detail-page .media-card:nth-child(2n){grid-column:4 / span 9}
+ .lens-detail-page .lens-product:nth-child(n){grid-column:1 / span 8}
+}

@@ -12,7 +12,7 @@ export function createPhotoViewer(){
  function render(){
   const item=items[index];content.replaceChildren();
   let media;
-  if(item.kind==='image'){media=document.createElement('img');media.src=item.src;media.alt=item.title;media.className='photo-viewer-image'}
+  if(item.kind==='image'){media=document.createElement('img');media.src=item.src;media.alt=item.title;media.className='photo-viewer-image';const lens=document.querySelector('.lens-product img');if(lens&&new URL(item.src,location.href).href===lens.src)media.classList.add('has-gear-background')}
   else if(item.kind==='video'){media=document.createElement('video');media.src=item.src;media.controls=true;media.playsInline=true;media.preload='metadata';if(item.poster)media.poster=item.poster}
   else{media=document.createElement('iframe');media.src=item.src;media.title=item.title;media.allow='autoplay; fullscreen; picture-in-picture';media.allowFullscreen=true;media.referrerPolicy='strict-origin-when-cross-origin'}
   revealMedia(media);content.append(media);dots.replaceChildren(...items.map((item,i)=>{const dot=document.createElement('button');dot.className='photo-viewer-dot';dot.setAttribute('aria-label','Slide '+(i+1)+': '+item.title);dot.setAttribute('aria-current',String(i===index));dot.onclick=()=>{index=i;render()};return dot}));

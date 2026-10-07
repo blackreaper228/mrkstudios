@@ -1,3 +1,4 @@
+document.querySelector('#contact')?.setAttribute('href','mailto:Mark@mrkstudios.co');
 import {loadMenu,galleryURL} from './menu-content.js?v=20261002-google-cms';
 import {fadeToWhite} from './page-transition.js?v=20260930-keep-navigation';
 import './pointer.js?v=20260930-gallery-links';
