@@ -4,46 +4,47 @@
   "items": [
     {
       "slug": "drive-1AH4sTNBE6k_1xTiGZIwocy0fs_Zb3ozD",
-      "title": "0001-nkl08754.jpg",
+      "title": "nkl08754.jpg",
       "type": "image",
       "image": "uploads/google/75a0c6fc0ad60a0b6160b415.webp",
       "folderPhoto": true
     },
     {
       "slug": "drive-1ZBgSrN3MdPmdlSKfuSxyvPHZYlc8flaV",
-      "title": "0002-nkl08877.jpg",
+      "title": "nkl08877.jpg",
       "type": "image",
       "image": "uploads/google/b3586ccfa752cb3324619ad4.webp",
       "folderPhoto": true
     },
     {
       "slug": "drive-1e9aoMs0ddoBdsgURWH8Y6lqFvqYtWitO",
-      "title": "0003-nkl08625.jpg",
+      "title": "nkl08625.jpg",
       "type": "image",
       "image": "uploads/google/942a5027b17cf9929e342b6f.webp",
       "folderPhoto": true
     },
     {
       "slug": "drive-1jJpiPujKbCb-G9LK5rraMLkc5lcpNw14",
-      "title": "0004-nkl08717.jpg",
+      "title": "nkl08717.jpg",
       "type": "image",
       "image": "uploads/google/9319b4f3809254be38f8efc7.webp",
       "folderPhoto": true
     },
     {
       "slug": "drive-1qVdQHsxAQBaBBMdc5Xsx2TzFuJKuQxD4",
-      "title": "0005-nkl08546.jpg",
+      "title": "nkl08546.jpg",
       "type": "image",
       "image": "uploads/google/a6ff0bd92f4c15e2e5d96876.webp",
       "folderPhoto": true
     },
     {
       "slug": "drive-1zSIh38nThvO0Dj73g4wnopFE14zuv1gb",
-      "title": "0006-nkl08247.jpg",
+      "title": "nkl08247.jpg",
       "type": "image",
       "image": "uploads/google/381473323b4020b96111dc9a.webp",
       "folderPhoto": true
     }
   ],
+  "hidePhotoTitles": true,
   "parent": "concerts_7k1vtwrb"
 }

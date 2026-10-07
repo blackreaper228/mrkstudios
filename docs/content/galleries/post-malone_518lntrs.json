@@ -4,53 +4,54 @@
   "items": [
     {
       "slug": "drive-1aIzs9nfY2Z8rXpFDiKPGiRZaRzb6sOZ-",
-      "title": "000-nkl051225212801446retouch.jpg",
+      "title": "nkl051225212801446retouch.jpg",
       "type": "image",
       "image": "uploads/google/5647902500df31876f4f789b.webp",
       "folderPhoto": true
     },
     {
       "slug": "drive-13qoJbXNfZ2uT0V2HLaYORgjys6MBw3qB",
-      "title": "001-nkl051225212801518retouch.jpg",
+      "title": "nkl051225212801518retouch.jpg",
       "type": "image",
       "image": "uploads/google/ce79b4bc889690a953131e43.webp",
       "folderPhoto": true
     },
     {
       "slug": "drive-1jc92ofRs72nr-aRvSrPce7aKK6v9z73k",
-      "title": "002-nkl051225212801446retouch-1.jpg",
+      "title": "nkl051225212801446retouch-1.jpg",
       "type": "image",
       "image": "uploads/google/5647902500df31876f4f789b.webp",
       "folderPhoto": true
     },
     {
       "slug": "drive-1FSUyFT76aY-pLUqDPHmUG57NVaEnwU0M",
-      "title": "003-nkl051225212201202retouch.jpg",
+      "title": "nkl051225212201202retouch.jpg",
       "type": "image",
       "image": "uploads/google/94ec44d9f7ad3b0add82a328.webp",
       "folderPhoto": true
     },
     {
       "slug": "drive-1Px0W26XD0eNmzjUuxw6vwPExtgcSc9k3",
-      "title": "004-nkl051225212101178retouch.jpg",
+      "title": "nkl051225212101178retouch.jpg",
       "type": "image",
       "image": "uploads/google/87c2ae60b11b13eeb5f88462.webp",
       "folderPhoto": true
     },
     {
       "slug": "drive-1N_DTANkBS-Wr8oozxt7Ytcp1DU1OYhE8",
-      "title": "005-nkl051225212001148retouch.jpg",
+      "title": "nkl051225212001148retouch.jpg",
       "type": "image",
       "image": "uploads/google/eaa08fe3928fe6fc6ea4ae9c.webp",
       "folderPhoto": true
     },
     {
       "slug": "drive-1mRjqOlwXOjSA0FUrS-Zqry62w3E_se71",
-      "title": "006-nkl051225211701017retouch.jpg",
+      "title": "nkl051225211701017retouch.jpg",
       "type": "image",
       "image": "uploads/google/92451f43c0dd940a580f02a6.webp",
       "folderPhoto": true
     }
   ],
+  "hidePhotoTitles": true,
   "parent": "concerts_7k1vtwrb"
 }

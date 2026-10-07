@@ -4,67 +4,68 @@
   "items": [
     {
       "slug": "drive-1sxObWxUHTwf86OtrdtLMS0H7zmWp10-y",
-      "title": "0001-nkl290126204900372srgbretouch.jpg",
+      "title": "nkl290126204900372srgbretouch.jpg",
       "type": "image",
       "image": "uploads/google/806ea97b2cbf830e76c25b7d.webp",
       "folderPhoto": true
     },
     {
       "slug": "drive-1rW39-6oo3_dCNVJ00cFxx_FKbHspkDhj",
-      "title": "0002-nkl290126221300131srgbretouch.jpg",
+      "title": "nkl290126221300131srgbretouch.jpg",
       "type": "image",
       "image": "uploads/google/be747f23360665e5196ea4f7.webp",
       "folderPhoto": true
     },
     {
       "slug": "drive-1piHHglfZufajcJGLsFbnT6xF6MlgEAnQ",
-      "title": "0003-nkl290126222700200srgbretouch.jpg",
+      "title": "nkl290126222700200srgbretouch.jpg",
       "type": "image",
       "image": "uploads/google/efb67c8c170a2163c0b0e9ce.webp",
       "folderPhoto": true
     },
     {
       "slug": "drive-1db9lEk9e198CGfrN1TF6XrmBCznTxAbh",
-      "title": "0004-nkl290126205000450srgbretouch.jpg",
+      "title": "nkl290126205000450srgbretouch.jpg",
       "type": "image",
       "image": "uploads/google/8622c5c0e96d47ce442af16a.webp",
       "folderPhoto": true
     },
     {
       "slug": "drive-1fin29F5ffiBrlAcB0U_IxHL5P8m1m9Yk",
-      "title": "0005-nkl290126204200239srgbretouch-1.jpg",
+      "title": "nkl290126204200239srgbretouch-1.jpg",
       "type": "image",
       "image": "uploads/google/6b8530f854b98e141e8d1c60.webp",
       "folderPhoto": true
     },
     {
       "slug": "drive-1onLNeF0deykhsm7yMSDUdP8-YKFdXXlL",
-      "title": "0006-nkl290126210000585srgbretouch.jpg",
+      "title": "nkl290126210000585srgbretouch.jpg",
       "type": "image",
       "image": "uploads/google/36f1b4366e46034901b69007.webp",
       "folderPhoto": true
     },
     {
       "slug": "drive-1OsqSAgP_fPxFTVDLh8j4q6y8P5nXrB1f",
-      "title": "0007-nkl290126205100468srgbretouch.jpg",
+      "title": "nkl290126205100468srgbretouch.jpg",
       "type": "image",
       "image": "uploads/google/476fd74a215ccc868f8db253.webp",
       "folderPhoto": true
     },
     {
       "slug": "drive-12HuPqClxNrospG0qcSultrY0Lgk3GARz",
-      "title": "0008-nkl290126210200642srgbretouch.jpg",
+      "title": "nkl290126210200642srgbretouch.jpg",
       "type": "image",
       "image": "uploads/google/69d296fa496bffc88ab04ab3.webp",
       "folderPhoto": true
     },
     {
       "slug": "drive-1_OjmzKxvYZVKbhtCIP3RZH1sqNEKcllc",
-      "title": "0009-nkl290126210100604srgbretouch.jpg",
+      "title": "nkl290126210100604srgbretouch.jpg",
       "type": "image",
       "image": "uploads/google/361b48e1cc5c3d3c8b7c85f3.webp",
       "folderPhoto": true
     }
   ],
+  "hidePhotoTitles": true,
   "parent": "concerts_7k1vtwrb"
 }

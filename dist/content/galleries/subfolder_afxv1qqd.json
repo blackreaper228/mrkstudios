@@ -2,5 +2,6 @@
   "title": "subFolder",
   "template": "gallery",
   "items": [],
+  "hidePhotoTitles": true,
   "parent": "bts_7nvebv4u"
 }
