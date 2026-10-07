@@ -86,5 +86,6 @@
     }
   ],
   "template": "gallery",
-  "title": "Concerts"
+  "title": "Concerts",
+  "parent": "video"
 }

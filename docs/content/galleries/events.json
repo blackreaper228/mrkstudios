@@ -110,5 +110,6 @@
     }
   ],
   "template": "gallery",
-  "title": "Events"
+  "title": "Events",
+  "parent": "video"
 }

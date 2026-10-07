@@ -1,32 +1,8 @@
 {
   "items": [
     {
-      "page": "events",
-      "label": "Events",
-      "spaceAbove": false,
-      "template": "gallery"
-    },
-    {
-      "page": "concerts",
-      "label": "Concerts",
-      "spaceAbove": false,
-      "template": "gallery"
-    },
-    {
-      "page": "commercials",
-      "label": "Commercials",
-      "spaceAbove": false,
-      "template": "gallery"
-    },
-    {
-      "page": "documentaries",
-      "label": "Documentaries",
-      "spaceAbove": false,
-      "template": "gallery"
-    },
-    {
-      "page": "food",
-      "label": "Food",
+      "page": "video",
+      "label": "Video",
       "spaceAbove": false,
       "template": "gallery"
     },

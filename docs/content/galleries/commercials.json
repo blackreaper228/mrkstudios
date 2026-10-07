@@ -62,5 +62,6 @@
     }
   ],
   "template": "gallery",
-  "title": "Commercials"
+  "title": "Commercials",
+  "parent": "video"
 }

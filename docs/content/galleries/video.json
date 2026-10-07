@@ -1,0 +1,41 @@
+{
+  "title": "Video",
+  "template": "gallery",
+  "items": [
+    {
+      "slug": "events",
+      "title": "Events",
+      "type": "page",
+      "page": "events",
+      "image": "uploads/google/b3e838af1e5a911d5786f093.webp"
+    },
+    {
+      "slug": "concerts",
+      "title": "Concerts",
+      "type": "page",
+      "page": "concerts",
+      "image": "uploads/google/b8b608770bfafa011db042d0.webp"
+    },
+    {
+      "slug": "commercials",
+      "title": "Commercials",
+      "type": "page",
+      "page": "commercials",
+      "image": "uploads/google/80a935f7af718036b7c1cc7c.webp"
+    },
+    {
+      "slug": "documentaries",
+      "title": "Documentaries",
+      "type": "page",
+      "page": "documentaries",
+      "image": "uploads/google/31168555ece99ebdd0d8ae5b.webp"
+    },
+    {
+      "slug": "food",
+      "title": "Food",
+      "type": "page",
+      "page": "food",
+      "image": "uploads/google/8e9ade6237b00601dc961f98.webp"
+    }
+  ]
+}

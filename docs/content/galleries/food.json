@@ -50,5 +50,6 @@
     }
   ],
   "template": "gallery",
-  "title": "Food"
+  "title": "Food",
+  "parent": "video"
 }

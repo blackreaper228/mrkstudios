@@ -50,5 +50,6 @@
     }
   ],
   "template": "gallery",
-  "title": "Documentaries"
+  "title": "Documentaries",
+  "parent": "video"
 }
