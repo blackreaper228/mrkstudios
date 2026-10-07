@@ -15,7 +15,7 @@ async function load(){
   document.querySelector('.category-content>h1').textContent=data.title||category;
   const requestedParent=new URLSearchParams(location.search).get('from');
   const parent=requestedParent||data.parent;
-  if(parent&&parent!==category&&/^[a-z0-9]+(?:[-_][a-z0-9]+)*$/.test(parent)){
+  if(parent&&parent!==category&&/^[a-z0-9][a-z0-9_-]*$/.test(parent)){
    const back=document.createElement('a');back.className='session-back category-back';
    back.href=galleryURL(parent);back.textContent='\u2190 back to gallery';
    document.querySelector('.category-content>h1').before(back);
