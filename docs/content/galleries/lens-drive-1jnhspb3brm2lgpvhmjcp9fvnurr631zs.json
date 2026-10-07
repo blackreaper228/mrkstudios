@@ -1,0 +1,16 @@
+{
+  "title": "Blazar lens set ( 33, 65, 85, 100 )",
+  "template": "gallery",
+  "parent": "gear-rental",
+  "gearRental": true,
+  "hidePhotoTitles": true,
+  "items": [
+    {
+      "slug": "photo-1",
+      "title": "Blazar lens set ( 33, 65, 85, 100 )",
+      "type": "image",
+      "image": "uploads/google/e4b68d32681859a7ca059b25.webp",
+      "folderPhoto": true
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "title": "Nikor 8mm",
+  "template": "gallery",
+  "parent": "gear-rental",
+  "gearRental": true,
+  "hidePhotoTitles": true,
+  "items": [
+    {
+      "slug": "photo-1",
+      "title": "Nikor 8mm",
+      "type": "image",
+      "image": "uploads/google/b86816e89e50543e9fe7aca2.webp",
+      "folderPhoto": true
+    }
+  ]
+}

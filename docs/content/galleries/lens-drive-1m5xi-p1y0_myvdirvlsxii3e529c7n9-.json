@@ -1,0 +1,16 @@
+{
+  "title": "Samyang 14mm",
+  "template": "gallery",
+  "parent": "gear-rental",
+  "gearRental": true,
+  "hidePhotoTitles": true,
+  "items": [
+    {
+      "slug": "photo-1",
+      "title": "Samyang 14mm",
+      "type": "image",
+      "image": "uploads/google/6292ce2463e3d736c7cad133.webp",
+      "folderPhoto": true
+    }
+  ]
+}

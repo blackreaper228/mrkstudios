@@ -1,0 +1,16 @@
+{
+  "title": "Canon 8-15mm",
+  "template": "gallery",
+  "parent": "gear-rental",
+  "gearRental": true,
+  "hidePhotoTitles": true,
+  "items": [
+    {
+      "slug": "photo-1",
+      "title": "Canon 8-15mm",
+      "type": "image",
+      "image": "uploads/google/ad2c1501df6f5a45476cef23.webp",
+      "folderPhoto": true
+    }
+  ]
+}

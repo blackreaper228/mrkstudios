@@ -1,0 +1,16 @@
+{
+  "title": "sony 35",
+  "template": "gallery",
+  "parent": "gear-rental",
+  "gearRental": true,
+  "hidePhotoTitles": true,
+  "items": [
+    {
+      "slug": "photo-1",
+      "title": "sony 35",
+      "type": "image",
+      "image": "uploads/google/ce1ea6211843b52b42c44e4d.webp",
+      "folderPhoto": true
+    }
+  ]
+}

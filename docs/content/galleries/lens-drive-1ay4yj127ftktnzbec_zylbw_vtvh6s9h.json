@@ -1,0 +1,16 @@
+{
+  "title": "Sony 24-70 2.8",
+  "template": "gallery",
+  "parent": "gear-rental",
+  "gearRental": true,
+  "hidePhotoTitles": true,
+  "items": [
+    {
+      "slug": "photo-1",
+      "title": "Sony 24-70 2.8",
+      "type": "image",
+      "image": "uploads/google/bd2d5038da4764f3e368c744.webp",
+      "folderPhoto": true
+    }
+  ]
+}

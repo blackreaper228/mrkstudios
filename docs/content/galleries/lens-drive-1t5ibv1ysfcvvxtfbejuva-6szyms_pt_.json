@@ -1,0 +1,16 @@
+{
+  "title": "Olympus OM lens set ( 18, 24, 35, 50, 100, 135 )",
+  "template": "gallery",
+  "parent": "gear-rental",
+  "gearRental": true,
+  "hidePhotoTitles": true,
+  "items": [
+    {
+      "slug": "photo-1",
+      "title": "Olympus OM lens set ( 18, 24, 35, 50, 100, 135 )",
+      "type": "image",
+      "image": "uploads/google/40e1c3e0f22b307b395e7bc9.webp",
+      "folderPhoto": true
+    }
+  ]
+}

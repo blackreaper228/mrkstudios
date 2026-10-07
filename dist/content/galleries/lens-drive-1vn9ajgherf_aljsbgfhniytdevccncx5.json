@@ -1,0 +1,16 @@
+{
+  "title": "Sigma 8mm",
+  "template": "gallery",
+  "parent": "gear-rental",
+  "gearRental": true,
+  "hidePhotoTitles": true,
+  "items": [
+    {
+      "slug": "photo-1",
+      "title": "Sigma 8mm",
+      "type": "image",
+      "image": "uploads/google/614bd81e9a26db0908304408.webp",
+      "folderPhoto": true
+    }
+  ]
+}
