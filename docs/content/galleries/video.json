@@ -1,41 +1,38 @@
 {
-  "title": "Video",
-  "template": "gallery",
   "items": [
     {
-      "slug": "events",
+      "slug": "1",
       "title": "Events",
       "type": "page",
-      "page": "events",
-      "image": "uploads/google/b3e838af1e5a911d5786f093.webp"
+      "page": "events"
     },
     {
-      "slug": "concerts",
+      "slug": "2",
       "title": "Concerts",
       "type": "page",
-      "page": "concerts",
-      "image": "uploads/google/b8b608770bfafa011db042d0.webp"
+      "page": "concerts"
     },
     {
-      "slug": "commercials",
+      "slug": "3",
       "title": "Commercials",
       "type": "page",
-      "page": "commercials",
-      "image": "uploads/google/80a935f7af718036b7c1cc7c.webp"
+      "page": "commercials"
     },
     {
-      "slug": "documentaries",
+      "slug": "4",
       "title": "Documentaries",
       "type": "page",
       "page": "documentaries",
       "image": "uploads/google/31168555ece99ebdd0d8ae5b.webp"
     },
     {
-      "slug": "food",
+      "slug": "5",
       "title": "Food",
       "type": "page",
       "page": "food",
       "image": "uploads/google/8e9ade6237b00601dc961f98.webp"
     }
-  ]
+  ],
+  "template": "gallery",
+  "title": "Video"
 }
