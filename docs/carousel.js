@@ -1,19 +1,18 @@
 import {revealMedia} from './loading-effects.js?v=20260930-1';
 import {fadeToWhite} from './page-transition.js?v=20260930-keep-navigation';
 import { titleLayout } from './title-layout.js?v=20261001-lower-neighbors';
-import { loadPortfolio } from './content.js?v=20261002-google-cms';
 const $=s=>document.querySelector(s);
 const showreel={title:'Mixtape / showreel',video:'1233498726',src:'https://i.vimeocdn.com/video/2209179166-d9ce0801372f55f059a99c1fdf19cef7b28e0c1da5c5f316a0e5cc5e82fcec35-d_1280x720'};
-let films=[
+const films=[
  showreel,
- {title:'somewhere / away',src:'https://picsum.photos/id/1015/1600/900'},
- {title:'motion / instinct',src:'https://picsum.photos/id/1016/1600/900'},
- {title:'after / hours',src:'https://picsum.photos/id/1043/1600/900'},
- {title:'into / the light',src:'https://picsum.photos/id/1039/1600/900'}
+ {title:'Favela Campaign Video',video:'1221410122',src:'https://i.vimeocdn.com/video/2194103879-0c44ba7b1866113ac8423cfc762107854fe7ae3f49293101a3c60a04479fbc8b-d_1280x720'},
+ {title:'Bred Campaign Film Commercial',video:'1089164404',src:'https://i.vimeocdn.com/video/2021543478-8d61b146e2b2ff2ce632292d16717c24399b9734d4d3a2462a5fa73beb4c1c58-d_1280x720'},
+ {title:'Travis Scott Concert',video:'1230719066',src:'https://i.vimeocdn.com/video/2205705188-d40931d67b414f4210092369fe35ec1f3858bdeaa4350d35dd7514d79641febd-d_1280x720'},
+ {title:'Club Ocha',video:'1231975351',src:'https://i.vimeocdn.com/video/2207268965-0d37dcec9b30944f69dd61a9608b20316e4c2d2d1465d7ef0e123f6ef12d9e0d-d_1280x720'}
 ];
 const track=$('#film-track'),stage=$('#film-stage'),tilt=$('#film-tilt'),cursor=$('#custom-cursor'),titles=$('.titles');
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
-let index=0,busy=false,opened=location.hash==='#photos',pendingContent=null;
+let index=0,busy=false,opened=location.hash==='#photos';
 let navigating=false;
 const photosReady=opened?Promise.resolve():new Promise(resolve=>document.addEventListener('films:open',resolve,{once:true}));
 stage.addEventListener('click',async event=>{
@@ -86,12 +85,11 @@ document.addEventListener('wheel',e=>{
  if(Math.abs(wheelTotal)>=45){change(Math.sign(wheelTotal));wheelTotal=0}
 },{passive:false});
 let touchX=0;stage.addEventListener('touchstart',e=>{touchX=e.touches[0].clientX},{passive:true});stage.addEventListener('touchend',e=>{const delta=e.changedTouches[0].clientX-touchX;if(Math.abs(delta)>45)change(delta<0?1:-1)},{passive:true});
-function frame(){requestAnimationFrame(frame);if(pendingContent&&!busy&&!track.querySelector("iframe")){films=pendingContent;pendingContent=null;render();$('#gallery').dataset.contentSource='cms'}if(!opened||document.hidden)return;rx+=(tx-rx)*.075;ry+=(ty-ry)*.075;cx+=(mx-cx)*.3;cy+=(my-cy)*.3;cursor.style.transform=`translate3d(${cx}px,${cy}px,0)`;}requestAnimationFrame(frame);
+function frame(){requestAnimationFrame(frame);if(!opened||document.hidden)return;rx+=(tx-rx)*.075;ry+=(ty-ry)*.075;cx+=(mx-cx)*.3;cy+=(my-cy)*.3;cursor.style.transform=`translate3d(${cx}px,${cy}px,0)`;}requestAnimationFrame(frame);
 document.addEventListener('films:open',()=>{opened=true;renderTitles()});
 document.addEventListener('films:close',()=>{opened=false;wheelTotal=0;cursor.classList.remove('active');tx=ty=0});
 render();
 window.addEventListener('resize',()=>{if(!busy)renderTitles()});
 
-loadPortfolio().then(items=>{pendingContent=[showreel,...items.slice(1)]}).catch(error=>{console.warn('Portfolio content could not be loaded; using fallback photographs.',error);$('#gallery').dataset.contentSource='fallback'});
 
 document.fonts.ready.then(()=>{if(!busy)renderTitles()});
