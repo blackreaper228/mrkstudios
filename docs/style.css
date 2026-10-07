@@ -265,7 +265,7 @@ a:hover>.roll-label>.roll-label-track,button:hover>.roll-label>.roll-label-track
  .lens-detail-page .lens-product:nth-child(n){grid-column:1 / span 8}
 }
 
-.gallery-breadcrumbs{display:flex;align-items:baseline;flex-wrap:wrap;gap:12px 24px;margin-bottom:24px;font-size:14px}
+.gallery-breadcrumbs{display:flex;flex-direction:row;align-items:baseline;flex-wrap:wrap;gap:8px 24px;margin-bottom:24px;font:400 16px/1.35 'IBM Plex Mono',monospace;text-align:left}
 .gallery-breadcrumbs .session-back{margin-bottom:0;flex-shrink:0}
 .gallery-breadcrumbs ol{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:0}
 .gallery-breadcrumbs li+li::before{content:"/";margin-right:8px;opacity:.4}

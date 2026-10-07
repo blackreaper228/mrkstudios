@@ -7,6 +7,7 @@ export async function addBreadcrumbs(back,page,data,{parent=data.parent,includeP
   seen.add(parent);
   try{const ancestor=await loadGallery(parent);trail.unshift({page:parent,title:ancestor.title||parent});parent=ancestor.parent}catch{break}
  }
+ if(trail.length)back.textContent='\u2190 back to '+trail[trail.length-1].title;
  if(trail.length<2)return;
  const nav=document.createElement('nav');nav.className='gallery-breadcrumbs';nav.setAttribute('aria-label','Breadcrumb');
  const list=document.createElement('ol');
