@@ -28,20 +28,14 @@ async function loadTelevision(){
  const loader=new GLTFLoader();
  const draco=new DRACOLoader();draco.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/libs/draco/gltf/');draco.setWorkerLimit(mobile?1:2);loader.setDRACOLoader(draco);
  const artworkReady=createLogoArtwork();
- const [person,television]=await Promise.all([
-  loader.loadAsync(new URL('assets/person-rig-compressed.glb',import.meta.url).href),
-  loader.loadAsync(new URL('assets/old_tv-hq.glb',import.meta.url).href)
- ]);
- const body=person.scene,model=television.scene;televisionModel=model;
- neckBone=body.getObjectByName('Neck');headBone=body.getObjectByName('Head');torsoBone=body.getObjectByName('Torso');
- if(!neckBone||!headBone)throw new Error('Character neck rig missing');
+ const television=await loader.loadAsync(new URL('assets/old_tv-hq.glb',import.meta.url).href);
+ const model=television.scene;televisionModel=model;
  const box=new THREE.Box3().setFromObject(model),size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3());
  const modelScale=.30/size.x;
  model.scale.multiplyScalar(modelScale);
- model.position.set(-center.x*modelScale,-box.min.y*modelScale,-center.z*modelScale);
- headBone.add(model);
- body.position.y=-(1.625+size.y*modelScale/2);
- tv.add(body);tv.scale.setScalar(characterScale);tv.updateMatrixWorld(true);
+ model.position.set(-center.x*modelScale,-center.y*modelScale,-center.z*modelScale);
+ headBone=new THREE.Group();headBone.add(model);tv.add(headBone);
+ tv.scale.setScalar(characterScale);tv.updateMatrixWorld(true);
  let screen;
  const textureQuality=Math.min(renderer.capabilities.getMaxAnisotropy(),mobile?4:16);
  model.traverse(mesh=>{if(mesh.isMesh){mesh.castShadow=false;mesh.receiveShadow=false;
@@ -62,7 +56,7 @@ async function loadTelevision(){
  updateScreen();
  if(renderer.compileAsync)await renderer.compileAsync(scene,camera);else renderer.compile(scene,camera);
  renderer.render(scene,camera);
- modelReady=true;canvas.dataset.model='tv-person-neck-rig';
+ modelReady=true;canvas.dataset.model='television-only';
  const hasLoader=Boolean(document.querySelector('#page-loader'));
  introProgress=hasLoader||reduced?1:0;
  camera.position.set(0,0,homeDistance);renderer.render(scene,camera);
@@ -70,33 +64,18 @@ async function loadTelevision(){
  console.info('TV startup timings (ms)',{assets:Math.round(assetsReady-loadStarted),firstRender:Math.round(performance.now()-loadStarted)});
  renderer.setPixelRatio(mobile?Math.min(devicePixelRatio,1.5):2);resize();
  if(!hasLoader)hero.animate([{opacity:0},{opacity:1}],{duration:reduced?0:450,easing:'ease-out'});
- canvas.dataset.detail='lod';
- const connection=navigator.connection;
- if(!connection?.saveData&&!['slow-2g','2g'].includes(connection?.effectiveType))setTimeout(()=>upgradeBody(loader,body,model),500);
-}
-async function upgradeBody(loader,oldBody,model){
- try{
-  const person=await loader.loadAsync(new URL(mobile?'assets/person-rig-mobile.glb':'assets/person-rig-web.glb',import.meta.url).href);
-  const body=person.scene,neck=body.getObjectByName('Neck'),head=body.getObjectByName('Head'),torso=body.getObjectByName('Torso');
-  if(!neck||!head||!torso)throw new Error('Detailed character rig missing');
-  body.position.copy(oldBody.position);
-  if(renderer.compileAsync)await renderer.compileAsync(body,camera,scene);
-  neck.quaternion.copy(neckBone.quaternion);head.quaternion.copy(headBone.quaternion);torso.quaternion.copy(torsoBone.quaternion);
-  head.add(model);tv.remove(oldBody);tv.add(body);neckBone=neck;headBone=head;torsoBone=torso;
-  oldBody.traverse(object=>{if(object.isMesh){object.geometry.dispose();for(const material of Array.isArray(object.material)?object.material:[object.material]){for(const value of Object.values(material))if(value?.isTexture)value.dispose();material.dispose()}}});
-  canvas.dataset.detail='full';
- }catch(error){console.warn('Detailed character unavailable; keeping LOD.',error)}
+ canvas.dataset.detail='full';
 }
 const lookQuaternion=new THREE.Quaternion();
 function followCursor(dt,neutral=false){
  if(!headBone)return;
  const smooth=1-Math.exp(-dt*6),x=reduced||neutral?0:targetX;
- // Limit upward pitch independently: the underside must conceal the neck join.
+ // Keep the same restrained television tilt.
  const cursorY=reduced||neutral?0:targetY;
  const y=cursorY<0?Math.max(cursorY,-1)*.65:Math.min(cursorY,1);
- lookQuaternion.setFromEuler(new THREE.Euler(y*.055,x*.12,-x*.008,'YXZ'));neckBone.quaternion.slerp(lookQuaternion,smooth);
- lookQuaternion.setFromEuler(new THREE.Euler(y*.20,x*.38,-x*.025,'YXZ'));headBone.quaternion.slerp(lookQuaternion,smooth);
- lookQuaternion.setFromEuler(new THREE.Euler(0,x*.009,0,'YXZ'));torsoBone.quaternion.slerp(lookQuaternion,smooth*.5);
+
+ lookQuaternion.setFromEuler(new THREE.Euler(y*.255,x*.50,-x*.033,'YXZ'));headBone.quaternion.slerp(lookQuaternion,smooth);
+
 }
 async function createLogoArtwork(){
  const image=new Image();image.src=new URL('assets/mrk-tv-artwork.png',import.meta.url).href;await image.decode();
