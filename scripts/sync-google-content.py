@@ -78,7 +78,7 @@ def synchronize(root=ROOT, fetch=download, seed=None):
                 video = next((item['video'] for item in child.get('items', []) if item.get('video')), None)
                 if video and 'vimeo.com/' in video:
                     try:
-                        metadata = json.loads(fetch('https://vimeo.com/api/oembed.json?' + urllib.parse.urlencode({'url':video.replace('http://','https://',1)})))
+                        metadata = json.loads(fetch('https://vimeo.com/api/oembed.json?' + urllib.parse.urlencode({'url':video.replace('http://','https://',1), 'width':1920})))
                         thumbnail = metadata.get('thumbnail_url', '')
                         if thumbnail:
                             cover = {'url':thumbnail}
@@ -103,7 +103,7 @@ def synchronize(root=ROOT, fetch=download, seed=None):
             video = next((item['video'] for item in child.get('items', []) if item.get('video')), None)
             if not cover and video and 'vimeo.com/' in video:
                 try:
-                    metadata = json.loads(fetch('https://vimeo.com/api/oembed.json?' + urllib.parse.urlencode({'url':video.replace('http://','https://',1)})))
+                    metadata = json.loads(fetch('https://vimeo.com/api/oembed.json?' + urllib.parse.urlencode({'url':video.replace('http://','https://',1), 'width':1920})))
                     if metadata.get('thumbnail_url'):
                         cover = {'url':metadata['thumbnail_url']}
                 except (ValueError, OSError) as error:

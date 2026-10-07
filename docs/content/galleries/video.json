@@ -4,19 +4,22 @@
       "slug": "1",
       "title": "Events",
       "type": "page",
-      "page": "events"
+      "page": "events",
+      "image": "uploads/google/eb195dfb76e8d792e5395755.webp"
     },
     {
       "slug": "2",
       "title": "Concerts",
       "type": "page",
-      "page": "concerts"
+      "page": "concerts",
+      "image": "uploads/google/a448ec044d46d8363df44059.webp"
     },
     {
       "slug": "3",
       "title": "Commercials",
       "type": "page",
-      "page": "commercials"
+      "page": "commercials",
+      "image": "uploads/google/b062a042e1237279a13e46f4.webp"
     },
     {
       "slug": "4",

@@ -86,3 +86,15 @@ loadMenu().then(items=>{
  }
  dropdown.replaceChildren(main);
 }).catch(error=>console.warn('Menu content unavailable; using default navigation.',error));
+
+// Keep logo geometry fixed while cycling the same symbols as the loader.
+const animatedLogo=document.querySelector('.navigation .logo');
+const logoText=animatedLogo.textContent,logoSymbols='abcdefghijklmnopqrstuvwxyz0123456789#$%&*+?';
+let logoTimer;
+function stopLogoScramble(){clearInterval(logoTimer);logoTimer=null;animatedLogo.textContent=logoText}
+function startLogoScramble(){if(reduced||logoTimer)return;const update=()=>{animatedLogo.textContent=[...logoText].map(c=>/\s/.test(c)?c:logoSymbols[Math.floor(Math.random()*logoSymbols.length)]).join('')};update();logoTimer=setInterval(update,65)}
+animatedLogo.addEventListener('pointerenter',startLogoScramble);
+animatedLogo.addEventListener('pointerleave',stopLogoScramble);
+animatedLogo.addEventListener('focus',startLogoScramble);
+animatedLogo.addEventListener('blur',stopLogoScramble);
+window.addEventListener('pagehide',stopLogoScramble);
