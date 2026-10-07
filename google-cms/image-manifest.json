@@ -31,17 +31,17 @@
     "revision": "",
     "path": "uploads/google/8e9ade6237b00601dc961f98.webp"
   },
-  "url:https://i.vimeocdn.com/video/2021532397-bd45f863f67242ea35992fd32b1cc9ebe8bd82c05a6f259e19a5e1b3bd0ceac1-d_1280?region=us": {
+  "url:https://i.vimeocdn.com/video/2021532397-bd45f863f67242ea35992fd32b1cc9ebe8bd82c05a6f259e19a5e1b3bd0ceac1-d_295x166?region=us": {
     "revision": "",
-    "path": "uploads/google/eb195dfb76e8d792e5395755.webp"
+    "path": "uploads/google/b3e838af1e5a911d5786f093.webp"
   },
-  "url:https://i.vimeocdn.com/video/2209401597-84a61fd8d56b3a4cad87684c471dc86f936ae2b99cea32ac0ecfcad03bff0a0a-d_1280?region=us": {
+  "url:https://i.vimeocdn.com/video/2209401597-84a61fd8d56b3a4cad87684c471dc86f936ae2b99cea32ac0ecfcad03bff0a0a-d_295x166?region=us": {
     "revision": "",
-    "path": "uploads/google/a448ec044d46d8363df44059.webp"
+    "path": "uploads/google/60b0674c1c4f4d698986ef5b.webp"
   },
-  "url:https://i.vimeocdn.com/video/2207268965-0d37dcec9b30944f69dd61a9608b20316e4c2d2d1465d7ef0e123f6ef12d9e0d-d_1280?region=us": {
+  "url:https://i.vimeocdn.com/video/2207268965-0d37dcec9b30944f69dd61a9608b20316e4c2d2d1465d7ef0e123f6ef12d9e0d-d_295x166?region=us": {
     "revision": "",
-    "path": "uploads/google/b062a042e1237279a13e46f4.webp"
+    "path": "uploads/google/80a935f7af718036b7c1cc7c.webp"
   },
   "drive:1pWg8Nuu9g039wQrBpso_bs6gsplas5We": {
     "revision": "2026-10-02T09:50:10.765Z",
@@ -2882,5 +2882,17 @@
   "drive:1a3xU8OueWQqeFSASux6BBiBHRBZdBVxP": {
     "revision": "2026-09-30T17:17:50.037Z",
     "path": "uploads/google/ee383b144f4f8dbcb5284ce6.webp"
+  },
+  "url:https://i.vimeocdn.com/video/2021532397-bd45f863f67242ea35992fd32b1cc9ebe8bd82c05a6f259e19a5e1b3bd0ceac1-d_1280?region=us": {
+    "revision": "",
+    "path": "uploads/google/eb195dfb76e8d792e5395755.webp"
+  },
+  "url:https://i.vimeocdn.com/video/2209401597-84a61fd8d56b3a4cad87684c471dc86f936ae2b99cea32ac0ecfcad03bff0a0a-d_1280?region=us": {
+    "revision": "",
+    "path": "uploads/google/a448ec044d46d8363df44059.webp"
+  },
+  "url:https://i.vimeocdn.com/video/2207268965-0d37dcec9b30944f69dd61a9608b20316e4c2d2d1465d7ef0e123f6ef12d9e0d-d_1280?region=us": {
+    "revision": "",
+    "path": "uploads/google/b062a042e1237279a13e46f4.webp"
   }
 }

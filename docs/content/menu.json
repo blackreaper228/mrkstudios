@@ -9,7 +9,7 @@
     {
       "page": "photography",
       "label": "Photography",
-      "spaceAbove": true,
+      "spaceAbove": false,
       "template": "gallery"
     },
     {
