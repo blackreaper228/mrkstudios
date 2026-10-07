@@ -74,6 +74,16 @@ def synchronize(root=ROOT, fetch=download, seed=None):
             child = data['galleries'].get(section['page'], {})
             card = {'slug':section['page'], 'title':section['label'], 'type':'page', 'page':section['page']}
             cover = next((item['image'] for item in child.get('items', []) if item.get('image')), None)
+            if not cover:
+                video = next((item['video'] for item in child.get('items', []) if item.get('video')), None)
+                if video and 'vimeo.com/' in video:
+                    try:
+                        metadata = json.loads(fetch('https://vimeo.com/api/oembed.json?' + urllib.parse.urlencode({'url':video.replace('http://','https://',1)})))
+                        thumbnail = metadata.get('thumbnail_url', '')
+                        if thumbnail:
+                            cover = {'url':thumbnail}
+                    except (ValueError, OSError) as error:
+                        print('Video section cover unavailable: ' + section['page'] + ': ' + str(error), flush=True)
             if cover:
                 card['image'] = cover
             cards.append(card)
