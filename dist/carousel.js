@@ -1,12 +1,11 @@
 import {revealMedia} from './loading-effects.js?v=20260930-1';
-import {subscribeDeviceTilt} from './device-tilt.js';
 import {fadeToWhite} from './page-transition.js?v=20260930-keep-navigation';
-import { halftonePhoto } from './halftone.js?v=20260930-loading';
 import { titleLayout } from './title-layout.js?v=20261001-lower-neighbors';
 import { loadPortfolio } from './content.js?v=20261002-google-cms';
 const $=s=>document.querySelector(s);
+const showreel={title:'Mixtape / showreel',video:'1233498726',src:'https://i.vimeocdn.com/video/2209179166-d9ce0801372f55f059a99c1fdf19cef7b28e0c1da5c5f316a0e5cc5e82fcec35-d_1280x720'};
 let films=[
- {title:'mixtape / showreel',src:'https://picsum.photos/id/1018/1600/900'},
+ showreel,
  {title:'somewhere / away',src:'https://picsum.photos/id/1015/1600/900'},
  {title:'motion / instinct',src:'https://picsum.photos/id/1016/1600/900'},
  {title:'after / hours',src:'https://picsum.photos/id/1043/1600/900'},
@@ -32,10 +31,10 @@ stage.addEventListener('click',async event=>{
 window.addEventListener('pageshow',()=>{if(navigating){stage.getAnimations().forEach(animation=>animation.cancel());navigating=false;busy=false}});
 const wrap=n=>(n+films.length)%films.length;
 let tx=0,ty=0,rx=0,ry=0,mx=innerWidth/2,my=innerHeight/2,cx=mx,cy=my;
-subscribeDeviceTilt(({x,y})=>{tx=x;ty=y});
+
 const duration=reduce?0:950,easing='cubic-bezier(.76,0,.24,1)';
 function poses(activeSlot=0){const buttons=[...titles.querySelectorAll('.carousel-title')];return titleLayout(buttons.map(b=>b.offsetWidth),activeSlot+2,16/(innerWidth<=700?30:36))}
-function renderTitles(){titles.querySelectorAll('.carousel-title').forEach(e=>e.remove());for(let slot=-2;slot<=2;slot++){const b=document.createElement(slot===0?'a':'button');if(slot!==0)b.type='button';b.className='carousel-title';const film=films[wrap(index+slot)];b.textContent=film.title;if(slot===0)b.href=film.href||['events.html','concerts.html','commercials.html','documentaries.html','food.html'][wrap(index+slot)];b.dataset.slot=slot;b.style.opacity=slot===0?'1':Math.abs(slot)===1?'.22':'0';b.tabIndex=Math.abs(slot)<=1?0:-1;b.setAttribute('aria-hidden',String(Math.abs(slot)>1));b.setAttribute('aria-label',(slot===0?'View ':slot<0?'Previous photo: ':'Next photo: ')+b.textContent);b.onclick=event=>{if(busy){event.preventDefault();return}if(slot!==0){event.preventDefault();change(Math.sign(slot))}};titles.append(b)}const layout=poses();titles.querySelectorAll('.carousel-title').forEach((b,i)=>b.style.transform=layout[i])}
+function renderTitles(){titles.querySelectorAll('.carousel-title').forEach(e=>e.remove());for(let slot=-2;slot<=2;slot++){const activeVideo=slot===0&&films[index].video;const b=document.createElement(slot===0&&!activeVideo?'a':'button');if(slot!==0)b.type='button';b.className='carousel-title';const film=films[wrap(index+slot)];b.textContent=film.title;if(slot===0&&!activeVideo)b.href=film.href||['events.html','concerts.html','commercials.html','documentaries.html','food.html'][wrap(index+slot)];b.dataset.slot=slot;b.style.opacity=slot===0?'1':Math.abs(slot)===1?'.22':'0';b.tabIndex=Math.abs(slot)<=1?0:-1;b.setAttribute('aria-hidden',String(Math.abs(slot)>1));b.setAttribute('aria-label',(slot===0?'View ':slot<0?'Previous photo: ':'Next photo: ')+b.textContent);b.onclick=event=>{if(busy){event.preventDefault();return}if(slot!==0){event.preventDefault();change(Math.sign(slot))}else if(activeVideo){event.preventDefault();playShowreel()}};titles.append(b)}const layout=poses();titles.querySelectorAll('.carousel-title').forEach((b,i)=>b.style.transform=layout[i])}
 function setTitles(){const prev=films[wrap(index-1)],next=films[wrap(index+1)];$('#gallery-title').textContent=films[index].title;$('#previous').setAttribute('aria-label','Previous photo: '+prev.title);$('#next').setAttribute('aria-label','Next photo: '+next.title)}
 function render(){
  track.replaceChildren(...[-1,0,1].map(offset=>makeFilm(wrap(index+offset))));
@@ -43,7 +42,7 @@ function render(){
  setTitles();renderTitles();
 }
 function change(direction){
- if(!opened||busy)return;busy=true;
+ if(!opened||busy)return;busy=true;track.querySelectorAll('iframe').forEach(player=>{const film=player.parentElement;film.replaceWith(makeFilm(index))});
  const animations=Array.from(track.children).map((b,i)=>b.animate([{transform:`translateX(${(i-1)*110}vw)`},{transform:`translateX(${(i-1-direction)*110}vw)`}],{duration,easing,fill:'forwards'}));
  const oldPoses=poses(),newPoses=poses(direction);titles.querySelectorAll('.carousel-title').forEach((b,i)=>{const slot=Number(b.dataset.slot),next=slot-direction;b.animate([{transform:oldPoses[i],opacity:slot===0?1:Math.abs(slot)===1?.22:0},{transform:newPoses[i],opacity:next===0?1:Math.abs(next)===1?.22:0}],{duration,easing,fill:'forwards'})});
  Promise.all(animations.map(a=>a.finished)).then(()=>{
@@ -53,16 +52,23 @@ function change(direction){
   setTitles();renderTitles();busy=false;
  });
 }
+function playShowreel(){
+ const film=track.children[1];if(!films[index].video||film.querySelector('iframe'))return;
+ const player=document.createElement('iframe');player.src='https://player.vimeo.com/video/'+films[index].video+'?autoplay=1&playsinline=1';player.title=films[index].title;player.allow='autoplay; fullscreen; picture-in-picture';player.allowFullscreen=true;
+ film.replaceChildren(player);film.setAttribute('aria-busy','false');film.classList.add('is-playing');
+}
 function makeFilm(n){
- const button=document.createElement('a'),image=document.createElement('img');
- button.className='film';button.href=films[n].href||['events.html','concerts.html','commercials.html','documentaries.html','food.html'][n];button.onclick=event=>{if(busy)event.preventDefault()};button.setAttribute('aria-label','View '+films[n].title);
- const spinner=document.createElement('span');spinner.className='film-spinner';spinner.setAttribute('role','status');spinner.setAttribute('aria-label','Loading photograph');button.setAttribute('aria-busy','true');
- image.classList.add('halftone-photo');image.alt=films[n].title;image.width=1600;image.height=900;image.decoding='async';image.draggable=false;
- revealMedia(image);button.append(image,spinner);
+ const button=document.createElement(films[n].video?'div':'a'),image=document.createElement('img');
+ button.className='film';
+ if(films[n].video){button.setAttribute('role','group');const play=document.createElement('button');play.type='button';play.className='showreel-play';play.setAttribute('aria-label','Play '+films[n].title);play.onclick=()=>{if(!busy&&n===index)playShowreel()};button.append(play)}
+ else {button.href=films[n].href||['events.html','concerts.html','commercials.html','documentaries.html','food.html'][n];button.onclick=event=>{if(busy)event.preventDefault()}}
+ button.setAttribute('aria-label',films[n].title);
+ const spinner=document.createElement('span');spinner.className='film-spinner';spinner.setAttribute('role','status');spinner.setAttribute('aria-label','Loading image');button.setAttribute('aria-busy','true');
+ image.alt=films[n].title;image.width=1600;image.height=900;image.decoding='async';image.draggable=false;
+ revealMedia(image);button.prepend(image);button.append(spinner);
  const finish=()=>{button.setAttribute('aria-busy','false');spinner.classList.add('is-hidden')};
- image.addEventListener('load',async()=>{try{await image.decode()}catch{}finish()},{once:true});image.addEventListener('error',finish,{once:true});
- const source=films[n].src;
- photosReady.then(()=>halftonePhoto(source)).then(url=>{image.dataset.effect='halftone';image.src=url}).catch(error=>{console.warn('Halftone unavailable for this image:',error);image.src=source});
+ image.addEventListener('load',finish,{once:true});image.addEventListener('error',finish,{once:true});
+ photosReady.then(()=>{image.src=films[n].src});
  return button;
 }
 $('#previous').onclick=()=>change(-1);$('#next').onclick=()=>change(1);
@@ -80,12 +86,12 @@ document.addEventListener('wheel',e=>{
  if(Math.abs(wheelTotal)>=45){change(Math.sign(wheelTotal));wheelTotal=0}
 },{passive:false});
 let touchX=0;stage.addEventListener('touchstart',e=>{touchX=e.touches[0].clientX},{passive:true});stage.addEventListener('touchend',e=>{const delta=e.changedTouches[0].clientX-touchX;if(Math.abs(delta)>45)change(delta<0?1:-1)},{passive:true});
-function frame(){requestAnimationFrame(frame);if(pendingContent&&!busy){films=pendingContent;pendingContent=null;render();$('#gallery').dataset.contentSource='cms'}if(!opened||document.hidden)return;rx+=(tx-rx)*.075;ry+=(ty-ry)*.075;cx+=(mx-cx)*.3;cy+=(my-cy)*.3;cursor.style.transform=`translate3d(${cx}px,${cy}px,0)`;if(!reduce){tilt.style.setProperty('--tilt-x',rx*13+'px');tilt.style.setProperty('--tilt-y',ry*8+'px');tilt.style.setProperty('--rotate-x',-ry*9+'deg');tilt.style.setProperty('--rotate-y',rx*13+'deg')}}requestAnimationFrame(frame);
+function frame(){requestAnimationFrame(frame);if(pendingContent&&!busy){films=pendingContent;pendingContent=null;render();$('#gallery').dataset.contentSource='cms'}if(!opened||document.hidden)return;rx+=(tx-rx)*.075;ry+=(ty-ry)*.075;cx+=(mx-cx)*.3;cy+=(my-cy)*.3;cursor.style.transform=`translate3d(${cx}px,${cy}px,0)`;}requestAnimationFrame(frame);
 document.addEventListener('films:open',()=>{opened=true;renderTitles()});
 document.addEventListener('films:close',()=>{opened=false;wheelTotal=0;cursor.classList.remove('active');tx=ty=0});
 render();
 window.addEventListener('resize',()=>{if(!busy)renderTitles()});
 
-loadPortfolio().then(items=>{pendingContent=items}).catch(error=>{console.warn('Portfolio content could not be loaded; using fallback photographs.',error);$('#gallery').dataset.contentSource='fallback'});
+loadPortfolio().then(items=>{pendingContent=[showreel,...items.slice(1)]}).catch(error=>{console.warn('Portfolio content could not be loaded; using fallback photographs.',error);$('#gallery').dataset.contentSource='fallback'});
 
 document.fonts.ready.then(()=>{if(!busy)renderTitles()});
