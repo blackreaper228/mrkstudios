@@ -3,32 +3,37 @@
   "template": "gallery",
   "items": [
     {
-      "slug": "drive-1_GGLiXRnLTUzQ3ABvLzHP8skIT84OqzD",
-      "title": "01.jpg",
-      "type": "image",
-      "image": "uploads/google/b815cdeb460f1194aa6a00fe.webp",
-      "folderPhoto": true
+      "slug": "drive-1bTUni4TCOH2ZTiU0cI9QOUeTYYA4eCp5",
+      "title": "BRED",
+      "type": "page",
+      "page": "bred_yya4ecp5",
+      "image": "uploads/google/41732fcacb1608a07372d299.webp"
     },
     {
-      "slug": "drive-1KZ6Zhfsut34BtQwXFLbC5Vg6iML9TP-5",
-      "title": "slide_02.jpg",
-      "type": "image",
-      "image": "uploads/google/cf62e7ac644ffa8f703d6189.webp",
-      "folderPhoto": true
+      "slug": "drive-1q18RoXIHVfvo-dE9jtXQ9bHG1wLbIa7L",
+      "title": "Freek x Alaa",
+      "type": "page",
+      "page": "freek-x-alaa_1wlbia7l",
+      "image": "uploads/google/b67837107a5de96d6036d93a.webp"
     },
     {
-      "slug": "drive-1qOqmjMrBIsNLA4z23pcKq92bKlpAnICm",
-      "title": "testPic.jpg",
-      "type": "image",
-      "image": "uploads/google/604c8f01f47d3e19e3cc87fd.webp",
-      "folderPhoto": true
+      "slug": "drive-1Tr_uibTnXTcmgpwunTjMFapCr_MP12s5",
+      "title": "Moulin Rouge",
+      "type": "page",
+      "page": "moulin-rouge_r_mp12s5",
+      "image": "uploads/google/b3cd41490bef45e1d8afff68.webp"
+    },
+    {
+      "slug": "drive-1E9Gt_pejx_3EF6oPXJXiaTtUU8uFFGjf",
+      "title": "New York Knicks",
+      "type": "page",
+      "page": "new-york-knicks_u8uffgjf"
     },
     {
       "slug": "drive-1wTqipQlQ72Imb_HzMI8jEYIMAfxV1qQD",
       "title": "subFolder",
       "type": "page",
-      "page": "subfolder_afxv1qqd",
-      "image": "uploads/google/ce8d09f177788c71c8541ae4.webp"
+      "page": "subfolder_afxv1qqd"
     }
   ],
   "parent": "photography"

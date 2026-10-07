@@ -1,0 +1,35 @@
+{
+  "title": "Freek x Alaa",
+  "template": "gallery",
+  "items": [
+    {
+      "slug": "drive-1jcREyD6LEdW8qvgnlt3M_3z_stzzlT60",
+      "title": "Ali Jerome-Ball-11.jpg",
+      "type": "image",
+      "image": "uploads/google/b67837107a5de96d6036d93a.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1iVYT2vPl1m2L8hG2glddKFJPzdafoxD7",
+      "title": "Ali Jerome-Ball-13.jpg",
+      "type": "image",
+      "image": "uploads/google/156e723744cf691dec8ddd0d.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1VFx3ioAmCj_hvvNN6OASB8umu3qcGYJ-",
+      "title": "Ali Jerome-Ball-15.jpg",
+      "type": "image",
+      "image": "uploads/google/c8cfb799e058a20c62474db2.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-12bL3_VuCvfnyVch416VtcVZd8ZBXwWG3",
+      "title": "Ali Jerome-Ball-17.jpg",
+      "type": "image",
+      "image": "uploads/google/ecdf79c3322ad267eb6a48a5.webp",
+      "folderPhoto": true
+    }
+  ],
+  "parent": "bts_7nvebv4u"
+}
