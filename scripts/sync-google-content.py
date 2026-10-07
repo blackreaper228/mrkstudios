@@ -65,6 +65,24 @@ def synchronize(root=ROOT, fetch=download, seed=None):
         raise ValueError(data['error'])
     if data.get('schemaVersion') != 1 or not isinstance(data.get('galleries'), dict) or not isinstance(data.get('menu', {}).get('items'), list) or not isinstance(data.get('portfolio', {}).get('items'), list):
         raise ValueError('Incomplete Google snapshot')
+    # Keep the existing CMS category tabs while presenting one nested Video section.
+    video_sections = ('events', 'concerts', 'commercials', 'documentaries', 'food')
+    sections = [entry for entry in data['menu']['items'] if entry['page'] in video_sections]
+    if sections:
+        cards = []
+        for section in sections:
+            child = data['galleries'].get(section['page'], {})
+            card = {'slug':section['page'], 'title':section['label'], 'type':'page', 'page':section['page']}
+            cover = next((item['image'] for item in child.get('items', []) if item.get('image')), None)
+            if cover:
+                card['image'] = cover
+            cards.append(card)
+            child['parent'] = 'video'
+        data['galleries']['video'] = {'title':'Video', 'template':'gallery', 'items':cards}
+        entries = data['menu']['items']
+        first = next(i for i, entry in enumerate(entries) if entry['page'] in video_sections)
+        entries.insert(first, {'page':'video', 'label':'Video', 'spaceAbove':False, 'template':'gallery'})
+        data['menu']['items'] = [entry for entry in entries if entry['page'] not in video_sections]
     previous_path = root / 'google-cms/image-manifest.json'
     previous = json.loads(previous_path.read_text(encoding='utf-8')) if previous_path.exists() else {}
     cache_root = root / '.google-image-cache'
