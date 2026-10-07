@@ -7,11 +7,11 @@ export async function addBreadcrumbs(back,page,data,{parent=data.parent,includeP
   seen.add(parent);
   try{const ancestor=await loadGallery(parent);trail.unshift({page:parent,title:ancestor.title||parent});parent=ancestor.parent}catch{break}
  }
- if(trail.length)back.textContent='\u2190 back to '+trail[trail.length-1].title;
+ if(trail.length)back.textContent='\u2190 back to '+trail[trail.length-1].title.toLowerCase();
  if(trail.length<2)return;
  const nav=document.createElement('nav');nav.className='gallery-breadcrumbs';nav.setAttribute('aria-label','Breadcrumb');
  const list=document.createElement('ol');
  for(const entry of trail){const li=document.createElement('li'),link=document.createElement('a');link.href=galleryURL(entry.page);link.textContent=entry.title;li.append(link);list.append(li)}
  const li=document.createElement('li'),label=document.createElement('span');label.textContent=current;label.setAttribute('aria-current','page');li.append(label);list.append(li);
- back.before(nav);nav.append(back,list);
+ nav.append(list);back.replaceWith(nav);
 }
