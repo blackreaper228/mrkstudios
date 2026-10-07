@@ -20,6 +20,7 @@ async function load(){
    back.href=galleryURL(parent);back.textContent='\u2190 back to gallery';
    document.querySelector('.category-content>h1').before(back);
   }
+  document.body.classList.toggle('gear-rental-page',category==='gear-rental'||data.gearRental===true);
   grid.setAttribute('aria-label',(data.title||category)+' gallery');
   if(data.template==='placeholder'){
    await finishLoading(status);status.hidden=true;grid.hidden=true;

@@ -16,7 +16,7 @@
       "page": "gear-rental",
       "label": "Gear Rental",
       "spaceAbove": true,
-      "template": "placeholder"
+      "template": "gallery"
     },
     {
       "page": "team",

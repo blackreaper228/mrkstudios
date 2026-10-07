@@ -1,5 +1,6 @@
 {
   "items": [],
-  "template": "placeholder",
-  "title": "Gear Rental"
+  "template": "gallery",
+  "title": "Gear Rental",
+  "gearRental": true
 }

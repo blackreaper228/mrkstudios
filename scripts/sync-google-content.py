@@ -4,6 +4,7 @@ import hashlib
 import html
 import io
 import json
+import re
 from pathlib import Path
 import shutil
 import ssl
@@ -93,6 +94,23 @@ def synchronize(root=ROOT, fetch=download, seed=None):
         first = next(i for i, entry in enumerate(entries) if entry['page'] in video_sections)
         entries.insert(first, {'page':'video', 'label':'Video', 'spaceAbove':False, 'template':'gallery'})
         data['menu']['items'] = [entry for entry in entries if entry['page'] not in video_sections]
+    # Every lens folder opens its own page, including albums with one photo.
+    gear = data['galleries'].get('gear-rental')
+    if gear:
+        gear['template'] = 'gallery'
+        gear['gearRental'] = True
+        for card in gear.get('items', []):
+            if card.get('type') == 'image' and card.get('image'):
+                target = 'lens-' + re.sub(r'[^a-z0-9_-]+', '-', str(card['slug']).lower()).strip('-_')
+                photos = card.pop('photos', None) or [card['image']]
+                data['galleries'][target] = {'title':card['title'], 'template':'gallery', 'parent':'gear-rental', 'gearRental':True, 'hidePhotoTitles':True, 'items':[{'slug':'photo-'+str(i+1), 'title':card['title'], 'type':'image', 'image':photo, 'folderPhoto':True} for i, photo in enumerate(photos)]}
+                card['type'] = 'page'
+                card['page'] = target
+            if card.get('page') in data['galleries']:
+                data['galleries'][card['page']]['gearRental'] = True
+        for entry in data['menu']['items']:
+            if entry['page'] == 'gear-rental':
+                entry['template'] = 'gallery'
     # Resolve covers for nested video links created in the Google admin.
     for gallery in data['galleries'].values():
         for card in gallery.get('items', []):
