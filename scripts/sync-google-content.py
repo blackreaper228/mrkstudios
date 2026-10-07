@@ -93,6 +93,23 @@ def synchronize(root=ROOT, fetch=download, seed=None):
         first = next(i for i, entry in enumerate(entries) if entry['page'] in video_sections)
         entries.insert(first, {'page':'video', 'label':'Video', 'spaceAbove':False, 'template':'gallery'})
         data['menu']['items'] = [entry for entry in entries if entry['page'] not in video_sections]
+    # Resolve covers for nested video links created in the Google admin.
+    for gallery in data['galleries'].values():
+        for card in gallery.get('items', []):
+            if card.get('type') != 'page' or card.get('image'):
+                continue
+            child = data['galleries'].get(card.get('page'), {})
+            cover = next((item['image'] for item in child.get('items', []) if item.get('image')), None)
+            video = next((item['video'] for item in child.get('items', []) if item.get('video')), None)
+            if not cover and video and 'vimeo.com/' in video:
+                try:
+                    metadata = json.loads(fetch('https://vimeo.com/api/oembed.json?' + urllib.parse.urlencode({'url':video.replace('http://','https://',1)})))
+                    if metadata.get('thumbnail_url'):
+                        cover = {'url':metadata['thumbnail_url']}
+                except (ValueError, OSError) as error:
+                    print('Page cover unavailable: ' + str(card.get('page')) + ': ' + str(error), flush=True)
+            if cover:
+                card['image'] = cover
     previous_path = root / 'google-cms/image-manifest.json'
     previous = json.loads(previous_path.read_text(encoding='utf-8')) if previous_path.exists() else {}
     cache_root = root / '.google-image-cache'

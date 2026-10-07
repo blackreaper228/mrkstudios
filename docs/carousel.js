@@ -2,7 +2,7 @@ import {revealMedia} from './loading-effects.js?v=20260930-1';
 import {fadeToWhite} from './page-transition.js?v=20260930-keep-navigation';
 import { titleLayout } from './title-layout.js?v=20261001-lower-neighbors';
 const $=s=>document.querySelector(s);
-const showreel={title:'Mixtape / showreel',video:'1233498726',src:'https://i.vimeocdn.com/video/2209179166-d9ce0801372f55f059a99c1fdf19cef7b28e0c1da5c5f316a0e5cc5e82fcec35-d_1280x720'};
+const showreel={title:'Mixtape / showreel',video:'1233498726',src:new URL('assets/showreel-thumbnail.webp',import.meta.url).href};
 const films=[
  showreel,
  {title:'Favela Campaign Video',video:'1221410122',src:'https://i.vimeocdn.com/video/2194103879-0c44ba7b1866113ac8423cfc762107854fe7ae3f49293101a3c60a04479fbc8b-d_1280x720'},
