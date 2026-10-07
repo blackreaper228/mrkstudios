@@ -36,10 +36,12 @@ If a nested page name is already used by another page, its ID gains the first tw
 
 ## Folder-based nesting
 
-Choose Photo and paste a Drive folder URL in a page row. A folder with subfolders automatically becomes a gallery page; leaf folders become photoshoots. This repeats at any depth. Folder names label child cards, and the first available photo is their cover. Photos directly in a parent folder form an additional album on that page. Generated folder pages have no spreadsheet tabs. Previous manual page tabs are hidden and retained for recovery.
+Choose Photo and paste a Drive folder URL in a page row. A folder with subfolders automatically becomes a gallery page; leaf folders become photoshoots. This repeats at any depth. Folder names label child cards, and the first available photo is their cover. Photos directly in a parent folder stay as individual photo cards on that same page. Generated folder pages have no spreadsheet tabs. Previous manual page tabs are hidden and retained for recovery.
 # Automatic publication timer
 
 Create a fine-grained GitHub token restricted to `blackreaper228/mrkstudios`, with repository permission **Actions: Read and write**. Set an appropriate expiration and renew it before expiry.
 In Apps Script Project Settings > Script Properties, save it as `GITHUB_ACTIONS_TOKEN`. Never place it in spreadsheet cells or repository files.
 Run `installPublicationTimer` once and authorize the requested Google permissions. This validates the token, requests an immediate publication, and installs one `publishWebsite` trigger every 10 minutes. Running the installer again replaces its existing timer rather than duplicating it.
 The timer runs under its owner's account; clients only edit Sheets and Drive. Google trigger timing and GitHub execution/deployment add some delay, so ten minutes is a polling interval, not a strict publication deadline. Check Apps Script Executions for HTTP errors or an expired token.
+
+Number Drive folders to set their order: `01 Alicia Keyz`, `02 BTS`, `10 Live`. Numeric prefixes are hidden from website titles. Numbered folders appear before unnumbered folders; spreadsheet rows retain their own physical order. For originals larger than 20 MiB, the export uses a 2560-pixel Drive preview before WebP optimization; the original remains unchanged.

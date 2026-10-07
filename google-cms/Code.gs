@@ -191,6 +191,29 @@ function imageLink_(value, images, checked) {
   if (!/^https:\/\//.test(url)) throw new Error('Photo URL must use HTTPS: ' + url);
   return {url:url};
 }
+// Numeric prefixes affect ordering, but are not part of visible folder titles.
+function folderTitle_(name) {
+  return String(name).trim().replace(/^\d+[\s._-]+(?=\S)/, '');
+}
+function folderSort_(a, b) {
+  const left = a.getName().trim(), right = b.getName().trim();
+  const l = left.match(/^(\d+)[\s._-]+(?=\S)/), r = right.match(/^(\d+)[\s._-]+(?=\S)/);
+  if (l && r && Number(l[1]) !== Number(r[1])) return Number(l[1]) - Number(r[1]);
+  if (!!l !== !!r) return l ? -1 : 1;
+  return folderTitle_(left).localeCompare(folderTitle_(right), 'en', {numeric:true}) || a.getId().localeCompare(b.getId());
+}
+function websiteImageBlob_(file) {
+  if (file.getSize() <= 20 * 1024 * 1024) return file.getBlob();
+  // Use Drive's rendered preview for oversized originals, without modifying the source.
+  const options = {headers:{Authorization:'Bearer ' + ScriptApp.getOAuthToken()},muteHttpExceptions:true};
+  const metadata = UrlFetchApp.fetch('https://www.googleapis.com/drive/v3/files/' + encodeURIComponent(file.getId()) + '?fields=thumbnailLink', options);
+  if (metadata.getResponseCode() !== 200) throw new Error('Cannot read large photo preview: ' + file.getName());
+  const link = JSON.parse(metadata.getContentText()).thumbnailLink;
+  if (!link) throw new Error('Drive preview not ready for: ' + file.getName());
+  const preview = UrlFetchApp.fetch(link.replace(/=s\d+.*$/, '=s2560'), options);
+  if (preview.getResponseCode() !== 200) throw new Error('Cannot download large photo preview: ' + file.getName());
+  return preview.getBlob();
+}
 function snapshot_() {
   const checked = {}, images = {}, galleries = {}, pages = [];
   const pageRows = rows_('Pages').filter(r => published_(r.published)).sort(sort_);
@@ -199,10 +222,10 @@ function snapshot_() {
   const visiting = {};
   const folderPages = {};
   function folderItem_(row, folder, parentSlug, key, forcePage) {
-    const title = String(row.title || folder.getName());
+    const title = String(row.title || folderTitle_(folder.getName()));
     const children = folder.getFolders(), folders = [];
     while (children.hasNext()) folders.push(children.next());
-    folders.sort((a,b) => a.getName().localeCompare(b.getName(),'en',{numeric:true}) || a.getId().localeCompare(b.getId()));
+    folders.sort(folderSort_);
     const photos = photos_(folder, images);
     if (!folders.length && !forcePage) {
       const item = {slug:key,title:title,type:'image'};
@@ -214,9 +237,9 @@ function snapshot_() {
     const folderId = folder.getId();
     let target = folderPages[folderId];
     if (!target) {
-      target = nestedPage_({page:slug_(folder.getName()) + '_' + folderId.slice(-8).toLowerCase()},parentSlug,owners);
+      target = nestedPage_({page:slug_(folderTitle_(folder.getName())) + '_' + folderId.slice(-8).toLowerCase()},parentSlug,owners);
       folderPages[folderId] = target;
-      const items = folders.map(child => folderItem_({title:child.getName()},child,target,'drive-'+child.getId(),true));
+      const items = folders.map(child => folderItem_({title:folderTitle_(child.getName())},child,target,'drive-'+child.getId(),true));
       items.unshift(...photos.map(photo => ({slug:'drive-'+photo.id,title:photo.name,type:'image',image:photo,folderPhoto:true})));
       galleries[target] = {title:title,template:'gallery',items:items};
     }
@@ -270,10 +293,10 @@ function snapshot_() {
     if (parent && page.template !== 'placeholder') {
       const children = parent.getFolders(), folders = [];
       while (children.hasNext()) folders.push(children.next());
-      folders.sort((a,b)=>a.getName().localeCompare(b.getName(),'en',{numeric:true}));
-      folders.filter(f=>!usedFolders[f.getId()]).forEach(f => add_({id:'drive-'+f.getId(),title:f.getName(),type:'photo'},f));
+      folders.sort(folderSort_);
+      folders.filter(f=>!usedFolders[f.getId()]).forEach(f => add_({id:'drive-'+f.getId(),title:folderTitle_(f.getName()),type:'photo'},f));
       const direct = photos_(parent,images);
-      if (direct.length) add_({id:'drive-'+parent.getId(),title:parent.getName(),type:'photo'},parent);
+      if (direct.length) add_({id:'drive-'+parent.getId(),title:folderTitle_(parent.getName()),type:'photo'},parent);
     }
     galleries[slug] = {items:items,template:page.template === 'placeholder' ? 'placeholder' : 'gallery',title:String(page.title).trim()};
     delete visiting[slug];
@@ -337,8 +360,7 @@ function doGet(e) {
       if (!allowed) {snapshot_(); allowed=CacheService.getScriptCache().get('published-images');}
       if (JSON.parse(allowed || '[]').indexOf(id) < 0) throw new Error('Image not published');
       const file = DriveApp.getFileById(id);
-      if (file.getSize() > 20*1024*1024) throw new Error('Image exceeds 20 MB; export a smaller original');
-      result = {id:id,base64:Utilities.base64Encode(file.getBlob().getBytes())};
+      result = {id:id,base64:Utilities.base64Encode(websiteImageBlob_(file).getBytes())};
     } else result = snapshot_();
   } catch (error) {result={error:String(error.message || error)};}
   return ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
