@@ -3,20 +3,6 @@
   "template": "gallery",
   "items": [
     {
-      "slug": "drive-1yDWPTK_ExN2YFYpkJFqZ-CRugGj_nqWx",
-      "title": "NKL06533.jpg",
-      "type": "image",
-      "image": "uploads/google/ccada942cac71f7604739f62.webp",
-      "folderPhoto": true
-    },
-    {
-      "slug": "drive-12psw94Zkc-hSTlJmJv3jtTHjgo6Jpv_b",
-      "title": "NKL06534.jpg",
-      "type": "image",
-      "image": "uploads/google/0425c25c99ec44045dc5a2a4.webp",
-      "folderPhoto": true
-    },
-    {
       "slug": "drive-1Q9qY7hlcTbmHwh8_KnyUL0Xgdr5LqAba",
       "title": "NKL06624.jpg",
       "type": "image",
@@ -101,34 +87,6 @@
       "folderPhoto": true
     },
     {
-      "slug": "drive-1tvwgGTih2fTshHgr_rODLyXcxsKDP1hK",
-      "title": "NKL06850.jpg",
-      "type": "image",
-      "image": "uploads/google/1580a08694aa136a3424703d.webp",
-      "folderPhoto": true
-    },
-    {
-      "slug": "drive-12h8jwn0BHhy_vrl-xWr2PTgBfD7tuBLb",
-      "title": "NKL06852.jpg",
-      "type": "image",
-      "image": "uploads/google/e894e7c196e02a152484caf3.webp",
-      "folderPhoto": true
-    },
-    {
-      "slug": "drive-1QB9OYrM0Brq81z57jujDYDM4J0ETdIAm",
-      "title": "NKL06854.jpg",
-      "type": "image",
-      "image": "uploads/google/1b343bd3617adb71053dcb1b.webp",
-      "folderPhoto": true
-    },
-    {
-      "slug": "drive-15wsoCzWAEclVXJQZHI6ikwJ9i8OKe1JC",
-      "title": "NKL06857.jpg",
-      "type": "image",
-      "image": "uploads/google/0864ee6f01790bf086d0a3d4.webp",
-      "folderPhoto": true
-    },
-    {
       "slug": "drive-1nCz2xmbt7Y4KXa3buF5VNagqKzwxndS4",
       "title": "NKL06863.jpg",
       "type": "image",
@@ -154,13 +112,6 @@
       "title": "NKL06972.jpg",
       "type": "image",
       "image": "uploads/google/7a7b02e3bfde1ec9809d57d5.webp",
-      "folderPhoto": true
-    },
-    {
-      "slug": "drive-10v1_drlTX7RN_cecTPrPBWuOaS3SOGQj",
-      "title": "NKL07792.jpg",
-      "type": "image",
-      "image": "uploads/google/8c532e4d660efc76a9b7fedf.webp",
       "folderPhoto": true
     },
     {
@@ -234,24 +185,10 @@
       "folderPhoto": true
     },
     {
-      "slug": "drive-1U23amfJHEBC4ruvbfQAnqc8aEDbiCprJ",
-      "title": "NKL09383-Enhanced-NR.jpg",
-      "type": "image",
-      "image": "uploads/google/a2cf5485d59f18c30ca14bfb.webp",
-      "folderPhoto": true
-    },
-    {
       "slug": "drive-1yGuEyC2iEr7oGJk9IK-qP5peERx3WDLd",
       "title": "NKL09383.jpg",
       "type": "image",
       "image": "uploads/google/bb1a0283dcd68ad7dbab5140.webp",
-      "folderPhoto": true
-    },
-    {
-      "slug": "drive-16gKbcO_WynVZ2-gJJbGMdHDOyOCHpHCt",
-      "title": "NKL09388-Enhanced-NR.jpg",
-      "type": "image",
-      "image": "uploads/google/dca21fd01f465994e76b131c.webp",
       "folderPhoto": true
     },
     {
