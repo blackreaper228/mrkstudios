@@ -1,3 +1,4 @@
+import {addBreadcrumbs} from './breadcrumbs.js';
 import {sessionMedia} from './session-media.js';
 import {loadGallery,galleryURL} from './menu-content.js?v=20261002-google-cms';
 import {finishLoading} from './loading-effects.js?v=20260930-1';
@@ -19,6 +20,7 @@ async function load(){
    const back=document.createElement('a');back.className='session-back category-back';
    back.href=galleryURL(parent);back.textContent='\u2190 back to gallery';
    document.querySelector('.category-content>h1').before(back);
+   await addBreadcrumbs(back,category,data,{parent});
   }
   document.body.classList.toggle('gear-rental-page',category==='gear-rental'||data.gearRental===true);
   const lensPage=data.gearRental===true&&category!=='gear-rental';
@@ -52,7 +54,7 @@ async function load(){
   if(invalid)console.warn('Some works are unavailable.',{category,count:invalid});
   await finishLoading(status);
   grid.append(cards);
-  if(lensPage)enableLensScroll(grid);
+  if(lensPage){enableLensScroll(grid);addScrollTop();}
  }catch(error){await finishLoading(status);console.warn('Unable to load this gallery.',error)}finally{status.removeAttribute('data-loading')}
 }
 load();
@@ -73,4 +75,11 @@ function enableLensScroll(grid){
  };
  const schedule=()=>{if(!frame)frame=requestAnimationFrame(draw)};
  window.addEventListener('scroll',schedule,{passive:true});window.addEventListener('resize',schedule);schedule();
+}
+
+function addScrollTop(){
+ const footer=document.querySelector('.site-footer');if(!footer)return;
+ const button=document.createElement('button');button.className='footer-scroll-top';button.textContent='go to top [\u2191]';
+ button.addEventListener('click',()=>window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'}));
+ footer.classList.add('has-scroll-top');footer.append(button);
 }

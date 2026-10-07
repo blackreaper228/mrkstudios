@@ -1,3 +1,4 @@
+import {addBreadcrumbs} from './breadcrumbs.js';
 import {sessionMedia} from './session-media.js';
 import {loadGallery,galleryURL} from './menu-content.js?v=20261002-google-cms';
 import {finishLoading} from './loading-effects.js?v=20260930-1';
@@ -16,6 +17,7 @@ async function load(){
   document.body.dataset.category=category;
   document.querySelector('.session-title').textContent=record.title;document.title=record.title+' — mrk';
   const back=document.querySelector('.session-back');back.href=galleryURL(category);back.textContent='\u2190 back to gallery';
+  await addBreadcrumbs(back,category,data,{includePage:true,current:record.title});
   document.querySelector('.session-description').textContent=record.description||'';
   const contents=sessionMedia(record);
   const entries=record.type==='video'?[record,...contents]:contents.length?contents:[record];
