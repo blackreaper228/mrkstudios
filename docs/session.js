@@ -15,7 +15,7 @@ async function load(){
   const data=await loadGallery(category);const record=data.items.find((item,index)=>workKey(item,index)===key);
   if(!record)throw new Error('Photoshoot not found');
   document.body.dataset.category=category;
-  document.querySelector('.session-title').textContent=record.title;document.title=record.title+' — mrk';
+  document.querySelector('.session-title').textContent=record.title.toLowerCase();document.title=record.title+' — mrk';
   const back=document.querySelector('.session-back');back.href=galleryURL(category);back.textContent='\u2190 back to gallery';
   await addBreadcrumbs(back,category,data,{includePage:true,current:record.title});
   document.querySelector('.session-description').textContent=record.description||'';

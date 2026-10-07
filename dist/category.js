@@ -13,11 +13,11 @@ async function load(){
   const category=new URLSearchParams(location.search).get('category')||document.body.dataset.category;
   document.body.dataset.category=category;
   const data=await loadGallery(category);if(!Array.isArray(data.items))throw new Error('Invalid gallery');
-  document.querySelector('.category-content>h1').textContent=data.title||category;
+  document.querySelector('.category-content>h1').textContent=(data.title||category).toLowerCase();
   const requestedParent=new URLSearchParams(location.search).get('from');
   const parent=requestedParent||data.parent;
   if(parent&&parent!==category&&/^[a-z0-9][a-z0-9_-]*$/.test(parent)){
-   const back=document.createElement('a');back.className='session-back category-back';
+   const back=document.createElement('a');back.className='session-back category-back';back.hidden=true;
    back.href=galleryURL(parent);back.textContent='\u2190 back to gallery';
    document.querySelector('.category-content>h1').before(back);
    await addBreadcrumbs(back,category,data,{parent});
@@ -30,7 +30,7 @@ async function load(){
    await finishLoading(status);status.hidden=true;grid.hidden=true;
    document.body.classList.add('placeholder-page');
    document.querySelector('.category-content').className='placeholder-content';
-   document.querySelector('.placeholder-content>h1').textContent=data.title||category;
+   document.querySelector('.placeholder-content>h1').textContent=(data.title||category).toLowerCase();
    document.querySelector('.site-footer')?.remove();return;
   }
   const folderPhotos=data.items.filter(record=>record.folderPhoto).map(record=>parseMedia(record,import.meta.url));
