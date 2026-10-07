@@ -12,6 +12,5 @@ export async function addBreadcrumbs(back,page,data,{parent=data.parent,includeP
  const nav=document.createElement('nav');nav.className='gallery-breadcrumbs';nav.setAttribute('aria-label','Breadcrumb');
  const list=document.createElement('ol');
  for(const entry of trail){const li=document.createElement('li'),link=document.createElement('a');link.href=galleryURL(entry.page);link.textContent=entry.title;li.append(link);list.append(li)}
- const li=document.createElement('li'),label=document.createElement('span');label.textContent=current;label.setAttribute('aria-current','page');li.append(label);list.append(li);
  nav.append(list);back.replaceWith(nav);
 }
