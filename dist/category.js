@@ -44,7 +44,7 @@ async function load(){
    label.className='roll-label';text.className='roll-label-track';copy.className='roll-label-copy';copy.setAttribute('aria-hidden','true');
    text.append(document.createTextNode(item.title));copy.textContent=item.title;text.append(copy);label.append(text);title.append(label);
    const cover=document.createElement('div');cover.className='session-cover';if(item.src||item.kind!=='image')cover.append(mediaElement(item,true));else cover.classList.add('empty-page-cover');
-   link.append(title,cover);card.append(link);cards.append(card);
+   if(!(data.hidePhotoTitles && record.folderPhoto))link.append(title);link.append(cover);card.append(link);cards.append(card);
   });
   if(invalid)console.warn('Some works are unavailable.',{category,count:invalid});
   await finishLoading(status);

@@ -78,3 +78,10 @@ assert.equal(vm.runInContext('websiteImageBlob_(largePhoto)',context),'preview')
 assert.equal(requested[1],'https://example.com/image=s2560');
 assert.equal(vm.runInContext('websiteImageBlob_({getSize:()=>100,getBlob:()=>"original"})',context),'original');
 console.log('Numbered folder order, hidden prefixes and large-photo previews verified.');
+assert.equal(leafGallery.hidePhotoTitles,true);
+assert.equal(parentGallery.hidePhotoTitles,false);
+context.numberedPhoto=photo('0001-pcg01450.jpg','numbered-photo');
+const cleaned=vm.runInContext('photo_(numberedPhoto,{})',context);
+assert.equal(cleaned.name,'pcg01450.jpg');
+assert.equal(cleaned.sortName,'0001-pcg01450.jpg');
+console.log('File prefixes and leaf-only photo title visibility verified.');

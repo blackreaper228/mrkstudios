@@ -168,7 +168,7 @@ function folder_(value, checked) {
   return folder;
 }
 function photo_(file, images) {
-  const record = {id:file.getId(), name:file.getName(), modifiedAt:file.getLastUpdated().toISOString(), size:file.getSize()};
+  const record = {id:file.getId(), name:folderTitle_(file.getName()), sortName:file.getName(), modifiedAt:file.getLastUpdated().toISOString(), size:file.getSize()};
   images[record.id] = record;
   return record;
 }
@@ -178,7 +178,7 @@ function photos_(folder, images) {
     const file = iterator.next();
     if (/^image\//.test(file.getMimeType())) result.push(photo_(file, images));
   }
-  return result.sort((a,b) => a.name.localeCompare(b.name, 'en', {numeric:true}) || a.id.localeCompare(b.id));
+  return result.sort((a,b) => a.sortName.localeCompare(b.sortName, 'en', {numeric:true}) || a.id.localeCompare(b.id));
 }
 function imageLink_(value, images, checked) {
   const url = String(value || '').trim();
@@ -241,7 +241,7 @@ function snapshot_() {
       folderPages[folderId] = target;
       const items = folders.map(child => folderItem_({title:folderTitle_(child.getName())},child,target,'drive-'+child.getId(),true));
       items.unshift(...photos.map(photo => ({slug:'drive-'+photo.id,title:photo.name,type:'image',image:photo,folderPhoto:true})));
-      galleries[target] = {title:title,template:'gallery',items:items};
+      galleries[target] = {title:title,template:'gallery',items:items,hidePhotoTitles:!folders.length};
     }
     const item = {slug:key,title:title,type:'page',page:target};
     const cover = photos[0] || (galleries[target].items.find(item => item.image) || {}).image || imageLink_(row.imageUrl,images,checked);
