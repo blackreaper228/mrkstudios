@@ -25,6 +25,7 @@ async function load(){
   document.body.classList.toggle('gear-rental-page',category==='gear-rental'||data.gearRental===true);
   const lensPage=data.gearRental===true&&category!=='gear-rental';
   document.body.classList.toggle('lens-detail-page',lensPage);
+  if(lensPage)fitLensTitle();
   grid.setAttribute('aria-label',(data.title||category)+' gallery');
   if(data.template==='placeholder'){
    await finishLoading(status);status.hidden=true;grid.hidden=true;
@@ -82,4 +83,10 @@ function addScrollTop(){
  const button=document.createElement('button');button.className='footer-scroll-top';button.textContent='go to top [\u2191]';
  button.addEventListener('click',()=>window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'}));
  footer.classList.add('has-scroll-top');footer.append(button);
+}
+
+function fitLensTitle(){
+ const title=document.querySelector('.category-content>h1');
+ const fit=()=>{title.style.fontSize='';const size=parseFloat(getComputedStyle(title).fontSize);if(title.scrollWidth>title.clientWidth)title.style.fontSize=(size*title.clientWidth/title.scrollWidth)+'px'};
+ fit();document.fonts.ready.then(fit);window.addEventListener('resize',fit);
 }
