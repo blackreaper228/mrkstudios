@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: read
   contents: write
   pages: write
   id-token: write
@@ -60,8 +61,31 @@ jobs:
           fi
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
+        id: pages_artifact
         with:
           path: docs
+      # A finalized upload may not yet be visible to the Pages deployment API.
+      - name: Wait for the Pages artifact to appear
+        timeout-minutes: 3
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PAGES_ARTIFACT_ID: ${{ steps.pages_artifact.outputs.artifact_id }}
+        run: |
+          if [[ ! "$PAGES_ARTIFACT_ID" =~ ^[0-9]+$ ]]; then
+            echo "::error::The Pages upload did not return an artifact ID."
+            exit 1
+          fi
+          for attempt in {1..12}; do
+            if ids=$(timeout 5s gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts?name=github-pages" --jq '.artifacts[] | select(.expired == false) | .id') &&
+               grep -Fxq "$PAGES_ARTIFACT_ID" <<< "$ids"; then
+              echo "Pages artifact $PAGES_ARTIFACT_ID is visible."
+              exit 0
+            fi
+            echo "Waiting for Pages artifact $PAGES_ARTIFACT_ID ($attempt/12)."
+            if [[ "$attempt" -lt 12 ]]; then sleep 5; fi
+          done
+          echo "::error::GitHub did not list the uploaded Pages artifact $PAGES_ARTIFACT_ID after 12 checks."
+          exit 1
       - name: Deploy GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
