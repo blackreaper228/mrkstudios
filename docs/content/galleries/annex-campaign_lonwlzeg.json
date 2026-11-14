@@ -1,7 +1,302 @@
 {
   "title": "Annex Campaign",
   "template": "gallery",
-  "items": [],
+  "items": [
+    {
+      "slug": "drive-1j2ffj82ysGUhZojWza553ddmgrS11mk0",
+      "title": "0L3A3847.jpg",
+      "type": "image",
+      "image": "uploads/google/ce3520738bb8d8d3be62302c.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1EP8M_SHfRv-ZRSRBn0iwWhQ-6luvIG2h",
+      "title": "0L3A3849.jpg",
+      "type": "image",
+      "image": "uploads/google/e1a5ee837c86ec95b360693e.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1A0D72QvY0kRMSb6Xp1qL15d2KJUJnJF7",
+      "title": "0L3A3856.jpg",
+      "type": "image",
+      "image": "uploads/google/b90efc42e8db22725edbebf6.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-14YXb2dtbqIrDAHn03k1Z6dW5aEFQEAaq",
+      "title": "0L3A3861.jpg",
+      "type": "image",
+      "image": "uploads/google/8471b0b571484e4b4dc87925.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1R_fu2wzPXJEKfyo0eWKa-TgaeGFt5s7l",
+      "title": "0L3A3871.jpg",
+      "type": "image",
+      "image": "uploads/google/bd910b817bb14ead1031ce65.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-12h4zevFELonYZyfsrDCnrNkBAm4R5sJ1",
+      "title": "0L3A3887.jpg",
+      "type": "image",
+      "image": "uploads/google/fd1e4e1ced4709b8152fe9b0.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1Tywffu_v9jOJ9oKkDGqvD2caQAK4EFxQ",
+      "title": "0L3A3902.jpg",
+      "type": "image",
+      "image": "uploads/google/cb2716c8fc771af5a375a160.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1ksJZWf0tm-XfhEJ8ptNM85YfVxty0Yyv",
+      "title": "0L3A3922.jpg",
+      "type": "image",
+      "image": "uploads/google/08ef8db585321d50b77021e0.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-18NRGzghk3TgjLKt6WnN4jlH32IoaGazU",
+      "title": "0L3A3932.jpg",
+      "type": "image",
+      "image": "uploads/google/24ae58c9093472f9cb71057f.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1mKh0LtH0N_pDYATO1aFQAySB0rJhkY2A",
+      "title": "0L3A3940.jpg",
+      "type": "image",
+      "image": "uploads/google/9826a1aa7bccfbffde81d814.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1WOdaIWypN3HMmanD-zcAwfOrWmliEn_6",
+      "title": "0L3A3942.jpg",
+      "type": "image",
+      "image": "uploads/google/6dd7734db0cfef4c07428928.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1q-6MUsfecWOWTx_DpmVjCOMreSv0nb1O",
+      "title": "0L3A3947.jpg",
+      "type": "image",
+      "image": "uploads/google/605ddf1a9371061f8ca236fa.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1jokU9anHp9XKIqlLGP9ApM7SyC6tfNAP",
+      "title": "0L3A3953.jpg",
+      "type": "image",
+      "image": "uploads/google/9c67cac83c34dc4acfc2a76d.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1FEwB-VB4soM4nzyuo7QbV15A0cLZnaxR",
+      "title": "0L3A4021.jpg",
+      "type": "image",
+      "image": "uploads/google/2e48e7495e6cd6770af898e0.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1delUvLT5kPcRiVe8trl7wjc2IgTAez39",
+      "title": "0L3A4073.jpg",
+      "type": "image",
+      "image": "uploads/google/de4e0dff1db23babf05167e8.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1mYCh9tZJnPiHycqqueMDR8ZIQnCHkodu",
+      "title": "0L3A4080.jpg",
+      "type": "image",
+      "image": "uploads/google/a1d4ec0e381a9ad7fd0ffeb7.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-14A1_RDmdSJ0MMX2RIWOPEOsSiFnppX4C",
+      "title": "0L3A4097.jpg",
+      "type": "image",
+      "image": "uploads/google/1e4c5aa459a6b79ba13cdacb.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1hQ5Q9GB_QqaMYj1mores6jOtWkZVas5Y",
+      "title": "0L3A4104.jpg",
+      "type": "image",
+      "image": "uploads/google/558c1a40115370c47522bc6d.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1z3P3Q_Ch5RTu_qqC54FJDbGZwLDvfOLh",
+      "title": "0L3A4188.jpg",
+      "type": "image",
+      "image": "uploads/google/4a8d7fcee5f26cdd9fb7edf7.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1dRinRYv93Y84wehR9mNEEEr2uDbF5Ysi",
+      "title": "0L3A4328.jpg",
+      "type": "image",
+      "image": "uploads/google/75bc5490566628596c673ab7.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1cz5aunxZOVj-W-IwXG2XQ7Zb4ZPbJmLb",
+      "title": "0L3A4349.jpg",
+      "type": "image",
+      "image": "uploads/google/c463955e64d195120ea45ff9.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1dGdgEcKosP22Oz7X2oAxck40UO_3bh9r",
+      "title": "0L3A4377.jpg",
+      "type": "image",
+      "image": "uploads/google/324f7f11fb199090a44308ce.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1_GyyAf3oIgbxZ5Xb_w3HRoynuE10e1Va",
+      "title": "0L3A4408.jpg",
+      "type": "image",
+      "image": "uploads/google/bc58a6b5c5615fbb92458eb9.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-19_OrnIaA9Sih9g_zsNqx2CwKXHWdj-eA",
+      "title": "0L3A4416.jpg",
+      "type": "image",
+      "image": "uploads/google/77dad7e2ac7dd6c691202489.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1FCpQIQcs5ucPKTqUcaltUqAA4_bL64lC",
+      "title": "0L3A4426.jpg",
+      "type": "image",
+      "image": "uploads/google/395e46a77d9bd42411bbfdff.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-10aCf3V187Ze0TNdHjPqHDhyA02OjkMTC",
+      "title": "0L3A4435.jpg",
+      "type": "image",
+      "image": "uploads/google/a0dc8ef33abbb64d7cf708ff.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1Rf3p5xFwAynptw960UwNB9IvFsr8rS4d",
+      "title": "0L3A4443.jpg",
+      "type": "image",
+      "image": "uploads/google/17367e92c6069a2c030cba1c.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-17N9ZWAt2Ut6g1hTGkS_uhzSuwKJ9zRVD",
+      "title": "0L3A4449.jpg",
+      "type": "image",
+      "image": "uploads/google/7c949a09ee469988b05ce279.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-19PWbVObJfA1YH-NF-AsvrxW1UcRYKwXB",
+      "title": "0L3A4452.jpg",
+      "type": "image",
+      "image": "uploads/google/996c476022c8d6bf6c88f051.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1BNqjNhHUeo3fmLax90eNNmBMip30g_24",
+      "title": "0L3A4464.jpg",
+      "type": "image",
+      "image": "uploads/google/70683735552043b85d2aa15a.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1SXyQjVIT25PDz8sRpJgubOZuOyqfJ7Ea",
+      "title": "0L3A4480.jpg",
+      "type": "image",
+      "image": "uploads/google/f5063ec0cf1d39309111d307.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1ioDkMGBO_gg7mzl0Wo7fd-TpEIdsWZ6o",
+      "title": "0L3A4566.jpg",
+      "type": "image",
+      "image": "uploads/google/7574a59dc9a62c5aee3b9a7f.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1_k3NcLgvvSPSoQ9fydem_SBkrl3YHaPM",
+      "title": "0L3A4572.jpg",
+      "type": "image",
+      "image": "uploads/google/2a36222e614c68f3a08243f2.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-15Zqx3lTyZFp_cSvxZIx7ApnPogSQMtO_",
+      "title": "0L3A4573.jpg",
+      "type": "image",
+      "image": "uploads/google/3c32a5813a9feb0965e5cf4a.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1cu2uLCbJP_NX0vQBy6lotgDgG2juVRkW",
+      "title": "0L3A4622.jpg",
+      "type": "image",
+      "image": "uploads/google/1780946a1b5ce45b62b2b2f0.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1u5VYPht1Ct_WOq1elXvrnBFr65co9g9u",
+      "title": "0L3A4662.jpg",
+      "type": "image",
+      "image": "uploads/google/79e290a0305bb3cae951055b.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-12eOAYHsZh4pgBg-Ybhzq-EvJDIpMUAjq",
+      "title": "0L3A4672.jpg",
+      "type": "image",
+      "image": "uploads/google/38dc87e5ecc0a19d62de9d57.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1g6Y8ud6y2bgIgBnuVr9dlw2HbG4Hxhnf",
+      "title": "0L3A4689.jpg",
+      "type": "image",
+      "image": "uploads/google/a78b676297e30864da1de8e3.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1kMNlpyyE3vA6i40Ul018jarZi7O2mjQS",
+      "title": "0L3A4739.jpg",
+      "type": "image",
+      "image": "uploads/google/55dc6931bfa0658531d573fc.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1YO2gtsJw20ngbFvHCWSG91a6mR74pj7u",
+      "title": "0L3A4743.jpg",
+      "type": "image",
+      "image": "uploads/google/7883ff7c41d81c725ad058c3.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-1DKBDjJIs-1qW27CI2VPnaJnOxiTBHvFI",
+      "title": "0L3A4756.jpg",
+      "type": "image",
+      "image": "uploads/google/d75cef2c43ad53182c08537e.webp",
+      "folderPhoto": true
+    },
+    {
+      "slug": "drive-14nTIhXVQzOKXD0ri6GeVUIvR0Sjvy8Gw",
+      "title": "0L3A4760.jpg",
+      "type": "image",
+      "image": "uploads/google/fd2e2f01a79d141aba9b3d0d.webp",
+      "folderPhoto": true
+    }
+  ],
   "hidePhotoTitles": true,
   "parent": "fashion_xhyif8xc"
 }

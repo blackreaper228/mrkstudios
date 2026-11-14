@@ -3,20 +3,6 @@
   "template": "gallery",
   "items": [
     {
-      "slug": "drive-1cr2JF-oFKYjWnmPELsuYyonOqXA7mHgL",
-      "title": "NKL_060226_1831_06352_sRGB_retouch.jpg",
-      "type": "image",
-      "image": "uploads/google/9ea032a663de39cdd97b0e29.webp",
-      "folderPhoto": true
-    },
-    {
-      "slug": "drive-12F27MhgVbG0YsCTCq3budIRzbPpwqdWf",
-      "title": "NKL_060226_1832_06356_sRGB_retouch.jpg",
-      "type": "image",
-      "image": "uploads/google/68c80d7692da8977b52dec70.webp",
-      "folderPhoto": true
-    },
-    {
       "slug": "drive-1EDA8Tqme_nuVyNgNi41Z7b-gPPzcoEz2",
       "title": "NKL_060226_1837_06358_sRGB_retouch.jpg",
       "type": "image",
@@ -77,20 +63,6 @@
       "title": "NKL_060226_1843_06395_sRGB_retouch.jpg",
       "type": "image",
       "image": "uploads/google/cc4ebb0bdc9cbe6e78ee0492.webp",
-      "folderPhoto": true
-    },
-    {
-      "slug": "drive-1jiRhtL-4xkUM7MW0hgxkVVnvtpY-eksB",
-      "title": "NKL_060226_1859_06407_sRGB_retouch.jpg",
-      "type": "image",
-      "image": "uploads/google/93aa27e153206d0186703e91.webp",
-      "folderPhoto": true
-    },
-    {
-      "slug": "drive-1e_NK6xsW5Nb24BV8NxyBRJbkl8K720eZ",
-      "title": "NKL_060226_1901_06420_sRGB_retouch.jpg",
-      "type": "image",
-      "image": "uploads/google/da529e848c54cd55cab85a4d.webp",
       "folderPhoto": true
     },
     {
