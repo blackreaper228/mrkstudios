@@ -1,0 +1,15 @@
+{
+  "title": "Events",
+  "template": "gallery",
+  "items": [
+    {
+      "slug": "drive-1OnNnJ_CksU1dXPs4_jTUyaLw8qEIqOU9",
+      "title": "OMGAD opening",
+      "type": "page",
+      "page": "omgad-opening_8qeiqou9",
+      "image": "uploads/google/9ea032a663de39cdd97b0e29.webp"
+    }
+  ],
+  "hidePhotoTitles": false,
+  "parent": "photography"
+}

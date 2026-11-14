@@ -3,6 +3,12 @@
   "template": "gallery",
   "items": [
     {
+      "slug": "drive-1e9QonT1fkHNSbH7TqIPlXqobLONwLZeg",
+      "title": "Annex Campaign",
+      "type": "page",
+      "page": "annex-campaign_lonwlzeg"
+    },
+    {
       "slug": "drive-1o2aoP6YA_ckgM9SbnrC22VHG8OYA7th_",
       "title": "H&M Mall of the Emirates",
       "type": "page",

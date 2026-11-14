@@ -10,7 +10,9 @@
     {
       "slug": "events",
       "title": "Events",
-      "type": "image"
+      "type": "page",
+      "page": "events_q654h1uy",
+      "image": "uploads/google/9ea032a663de39cdd97b0e29.webp"
     },
     {
       "slug": "corporate",
