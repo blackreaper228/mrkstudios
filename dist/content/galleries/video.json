@@ -20,26 +20,6 @@
       "type": "page",
       "page": "commercials",
       "image": "uploads/google/b062a042e1237279a13e46f4.webp"
-    },
-    {
-      "slug": "4",
-      "title": "Documentaries",
-      "type": "page",
-      "page": "documentaries",
-      "image": "uploads/google/31168555ece99ebdd0d8ae5b.webp"
-    },
-    {
-      "slug": "5",
-      "title": "Food",
-      "type": "page",
-      "page": "food",
-      "image": "uploads/google/8e9ade6237b00601dc961f98.webp"
-    },
-    {
-      "slug": "one-more-page",
-      "title": "One More Page",
-      "type": "page",
-      "page": "one_more_page"
     }
   ],
   "template": "gallery",
