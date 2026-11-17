@@ -4,7 +4,7 @@ The Google spreadsheet is the content editor. Drive holds the original images. T
 
 ## Editing
 
-- **Pages:** create a page ID, title, optional section folder, publication checkbox, spacing checkbox and template. Drag rows to change menu order. Page IDs are normalized to lowercase URL slugs automatically.
+- **Pages:** enter a title, optional section folder, publication checkbox, spacing checkbox and template. Drag rows to change menu order. New page IDs use the title, with lowercase letters and underscores. Existing explicit IDs are preserved.
 - **Page tabs:** every row in Pages gets its own content tab automatically. Add projects there using a title, photo/video type, album folder or single photo URL, video URL and publication checkbox. Drag rows to change project order. The hidden project ID is generated automatically when omitted.
 - **Home:** slides for the main carousel, including title, image link, destination link and publication. Drag rows to change slide order.
 
@@ -30,9 +30,9 @@ Run `python -m unittest discover -s scripts -p 'test_google*.py'`. This verifies
 
 ## Nested pages
 
-In any page tab select **page** in the type dropdown, enter a title and a unique **page** ID (or leave it blank to generate it from the title). A matching tab is created automatically. Add folders, photo/video links or further page entries in that tab. Nested pages appear as cards in their parent, not in the main menu. The first available child photo becomes the cover; imageUrl can override it. Check published on the parent card and its contents. Circular page links are rejected.
+In any page tab select **page** in the type dropdown, enter a title. The URL and tab name are generated automatically; the editor stays on the current tab. Add folders, photo/video links or further page entries in that tab. Nested pages appear as cards in their parent, not in the main menu. The first available child photo becomes the cover; imageUrl can override it. Check published on the parent card and its contents. Circular page links are rejected.
 
-If a nested page name is already used by another page, its ID gains the first two letters of its parent: Concerts inside Photography becomes `concerts_ph`. The visible heading remains Concerts. IDs are saved so later title changes do not change links.
+If a nested page name is already used by another page, its ID gains the first two letters of its parent: Concerts inside Photography becomes `concerts_ph`. The visible heading remains Concerts. The generated ID is saved in the hidden page column so later title edits keep the URL.
 
 ## Folder-based nesting
 

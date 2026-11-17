@@ -71,14 +71,25 @@ function slug_(value) {
     .replace(/[^a-z0-9_]+/g, '-').replace(/^-+|-+$/g, '');
   return slug || 'project';
 }
+function pageSlug_(page) {
+  if (String(page.page || '').trim()) return slug_(page.page);
+  const title = String(page.title || '').trim().toLowerCase().normalize('NFKD').replace(/\p{M}/gu, '');
+  const cyrillic = 'абвгдежзийклмнопрстуфхцчшщъыьэюя';
+  const latin = 'a b v g d e zh z i y k l m n o p r s t u f kh ts ch sh shch - y - e yu ya'.split(' ');
+  const slug = Array.from(title, char => {
+    const index = cyrillic.indexOf(char);
+    return index < 0 ? (/^[a-z0-9]$/.test(char) ? char : (/\p{L}|\p{N}/u.test(char) ? '_u' + char.codePointAt(0).toString(16) + '_' : '_')) : latin[index].replace('-', '');
+  }).join('').replace(/_+/g, '_').replace(/^_|_$/g, '').slice(0, 80).replace(/_$/, '');
+  return slug || 'project';
+}
 function pageOwners_(pages) {
   const owners = {};
   ['index', 'session', 'gallery', 'credits', 'setup', 'pages', 'home', 'works', 'media', 'instructions'].forEach(id => owners[id] = '__reserved');
-  pages.filter(page => page.page || page.title).forEach(page => owners[slug_(page.page || page.title)] = '__menu');
+  pages.filter(page => page.page || page.title).forEach(page => owners[pageSlug_(page)] = '__menu');
   return owners;
 }
 function nestedPage_(row, parent, owners) {
-  const base = slug_(row.page || row.title);
+  const base = pageSlug_(row);
   let target = base;
   if (owners[target] && owners[target] !== parent) {
     const prefix = slug_(parent).slice(0, 2);
@@ -101,12 +112,12 @@ function rowsFromSheet_(sheet) {
   }).filter(row => headers.some(h => row[h] !== '' && row[h] !== false && row[h] !== 'FALSE' && row[h] != null));
 }
 function pageRows_(page) {
-  const slug = slug_(page.page || page.title);
+  const slug = pageSlug_(page);
   try { return rows_(slug); }
   catch (error) { return rows_('Works').filter(row => slug_(row.page) === slug); }
 }
 function ensurePageSheet_(spreadsheet, page) {
-  const slug = slug_(page.page || page.title);
+  const slug = pageSlug_(page);
   let sheet = spreadsheet.getSheetByName(slug);
   if (!sheet) {
     sheet = spreadsheet.insertSheet(slug);
@@ -120,14 +131,28 @@ function ensurePageSheet_(spreadsheet, page) {
   sheet.getRange('C2:C').setDataValidation(SpreadsheetApp.newDataValidation().requireValueInList(['photo', 'video', 'page'], true).build());
   return sheet;
 }
+function rememberPageSlug_(sheet, column, row) {
+  if (row.page || !String(row.title || '').trim()) return;
+  row.page = pageSlug_(row);
+  sheet.getRange(row._row + 2, column).setValue(row.page);
+}
 function syncPageSheets(spreadsheet) {
   spreadsheet = spreadsheet || SpreadsheetApp.openById(SPREADSHEET_ID);
-  const pages = rowsFromSheet_(spreadsheet.getSheetByName('Pages'));
+  const activeSheet = spreadsheet.getActiveSheet();
+  try {
+  const pagesSheet = spreadsheet.getSheetByName('Pages');
+  const pages = rowsFromSheet_(pagesSheet);
+  const headers = pagesSheet.getRange(1, 1, 1, pagesSheet.getLastColumn()).getValues()[0];
+  const pageColumn = headers.indexOf('page') + 1;
+  if (pageColumn) {
+    pagesSheet.hideColumns(pageColumn);
+    pages.forEach(row => rememberPageSlug_(pagesSheet, pageColumn, row));
+  }
   const works = rowsFromSheet_(spreadsheet.getSheetByName('Works'));
   const visited = {};
   const owners = pageOwners_(pages);
   function sync_(page) {
-    const slug = slug_(page.page || page.title);
+    const slug = pageSlug_(page);
     if (visited[slug]) return;
     visited[slug] = true;
     const sheet = ensurePageSheet_(spreadsheet, page);
@@ -138,14 +163,20 @@ function syncPageSheets(spreadsheet) {
       const records = works.filter(row => slug_(row.page) === slug);
       if (records.length) sheet.getRange(2, 1, records.length, PAGE_HEADERS.length).setValues(records.map(row => PAGE_HEADERS.map(header => row[header] === undefined ? '' : row[header])));
     }
-    existing.filter(row => row.type === 'page').forEach(row => sync_({page:nestedPage_(row,slug,owners),title:row.title}));
-    if (existing.some(row => row.type === 'page')) sheet.showColumns(8);
+    existing.filter(row => row.type === 'page' && (row.title || row.page)).forEach(row => {
+      rememberPageSlug_(sheet, PAGE_HEADERS.indexOf('page') + 1, row);
+      sync_({page:nestedPage_(row,slug,owners),title:row.title});
+    });
+
   }
   pages.filter(page => page.page || page.title).forEach(sync_);
   const visible = ['Instructions', 'Pages', 'Home'].concat(Object.keys(visited));
   spreadsheet.getSheets().forEach(sheet => {
     if (visible.indexOf(sheet.getName()) < 0 && !sheet.isSheetHidden()) sheet.hideSheet();
   });
+  } finally {
+    if (activeSheet && !activeSheet.isSheetHidden() && spreadsheet.getActiveSheet().getSheetId() !== activeSheet.getSheetId()) spreadsheet.setActiveSheet(activeSheet, true);
+  }
 }
 function onEdit(e) {
   if (!e || !e.range || e.range.getRow() < 2 || ['Instructions', 'Home', 'Works', 'Media'].indexOf(e.range.getSheet().getName()) >= 0) return;
@@ -251,7 +282,7 @@ function snapshot_() {
     return item;
   }
   function exportPage_(page) {
-    const slug = slug_(page.page || page.title);
+    const slug = pageSlug_(page);
     if (/^(index|session|gallery|credits|setup)$/.test(slug)) throw new Error('Invalid page ID: ' + slug);
     if (visiting[slug]) throw new Error('Circular page link: ' + slug);
     if (seenPages[slug]) return;
@@ -291,7 +322,7 @@ function snapshot_() {
       if (photos.length > 1) item.photos = photos;
       items.push(item);
     }
-    records.filter(r => published_(r.published)).forEach(row => add_(row,folder_(row.folder,checked)));
+    records.filter(r => published_(r.published) && (r.type !== 'page' || r.title || r.page)).forEach(row => add_(row,folder_(row.folder,checked)));
     const parent = folder_(page.folder,checked);
     if (parent && page.template !== 'placeholder') {
       const children = parent.getFolders(), folders = [];
@@ -305,7 +336,7 @@ function snapshot_() {
     delete visiting[slug];
   }
   pageRows.forEach(page => {
-    const slug = slug_(page.page || page.title);
+    const slug = pageSlug_(page);
     if (pages.some(item => item.page === slug)) throw new Error('Duplicate menu page: ' + slug);
     pages.push({page:slug,label:String(page.title).trim(),spaceAbove:published_(page.spaceAbove),template:page.template === 'placeholder' ? 'placeholder' : 'gallery'});
     exportPage_(page);
@@ -320,7 +351,7 @@ function cleanupUnusedFolders() {
   const referenced = {};
   const visited = {};
   function visit_(page) {
-    const slug = slug_(page.page || page.title);
+    const slug = pageSlug_(page);
     if (visited[slug]) return;
     visited[slug] = true;
     const folderId = id_(page.folder);
