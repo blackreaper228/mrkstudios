@@ -34,6 +34,12 @@
       "type": "page",
       "page": "food",
       "image": "uploads/google/8e9ade6237b00601dc961f98.webp"
+    },
+    {
+      "slug": "test-page",
+      "title": "Test Page",
+      "type": "page",
+      "page": "testing"
     }
   ],
   "template": "gallery",
