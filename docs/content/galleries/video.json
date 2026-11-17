@@ -36,10 +36,10 @@
       "image": "uploads/google/8e9ade6237b00601dc961f98.webp"
     },
     {
-      "slug": "test-page",
-      "title": "Test Page",
+      "slug": "one-more-page",
+      "title": "One More Page",
       "type": "page",
-      "page": "testing"
+      "page": "one_more_page"
     }
   ],
   "template": "gallery",
