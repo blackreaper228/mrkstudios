@@ -1,6 +1,13 @@
 {
   "items": [
     {
+      "slug": "fashion",
+      "title": "Fashion",
+      "type": "page",
+      "page": "fashion_xhyif8xc",
+      "image": "uploads/google/ce3520738bb8d8d3be62302c.webp"
+    },
+    {
       "slug": "concerts",
       "title": "Concerts",
       "type": "page",
@@ -25,13 +32,6 @@
       "type": "page",
       "page": "beauty_qlypov_z",
       "image": "uploads/google/5779947c06a4f2f53bfee3ae.webp"
-    },
-    {
-      "slug": "fashion",
-      "title": "Fashion",
-      "type": "page",
-      "page": "fashion_xhyif8xc",
-      "image": "uploads/google/ce3520738bb8d8d3be62302c.webp"
     },
     {
       "slug": "food",
