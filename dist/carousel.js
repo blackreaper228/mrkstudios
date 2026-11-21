@@ -2,17 +2,11 @@ import {revealMedia} from './loading-effects.js?v=20260930-1';
 import {fadeToWhite} from './page-transition.js?v=20260930-keep-navigation';
 import { titleLayout } from './title-layout.js?v=20261001-lower-neighbors';
 const $=s=>document.querySelector(s);
-const showreel={title:'Mixtape / showreel',video:'1233498726',src:new URL('assets/showreel-thumbnail.webp',import.meta.url).href};
-const films=[
- showreel,
- {title:'Favela Campaign Video',video:'1221410122',src:'https://i.vimeocdn.com/video/2194103879-0c44ba7b1866113ac8423cfc762107854fe7ae3f49293101a3c60a04479fbc8b-d_1280x720'},
- {title:'Brad Campaign',video:'1089164404',src:'https://i.vimeocdn.com/video/2021543478-8d61b146e2b2ff2ce632292d16717c24399b9734d4d3a2462a5fa73beb4c1c58-d_1280x720'},
- {title:'Travis Scott Concert',video:'1230719066',src:'https://i.vimeocdn.com/video/2205705188-d40931d67b414f4210092369fe35ec1f3858bdeaa4350d35dd7514d79641febd-d_1280x720'},
- {title:'Club Ocha',video:'1231975351',src:'https://i.vimeocdn.com/video/2207268965-0d37dcec9b30944f69dd61a9608b20316e4c2d2d1465d7ef0e123f6ef12d9e0d-d_1280x720'}
-];
+import {loadPortfolio} from './content.js?v=20261121-home-admin';
+const films=await loadPortfolio();
 const track=$('#film-track'),stage=$('#film-stage'),tilt=$('#film-tilt'),cursor=$('#custom-cursor'),titles=$('.titles');
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
-let index=0,busy=false,opened=location.hash==='#photos';
+let index=0,busy=false,opened=location.hash==='#photos'||document.body.classList.contains('gallery-open');
 let navigating=false;
 const photosReady=opened?Promise.resolve():new Promise(resolve=>document.addEventListener('films:open',resolve,{once:true}));
 stage.addEventListener('click',async event=>{
@@ -53,7 +47,7 @@ function change(direction){
 }
 function playShowreel(){
  const film=track.children[1];if(!films[index].video||film.querySelector('iframe'))return;
- const player=document.createElement('iframe');player.src='https://player.vimeo.com/video/'+films[index].video+'?autoplay=1&playsinline=1';player.title=films[index].title;player.allow='autoplay; fullscreen; picture-in-picture';player.allowFullscreen=true;
+ const player=document.createElement('iframe');player.src=films[index].video+(films[index].video.includes('?')?'&':'?')+'autoplay=1&playsinline=1';player.title=films[index].title;player.allow='autoplay; fullscreen; picture-in-picture';player.allowFullscreen=true;
  film.replaceChildren(player);film.setAttribute('aria-busy','false');film.classList.add('is-playing');
 }
 function makeFilm(n){

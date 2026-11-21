@@ -6,7 +6,7 @@ The Google spreadsheet is the content editor. Drive holds the original images. T
 
 - **Pages:** enter a title, optional section folder, publication checkbox, spacing checkbox and template. Drag rows to change menu order. New page IDs use the title, with lowercase letters and underscores. Existing explicit IDs are preserved.
 - **Page tabs:** every row in Pages gets its own content tab automatically. Add projects there using a title, photo/video type, album folder or single photo URL, video URL and publication checkbox. Drag rows to change project order. The hidden project ID is generated automatically when omitted.
-- **Home:** slides for the main carousel, including title, image link, destination link and publication. Drag rows to change slide order.
+- **Home:** slides for the main carousel: title controls the caption, imageUrl controls the cover, and link accepts a Vimeo URL (plays inline) or a page link. Uncheck published to remove a slide. Drag rows to change slide order.
 
 An album cover is its first image in filename order. Use numbered filenames to control order. New subfolders inside a Pages folder become albums automatically. Removing a page from Pages removes it from the menu; stored originals remain recoverable. The legacy Works and Media tabs are hidden after their data is migrated to page tabs.
 

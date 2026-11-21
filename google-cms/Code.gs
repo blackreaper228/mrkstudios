@@ -182,9 +182,19 @@ function onEdit(e) {
   if (!e || !e.range || e.range.getRow() < 2 || ['Instructions', 'Home', 'Works', 'Media'].indexOf(e.range.getSheet().getName()) >= 0) return;
   syncPageSheets(e.source);
 }
+// Deleting a row fires an installable change event, not an edit event.
+function onPageStructureChange(e) {
+  if (e && e.source && e.changeType === 'REMOVE_ROW') syncPageSheets(e.source);
+}
+function installPageStructureTrigger() {
+  if (!ScriptApp.getProjectTriggers().some(trigger => trigger.getHandlerFunction() === 'onPageStructureChange')) {
+    ScriptApp.newTrigger('onPageStructureChange').forSpreadsheet(SPREADSHEET_ID).onChange().create();
+  }
+}
 function installPageSheetTrigger() {
   ScriptApp.getProjectTriggers().filter(trigger => trigger.getHandlerFunction() === 'onEdit').forEach(trigger => ScriptApp.deleteTrigger(trigger));
   ScriptApp.newTrigger('onEdit').forSpreadsheet(SPREADSHEET_ID).onEdit().create();
+  installPageStructureTrigger();
 }
 function insideRoot_(item, checked) {
   const id = item.getId();

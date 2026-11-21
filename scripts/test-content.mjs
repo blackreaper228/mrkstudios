@@ -17,3 +17,11 @@ assert.equal(parsePortfolio({items:[data.slide1,data.slide2]},'https://example.c
 changed.slide1.image = 'javascript:alert(1)';
 assert.throws(() => parsePortfolio(changed), /Unsupported image/);
 console.log('PASS: five slides, edited titles, uploaded image paths on local and Pages, invalid content.');
+
+const adminVideo={title:'Admin title',image:'uploads/cover.webp',link:'https://vimeo.com/123456789/secret123'};
+let movie=parsePortfolio({items:[adminVideo]},'https://example.com/content.js')[0];
+assert.equal(movie.video,'https://player.vimeo.com/video/123456789?h=secret123');
+assert.equal(movie.title,'Admin title');
+movie=parsePortfolio({items:[{...adminVideo,title:'New title',link:'https://vimeo.com/987654321'}]},'https://example.com/content.js')[0];
+assert.equal(movie.video,'https://player.vimeo.com/video/987654321');assert.equal(movie.title,'New title');
+console.log('PASS: homepage video IDs, private hashes, titles and single-slide content come from CMS.');

@@ -1,3 +1,4 @@
+import {videoSource} from './media.js';
 export function parsePortfolio(data, base = import.meta.url) {
   const slides = Array.isArray(data?.items) ? data.items : Array.from({length:5}, (_,index)=>data?.[`slide${index+1}`]);
   if (!slides.length) throw new Error('Invalid portfolio: no slides');
@@ -12,7 +13,10 @@ export function parsePortfolio(data, base = import.meta.url) {
     let destination=typeof slide.link==='string'&&slide.link.trim()?slide.link.trim():['events.html','concerts.html','commercials.html','documentaries.html','food.html'][index];
     if(destination.startsWith('/mrkstudios/'))destination=destination.slice('/mrkstudios/'.length);
     const href=new URL(destination,base);if(!['http:','https:'].includes(href.protocol))throw new Error('Unsupported gallery link');
-    return { title: slide.title.trim(), src: url.href, href:href.href };
+    const film={ title: slide.title.trim(), src: url.href, href:href.href };
+    const video=slide.video || (/^https?:\/\/(?:www\.)?(?:vimeo\.com|player\.vimeo\.com)\//i.test(destination)?destination:'');
+    if(video){const source=videoSource(video);if(source.kind!=='embed')throw new Error('Home video must use Vimeo or YouTube');film.video=source.src;}
+    return film;
   });
 }
 export async function loadPortfolio() {
