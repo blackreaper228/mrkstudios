@@ -22,16 +22,16 @@
       "image": "uploads/google/bdc56cc5685f7a92b5daab6a.webp"
     },
     {
-      "slug": "corporate",
-      "title": "Corporate",
-      "type": "image"
-    },
-    {
       "slug": "beauty",
       "title": "Beauty",
       "type": "page",
       "page": "beauty_qlypov_z",
       "image": "uploads/google/5779947c06a4f2f53bfee3ae.webp"
+    },
+    {
+      "slug": "corporate",
+      "title": "Corporate",
+      "type": "image"
     },
     {
       "slug": "food",
